@@ -60,8 +60,7 @@ router.delete('/:id', asyncHandler(async (req, res, next) => {
         id: req.params.id
       }
     })
-    res.json(product)
-    res.sendStatus(200)
+    res.status(200).json(product)
   }
   catch (err) {
     console.error(err)
