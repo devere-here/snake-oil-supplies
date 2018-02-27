@@ -1,17 +1,21 @@
 import React from 'react'
 //import PropTypes from 'prop-types'
-//import {connect} from 'react-redux'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-//import {logout} from '../store'
+import {ProductSummary} from './productSummary'
 
-const CategoryPage = (props) => {
+export const CategoryPage = (props) => {
   return (
     <div>
-      {props.categories.map((category) => {
+      {props.products.map((product) => {
         return (
-          <Link path={'/category/health'}><ProductSummary product={product} /></Link>
+          <Link key={product.name} path={`/category/${product.category}`}><ProductSummary product={props.product} /></Link>
         )
       })}
     </div>
   )
 }
+
+const mapState = () => {};
+const mapDispatch = (/*dispatch*/) => () => {};
+export default connect(mapState, mapDispatch)(CategoryPage);
