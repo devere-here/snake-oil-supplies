@@ -55,14 +55,13 @@ router.put('/:id', asyncHandler(async (req, res, next) => {
 
 router.delete('/:id', asyncHandler(async (req, res, next) => {
   try {
-    Product.destroy({
+    const product = await Product.destroy({
       where: {
         id: req.params.id
       }
     })
-    .then(
-      res.sendStatus(200)
-    )
+    res.json(product)
+    res.sendStatus(200)
   }
   catch (err) {
     console.error(err)
