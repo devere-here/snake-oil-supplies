@@ -1,8 +1,23 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-const singleProductPage = (props) => {
-  const {product} = props;
+class singleProductPage extends Component {
+  constructor () {
+    super ();
+    this.state = {
+      quantity: '',
+    }
+    this.handleChange = this.handleChange.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+  }
+  handleChange(event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+  addToCart() {
+    //package cart item and send to localStorage
+  }
+
+  const {product} = this.props;
   return (
     <div>
       <img src={product.imageUrl} />
@@ -11,7 +26,13 @@ const singleProductPage = (props) => {
       <h3>Rating: {product.rating}</h3>
       <p>Additional Info: {'Temporary description'}</p>
       <h3>Quantity:</h3>
-      <input name="quantity" defaultValue="1" />
+      <input
+        name="quantity"
+        defaultValue="1"
+        value={this.state.quantity}
+        onChange={this.handleChange}
+      />
+      <button onClick={this.addToCart}>Add To Cart</button>
     </div>
   )
 }

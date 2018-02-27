@@ -4,6 +4,10 @@ import {Navbar} from './components'
 import Routes from './routes'
 
 
+componentDidMount() {
+
+}
+
 const App = () => {
   return (
     <div>
