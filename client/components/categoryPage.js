@@ -5,12 +5,16 @@ import {connect} from 'react-redux'
 import ProductSummary from './productSummary'
 
 const CategoryPage = (props) => {
+  console.log('props', props);
   return (
     <div>
       <h1>Words</h1>
-      {props.products.map((product) => {
+      { props.products.map((product) => {
         return (
-            <ProductSummary key={product.name} product={product} />
+          <div key={product.name}>
+            <ProductSummary product={product} />
+            <hr />
+          </div>
         )
       })
     }
