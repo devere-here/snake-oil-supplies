@@ -135,10 +135,10 @@ const arrProducts = [
     imageUrl: 'https://cdnd.lystit.com/photos/f8b9-2014/06/06/christopher-kane-blue-snakeskin-hoodie-product-1-20608812-4-078779323-normal.jpeg',
     rating: 4.5,
   },
-// ******************* MISC
+// ******************* miscellaneous
   {
     name: 'shoes 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: "it's shoes 3.0",
     price: 60,
     imageUrl: 'https://bluebananastatic-ooxqkrt4ejgeg.stackpathdns.com/shopimages/products/normal/79279.jpg',
@@ -146,14 +146,14 @@ const arrProducts = [
   },
   {
     name: 'wig 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'a wig 3.0',
     price: 300,
     imageUrl: 'http://www.freakingnews.com/pictures/105500/Snake-with-a-Mohawk-105660.jpg',
     rating: 5  },
   {
     name: 'jacket 3.O',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'a jacket 3.O',
     price: 100,
     imageUrl: 'https://cdn.shopify.com/s/files/1/2253/1121/products/snake-skin-jacket-blazer_146c0d52-7c9e-47a7-b47a-82adfe201ac4_580x.jpg?v=1506925944',
@@ -161,7 +161,7 @@ const arrProducts = [
   },
   {
     name: 'hat 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'a hat 3.0',
     price: 50,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71ychBCRYqL._UX425_.jpg',
@@ -169,7 +169,7 @@ const arrProducts = [
   },
   {
     name: 'socks 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'some socks 3.0',
     price: 5,
     imageUrl: 'http://scene7.zumiez.com/is/image/zumiez/pdp_hero/Magnum-Snake-Skin-Sublimated-Crew-Socks-_227164-front.jpg',
@@ -177,7 +177,7 @@ const arrProducts = [
   },
   {
     name: 'watch 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'a watch 3.0',
     price: 50,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71ychBCRYqL._UX425_.jpg',
@@ -185,7 +185,7 @@ const arrProducts = [
   },
   {
     name: 'hoodie 3.0',
-    category: 'misc',
+    category: 'miscellaneous',
     description: 'a luke cage hoodie 3.0',
     price: 120,
     imageUrl: 'https://cdnd.lystit.com/photos/f8b9-2014/06/06/christopher-kane-blue-snakeskin-hoodie-product-1-20608812-4-078779323-normal.jpeg',

@@ -26,7 +26,7 @@ class singleProductPage extends Component {
       !product ? null
         : (
           <div>
-            <img src={product.imageUrl} />
+            <img src={product.imageUrl} width="50%" />
             <h1>{product.name}</h1>
             <h2>Price: {product.price}</h2>
             <h3>Rating: {product.rating}</h3>
