@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Product } = require('../db/models')
 const asyncHandler = require('express-async-handler')
+const {isLoggedIn, isAdmin, isSelf} = require('../permissions')
 
 module.exports = router
 
@@ -28,7 +29,7 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   }
 }))
 
-router.post('/', asyncHandler(async (req, res, next) => {
+router.post('/', isAdmin, asyncHandler(async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.status(201).json(product)
@@ -38,7 +39,7 @@ router.post('/', asyncHandler(async (req, res, next) => {
   }
 }))
 
-router.put('/:id', asyncHandler(async (req, res, next) => {
+router.put('/:id', isAdmin, asyncHandler(async (req, res, next) => {
   try {
     const product = await Product.update(req.body, {
       where: {
@@ -53,7 +54,7 @@ router.put('/:id', asyncHandler(async (req, res, next) => {
   }
 }))
 
-router.delete('/:id', asyncHandler(async (req, res, next) => {
+router.delete('/:id', isAdmin, asyncHandler(async (req, res, next) => {
   try {
     const product = await Product.destroy({
       where: {
