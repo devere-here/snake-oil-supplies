@@ -9,7 +9,7 @@ const CategoryPage = (props) => {
   return (
     <div>
       <h1>Words</h1>
-      { props.products.map((product) => {
+      { props.selectedProducts.map((product) => {
         return (
           <div key={product.name}>
             <ProductSummary product={product} />
@@ -22,15 +22,12 @@ const CategoryPage = (props) => {
   )
 }
 
-const mapState = (state) => ({
-  products: state.products
-});
+const mapState = ({products}, ownProps) => {
+  const categoryName = ownProps.match.params.name
+  console.log(ownProps)
+  return {
+    selectedProducts: products.filter(product => product.category === categoryName)
+    }
+};
 const mapDispatch = (/*dispatch*/) => () => ({});
 export default connect(mapState, mapDispatch)(CategoryPage);
-
-
-// {props.products && props.products.map((product) => {
-//   return (
-//     <Link key={product.name} path={`/category/${product.category}`}><ProductSummary product={props.product} /></Link>
-//   )
-// })}

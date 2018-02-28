@@ -22,8 +22,8 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route exact path="/category" component={Category} />
-        <Route path="/category/health/:id" component={SingleProductPage} />
+        <Route exact path="/category/:name" component={Category} />
+        <Route path="/category/:name/:id" component={SingleProductPage} />
         {
           isLoggedIn &&
             <Switch>
