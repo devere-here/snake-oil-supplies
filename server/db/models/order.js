@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-//const {User, Product, OrderDetail} = require('./index')
 
 const Order = db.define('order', {
   completed: {
