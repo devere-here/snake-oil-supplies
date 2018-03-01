@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order } = require('../db/models')
+const { Order, OrderDetail } = require('../db/models')
 const asyncHandler = require('express-async-handler')
 const {isSelf, isAdmin} = require('../permissions')
 
@@ -45,7 +45,10 @@ router.get('/pastOrders', isSelf, asyncHandler(async (req, res, next) => {
     where: {
       userId: req.user.id,
       completed: true,
-    }
+    },
+    include: {
+      model: OrderDetail,
+    },
   })
   res.json(order)
 }));
@@ -54,6 +57,10 @@ router.get('/pastOrders', isSelf, asyncHandler(async (req, res, next) => {
 /****** ADMIN ******/
 //When admin wants to see all orders
 router.get('/', isAdmin, asyncHandler(async (req, res, next) => {
-  const order = await Order.findAll()
+  const order = await Order.findAll({
+    include: {
+      model: OrderDetail,
+    },
+  })
   res.json(order)
 }));
