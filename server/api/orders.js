@@ -1,13 +1,14 @@
 const router = require('express').Router()
 const { Order, OrderDetail } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const {isSelf, isAdmin} = require('../permissions')
+const {isSelf, isAdmin, isLoggedIn} = require('../permissions')
 
 module.exports = router
 
 /****** USER ******/
 //When user creates session, return cart if exists
-router.get('/', isSelf, asyncHandler(async (req, res, next) => {
+router.get('/', isLoggedIn, asyncHandler(async (req, res, next) => {
+  console.log('REQ.USER', req.user)
   const order = await Order.findOne({
     where: {
       userId: req.user.id,
