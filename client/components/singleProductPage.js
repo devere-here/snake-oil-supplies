@@ -2,25 +2,33 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class singleProductPage extends Component {
-  constructor() {
-    super();
-    this.state = {
-      quantity: '',
-    }
-    this.handleChange = this.handleChange.bind(this);
+  constructor(props) {
+    super(props);
+
     this.addToCart = this.addToCart.bind(this);
   }
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value })
-  }
-  addToCart() {
-    //package cart item and send to localStorage
+
+  addToCart(evt) {
+    evt.preventDefault();
+
+    let id = this.props.product.id,
+        quantity = evt.target.quantity.value,
+        keys = Object.keys(localStorage);
+
+    if (keys.find((key) => +key === id)) {
+      quantity = +localStorage.getItem(id) + +quantity
+    }
+
+    localStorage.setItem(id, quantity);
+
+    console.log('localStorage.getItem(id)', localStorage.getItem(id));
+
   }
 
   render() {
 
     const { product } = this.props;
-    console.log('product', product);
+    console.log('this.props', this.props);
     return (
 
       !product ? null
@@ -32,13 +40,14 @@ class singleProductPage extends Component {
             <h3>Rating: {product.rating}</h3>
             <p>Additional Info: {'Temporary description'}</p>
             <h3>Quantity:</h3>
-            <input
-              name="quantity"
-              defaultValue="1"
-              value={this.state.quantity}
-              onChange={this.handleChange}
-            />
-            <button onClick={this.addToCart}>Add To Cart</button>
+            <form onSubmit={this.addToCart}>
+              <input
+                name="quantity"
+                defaultValue="1"
+                onChange={this.handleChange}
+              />
+              <button type="submit">Add To Cart</button>
+            </form>
           </div>
 
         )
@@ -48,12 +57,13 @@ class singleProductPage extends Component {
   }
 }
 
-const mapState = ({ products }, ownProps) => {
+const mapState = ({ products, quantity }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);
   console.log('ownProps', ownProps);
 
   return {
     product: products.find(product => product.id === paramId),
+    quantity,
     products
   }
 };
