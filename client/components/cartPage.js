@@ -6,15 +6,19 @@ import { ProductSummary } from './index'
 
 const CartPage = (props) => {
   console.log('props', props);
+  let cartProducts;
+  if (props.isLoggedIn){
+    console.log('user is logged in. the cart should come from state')
+    cartProducts = props.cart;
+  }
+  else {
+    console.log('user is not logged in. the cart should come from localstorage')
+    let keys = Object.keys(localStorage);
+    cartProducts = props.products.filter(function(product){
+      return keys.indexOf(product.id.toString()) !== -1
+    })
+  }
 
-  let keys = Object.keys(localStorage);
-  console.log(keys)
-  let cartProducts = props.products.filter(function(product){
-    console.log("MADE IT TO FILTER")
-    console.log(product.id)
-    return keys.indexOf(product.id.toString()) !== -1
-  })
-  console.log(cartProducts)
   return (
     <div>
       <h1>In the cart page</h1>
@@ -38,13 +42,14 @@ const CartPage = (props) => {
 }
 
 
-const mapState = ({products}, ownProps) => {
+const mapState = (state, ownProps) => {
   //const categoryName = ownProps.match.params.name
-  console.log(ownProps)
-  console.log(products)
+  console.log(state)
 
   return {
-    products
+    isLoggedIn: !!state.user.id,
+    products: state.products,
+    cart: state.cart
   }
 };
 const mapDispatch = (/*dispatch*/) => () => ({});
