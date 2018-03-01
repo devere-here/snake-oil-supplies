@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+//const {Order, OrderDetail} = require('./index')
 
 const Product = db.define('product', {
   name: {
@@ -13,7 +14,6 @@ const Product = db.define('product', {
   },
   description: {
     type: Sequelize.TEXT,
-    allowNull: false
   },
   price: {
     type: Sequelize.DECIMAL,
@@ -21,7 +21,8 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    defaultValue: 'https://placeimg.com/640/480/animals',
   },
   rating: {
     type: Sequelize.DECIMAL,
@@ -31,6 +32,9 @@ const Product = db.define('product', {
       max: 5
     }
   },
+  review: {
+    type: Sequelize.TEXT,
+  }
 
 })
 

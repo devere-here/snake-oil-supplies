@@ -31,7 +31,76 @@ const User = db.define('user', {
     type: Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false
-  }
+  },
+  phone: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [10, 10]
+    },
+    // get() {
+    //   const number = this.getDataValue('phone');
+    //   return `(${number.slice(0, 3)}) ${number.slice(3, 6)} - ${number.slice(6)}`
+    // }
+  },
+  isGuest: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  addressStreet: {
+    type: Sequelize.STRING,
+  },
+  addressCity: {
+    type: Sequelize.STRING,
+  },
+  addressState: {
+    type: Sequelize.STRING,
+  },
+  addressCountry: {
+    type: Sequelize.STRING,
+  },
+  addressZipCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5, 5]
+    }
+  },
+  creditCardName: {
+    type: Sequelize.STRING,
+  },
+  creditNumber: {
+    type: Sequelize.INTEGER,
+    validate: {
+      isCreditCard: true
+    }
+  },
+  creditSecurityCode: {
+    type: Sequelize.STRING,
+    validate: {
+      len: [3, 4]
+    }
+  },
+  creditExpirationDate: {
+    type: Sequelize.DATE,
+  },
+  billingStreet: {
+    type: Sequelize.STRING,
+  },
+  billingCity: {
+    type: Sequelize.STRING,
+  },
+  billingState: {
+    type: Sequelize.STRING,
+  },
+  billingCountry: {
+    type: Sequelize.STRING,
+  },
+  billingZipCode: {
+    type: Sequelize.INTEGER,
+    validate: {
+      len: [5, 5]
+    }
+  },
 })
 
 
@@ -67,6 +136,7 @@ const setSaltAndPassword = user => {
   }
 }
 
+User.beforeBulkCreate(( user ) => user.forEach(setSaltAndPassword))
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
 
