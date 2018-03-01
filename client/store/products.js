@@ -13,6 +13,7 @@ const getProducts = products => ({type: GET_PRODUCTS, products});
 //THUNKS
 
 export const fetchProducts = () => async(dispatch) => {
+  console.log('in fetchProducts');
   const products = await axios.get('/api/products');
   dispatch(getProducts(products.data));
 
