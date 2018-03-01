@@ -8,7 +8,7 @@ module.exports = router
 /****** USER ******/
 //When user creates session, return cart details if exists
 router.get('/', isSelf, asyncHandler(async (req, res, next) => {
-  const orderDetails = await OrderDetail.findOne({
+  const orderDetails = await OrderDetail.findAll({
     where: { orderID: req.body.orderId }
   })
   res.json(orderDetails)
@@ -16,7 +16,7 @@ router.get('/', isSelf, asyncHandler(async (req, res, next) => {
 
 //When user adds additional cart items / guest checks out
 router.post('/', asyncHandler(async (req, res, next) => {
-  const orderDetails = await OrderDetail.create(req.body)
-  res.json(orderDetails)
+  const orderDetail = await OrderDetail.create(req.body)
+  res.json(orderDetail)
 }));
 
