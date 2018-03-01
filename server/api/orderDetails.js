@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { OrderDetail } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const {isSelf, isAdmin} = require('../permissions')
+const { isSelf } = require('../permissions')
 
 module.exports = router
 
