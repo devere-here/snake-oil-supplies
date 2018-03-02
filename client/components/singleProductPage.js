@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCartFromLocalStorage } from '../routes';
+import { fetchGuestCart } from '../store';
+
 
 class singleProductPage extends Component {
   constructor(props) {
@@ -21,7 +24,10 @@ class singleProductPage extends Component {
 
     localStorage.setItem(id, quantity);
 
-    console.log('localStorage.getItem(id)', localStorage.getItem(id));
+    //recentAdd - addItem button now adds item to store as well as localStorage
+
+    let cartProducts = getCartFromLocalStorage(this.props);
+    this.props.loadGuestCart(cartProducts);
 
   }
 
@@ -67,5 +73,15 @@ const mapState = ({ products, quantity }, ownProps) => {
     products
   }
 };
-const mapDispatch = (/*dispatch*/) => () => ({});
+
+const mapDispatch = (dispatch) => ({
+  loadGuestCart(arr){
+    dispatch(fetchGuestCart(arr))
+  },
+  // loadUsersCart(userId) {
+  //   dispatch(fetchCart(userId))
+  // }
+
+});
+
 export default connect(mapState, mapDispatch)(singleProductPage);

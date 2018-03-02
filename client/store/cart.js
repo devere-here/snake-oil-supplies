@@ -32,7 +32,7 @@ export const fetchCart = (userId) => async(dispatch) => {
 
     if (userId){
       cart = await axios.get('/api/products');
-      console.log('cart.data', cart.data);
+      console.log('cart.data with userId', cart.data);
       dispatch(getCart(cart.data))
     } else {
       console.log('cart.data', cart.data);
@@ -46,6 +46,7 @@ export const fetchCart = (userId) => async(dispatch) => {
 
 
 export const fetchGuestCart = (cartProducts) => async(dispatch) => {
+  console.log('in fetchGuestCart, cartProducts ', cartProducts);
   try {
     dispatch(getCart(cartProducts))
   }
@@ -60,7 +61,8 @@ export const fetchGuestCart = (cartProducts) => async(dispatch) => {
 export default function (prevState = defaultCart, action){
   switch (action.type){
     case GET_CART:
-      return action.cart;
+      console.log('in reducer', action.cart);
+    return action.cart;
     default:
       return prevState;
   }
@@ -68,3 +70,8 @@ export default function (prevState = defaultCart, action){
 
 // using localStorage window object. cart in the store should
 // not be necessary
+
+
+// case GET_CART:
+//       return Object.assign({}, prevState, action.cart);
+//       //return action.cart;

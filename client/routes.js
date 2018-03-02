@@ -9,9 +9,22 @@ export function getCartFromLocalStorage(props){
 
   let keys = Object.keys(localStorage);
 
-  return props.products.filter(function (product) {
+  console.log('in getCartFromLocalStorage');
+  console.log('keys', keys);
+  console.log('props.products', props.products);
+
+
+  let cartProducts = props.products.filter(function (product) {
     return keys.indexOf(product.id.toString()) !== -1
   })
+
+  // recentAdd - our cart data in state did not have a quantity property. It does now
+  cartProducts.forEach((cartProduct) => {
+    cartProduct.quantity = +localStorage.getItem(cartProduct.id)
+
+  })
+
+  return cartProducts;
 
 }
 
@@ -26,12 +39,14 @@ class Routes extends Component {
   // }
 
   componentDidMount () {
-    console.log('in routes.js loadInitialData()')
-    this.props.loadInitialData()
+    this.props.loadInitialData();
 
     if (this.props.isLoggedIn){
+      console.log('about to load user cart');
       this.props.loadUsersCart(this.props.userId)
     } else {
+      console.log('in wrong part of if statement');
+
       // let keys = Object.keys(localStorage);
       // let cartProducts = this.props.products.filter(function (product) {
       //   return keys.indexOf(product.id.toString()) !== -1
@@ -40,27 +55,38 @@ class Routes extends Component {
 
       this.props.loadGuestCart(cartProducts);
     }
+
   }
 
   componentWillReceiveProps(nextProps){
-    if (nextProps.userId !== this.props.user) {
-      //this.props.loadUsersCart(nextProps.userId)
+
+    //recentAdd guest cart didn't get stored with state with page refresh
+    //this is because our getCartFromLocalStorage depends on the store having all the products
+    //this did not happen when getCartFromLocalStorage was in componentDidMount because
+    //this.props.loadInitialData() did not finish getting products from the database
+
+    //recentAdd we also had a bug
+    // we had (userId and user are never equal to each other)'nextProps.userId !== this.props.user'
+    // changed to this 'nextProps.user !== this.props.user'
+
+    if (nextProps.products !== this.props.products || nextProps.user !== this.props.user) {
+
+      console.log('IN IF STATEMENT I WANT TO BE IN');
 
       if (this.props.isLoggedIn){
         this.props.loadUsersCart(nextProps.userId)
       } else {
 
-        // let keys = Object.keys(localStorage);
-        // let cartProducts = nextProps.products.filter(function (product) {
-        //   return keys.indexOf(product.id.toString()) !== -1
-        // })
-
         let cartProducts = getCartFromLocalStorage(nextProps);
+        console.log('in routes cartProducts willreceiveprops', cartProducts);
+        console.log('should be arr of 2');
 
         this.props.loadGuestCart(cartProducts);
 
       }
+
     }
+
   }
 
   getCartFromLocalStorage(props){
@@ -110,7 +136,8 @@ const mapState = (state) => {
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     userId: state.user.id,
-    products: state.products
+    products: state.products,
+    cart: state.cart
 
   }
 }
@@ -142,3 +169,47 @@ Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
+
+
+
+
+
+
+// OldCode - from componentDid Mount
+// if (this.props.isLoggedIn){
+    //   this.props.loadUsersCart(this.props.userId);
+    // } else {
+    //   // let keys = Object.keys(localStorage);
+    //   // let cartProducts = this.props.products.filter(function (product) {
+    //   //   return keys.indexOf(product.id.toString()) !== -1
+    //   // })
+    //   console.log('this.props', this.props);
+    //   let cartProducts = getCartFromLocalStorage(this.props);
+    //   console.log('in routes cartProducts componentDidMount', cartProducts);
+    //   console.log('should be arr of 2');
+
+    //   this.props.loadGuestCart(cartProducts);
+    // }
+
+// OldCode - from componentWillReceiveProps
+// if (nextProps.userId !== this.props.user) {
+    //   //this.props.loadUsersCart(nextProps.userId)
+    //   console.log('IN IF STATEMENT 1');
+
+    //   if (this.props.isLoggedIn){
+    //     this.props.loadUsersCart(nextProps.userId)
+    //   } else {
+
+    //     // let keys = Object.keys(localStorage);
+    //     // let cartProducts = nextProps.products.filter(function (product) {
+    //     //   return keys.indexOf(product.id.toString()) !== -1
+    //     // })
+
+    //     let cartProducts = getCartFromLocalStorage(nextProps);
+    //     console.log('in routes cartProducts willreceiveprops', cartProducts);
+    //     console.log('should be arr of 2');
+
+    //     this.props.loadGuestCart(cartProducts);
+
+    //   }
+    // }

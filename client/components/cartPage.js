@@ -59,6 +59,7 @@ class CartPage extends Component {
       // })
 
       let cartProducts = getCartFromLocalStorage(this.props);
+      console.log('cartProducts', cartProducts);
 
       this.props.loadGuestCart(cartProducts);
 
@@ -102,7 +103,12 @@ class CartPage extends Component {
       cartProducts = this.props.products.filter(function (product) {
         return keys.indexOf(product.id.toString()) !== -1
       })
+
+      //recentAdd
+      //cartProducts = this.props.cart;
     }
+
+    console.log('cartProducts', cartProducts);
 
     return (
       <div>
