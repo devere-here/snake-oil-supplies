@@ -8,21 +8,24 @@ const GET_PRODUCTS = 'GET_PRODUCTS';
 const defaultProducts = [];
 
 //ACTION CREATORS
-const getProducts = products => ({type: GET_PRODUCTS, products});
+const getProducts = products => ({ type: GET_PRODUCTS, products });
 
 //THUNKS
 
-export const fetchProducts = () => async(dispatch) => {
-  console.log('in fetchProducts');
-  const products = await axios.get('/api/products');
-  dispatch(getProducts(products.data));
-
+export const fetchProducts = () => async (dispatch) => {
+  try {
+    const products = await axios.get('/api/products');
+    dispatch(getProducts(products.data));
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
 //REDUCER
 
-export default function (prevState = defaultProducts, action){
-  switch (action.type){
+export default function (prevState = defaultProducts, action) {
+  switch (action.type) {
     case GET_PRODUCTS:
       return action.products;
     default:

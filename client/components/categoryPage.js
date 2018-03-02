@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import ProductSummary from './productSummary'
 
 const CategoryPage = (props) => {
-  console.log('props', props);
+
   return (
     <div>
       <h1>Words</h1>
@@ -24,7 +24,6 @@ const CategoryPage = (props) => {
 
 const mapState = ({products}, ownProps) => {
   const categoryName = ownProps.match.params.name
-  console.log(ownProps)
   return {
     selectedProducts: products.filter(product => product.category === categoryName)
     }

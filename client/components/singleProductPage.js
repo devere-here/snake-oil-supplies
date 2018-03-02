@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCartFromLocalStorage } from '../routes';
+import { fetchGuestCart } from '../store';
+
 
 class singleProductPage extends Component {
   constructor(props) {
@@ -21,14 +24,18 @@ class singleProductPage extends Component {
 
     localStorage.setItem(id, quantity);
 
-    console.log('localStorage.getItem(id)', localStorage.getItem(id));
+    //recentAdd - addItem button now adds item to store as well as localStorage this is only for guests
+    //for users store/ database must be updated
+
+    let cartProducts = getCartFromLocalStorage(this.props);
+    this.props.loadGuestCart(cartProducts);
 
   }
 
   render() {
 
     const { product } = this.props;
-    console.log('this.props', this.props);
+
     return (
 
       !product ? null
@@ -59,7 +66,6 @@ class singleProductPage extends Component {
 
 const mapState = ({ products, quantity }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);
-  console.log('ownProps', ownProps);
 
   return {
     product: products.find(product => product.id === paramId),
@@ -67,5 +73,15 @@ const mapState = ({ products, quantity }, ownProps) => {
     products
   }
 };
-const mapDispatch = (/*dispatch*/) => () => ({});
+
+const mapDispatch = (dispatch) => ({
+  loadGuestCart(arr){
+    dispatch(fetchGuestCart(arr))
+  },
+  // loadUsersCart(userId) {
+  //   dispatch(fetchCart(userId))
+  // }
+
+});
+
 export default connect(mapState, mapDispatch)(singleProductPage);
