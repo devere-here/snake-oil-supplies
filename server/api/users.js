@@ -18,7 +18,7 @@ router.param('id', asyncHandler(async (req, res, next, id) => {
       next(err)
     } else {
       req.requestedUser = user
-
+      next()
     }
   }
   catch (err) {

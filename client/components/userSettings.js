@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { putUser } from '../store'
 
 class Settings extends Component {
   constructor(props){
@@ -9,15 +10,13 @@ class Settings extends Component {
 
   submitHandler(event) {
     event.preventDefault();
-    console.log('form length', event.target)
     let userInfo = {userId: this.props.user.id}
-    Array.prototype.forEach( inputElem => {
-      console.log('input element', inputElem)
-      if (inputElem !== 'button') {
-        userInfo[inputElem.name] = inputElem.value
-      }
-    }).call(event.target)
+    for (let i = 0; i < event.target.length - 1; i++) {
+      userInfo[event.target[i].name] = event.target[i].value
+    }
+    this.props.dispatchUpdateUser(userInfo);
   }
+
 
   render() {
     const user = this.props.user
@@ -52,7 +51,8 @@ class Settings extends Component {
               {
                 Object.keys(section[Object.keys(section)[0]]).map(detail => (
                   <li key={detail}>
-                    <input name={detail} label={detail} defaultValue={section[detail]} />
+                    <label>{detail}</label>
+                    <input name={detail} defaultValue={section[detail]} />
                   </li>
                 ))
               }
@@ -68,7 +68,9 @@ class Settings extends Component {
   }
 }
 
-const mapState = (state) => ({user: state.user})
-const mapDispatch = null
+const mapState = state => ({user: state.user})
+const mapDispatch = dispatch => ({
+  dispatchUpdateUser: (user) => dispatch(putUser(user))
+})
 
 export default connect(mapState, mapDispatch)(Settings)
