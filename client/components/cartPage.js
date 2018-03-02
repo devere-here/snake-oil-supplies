@@ -91,24 +91,17 @@ class CartPage extends Component {
   }
   render() {
 
-    console.log('props', this.props);
-    let cartProducts;
+
+    //recentAdd - adds quantity property to logged in user
+    //dummy data in case it doesn't have a quantity
+    //guest cart is rendered directly from state not from localStorage
+    let cartProducts = this.props.cart;
+
     if (this.props.isLoggedIn) {
-      console.log('user is logged in. the cart should come from state')
-      cartProducts = this.props.cart;
-    }
-    else {
-      console.log('user is not logged in. the cart should come from localstorage')
-      let keys = Object.keys(localStorage);
-      cartProducts = this.props.products.filter(function (product) {
-        return keys.indexOf(product.id.toString()) !== -1
+      cartProducts.forEach((cartProduct) => {
+        cartProduct.quantity = cartProduct.quantity || 1;
       })
-
-      //recentAdd
-      //cartProducts = this.props.cart;
     }
-
-    console.log('cartProducts', cartProducts);
 
     return (
       <div>
@@ -120,7 +113,8 @@ class CartPage extends Component {
                 <img src={product.imageUrl} height="200px" width="200px" />
                 <h3> {product.name} </h3>
                 <h5> {product.price} </h5>
-                <h2>QUANTITY : {localStorage.getItem(product.id.toString())}</h2>
+                {console.log('product.quantity', product.quantity)}
+                <h2>QUANTITY : {this.props.isLoggedIn ? 1 : localStorage.getItem(product.id.toString())}</h2>
                 <button onClick={() => this.decrementQuantity(product.id)} >-</button>
                 <button onClick={() => this.incrementQuanitity(product.id)} >+</button>
                 <button onClick={() => this.deleteItem(product.id)} >Delete item</button>

@@ -9,11 +9,6 @@ export function getCartFromLocalStorage(props){
 
   let keys = Object.keys(localStorage);
 
-  console.log('in getCartFromLocalStorage');
-  console.log('keys', keys);
-  console.log('props.products', props.products);
-
-
   let cartProducts = props.products.filter(function (product) {
     return keys.indexOf(product.id.toString()) !== -1
   })
@@ -40,13 +35,11 @@ class Routes extends Component {
 
   componentDidMount () {
     this.props.loadInitialData();
+    console.log('in componentDidMount');
 
     if (this.props.isLoggedIn){
-      console.log('about to load user cart');
       this.props.loadUsersCart(this.props.userId)
     } else {
-      console.log('in wrong part of if statement');
-
       // let keys = Object.keys(localStorage);
       // let cartProducts = this.props.products.filter(function (product) {
       //   return keys.indexOf(product.id.toString()) !== -1
@@ -59,8 +52,12 @@ class Routes extends Component {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('in componentWillReceiveProps');
+    console.log('nextProps.userId', nextProps.userId);
+    console.log('this.props.userId', this.props.userId);
 
-    //recentAdd guest cart didn't get stored with state with page refresh
+
+    //recentAdd guest cart didn't get stored with state until page refresh
     //this is because our getCartFromLocalStorage depends on the store having all the products
     //this did not happen when getCartFromLocalStorage was in componentDidMount because
     //this.props.loadInitialData() did not finish getting products from the database
@@ -69,18 +66,15 @@ class Routes extends Component {
     // we had (userId and user are never equal to each other)'nextProps.userId !== this.props.user'
     // changed to this 'nextProps.user !== this.props.user'
 
-    if (nextProps.products !== this.props.products || nextProps.user !== this.props.user) {
+    if (nextProps.products !== this.props.products || nextProps.userId !== this.props.userId) {
 
-      console.log('IN IF STATEMENT I WANT TO BE IN');
-
-      if (this.props.isLoggedIn){
+      if (nextProps.isLoggedIn){
         this.props.loadUsersCart(nextProps.userId)
       } else {
 
         let cartProducts = getCartFromLocalStorage(nextProps);
-        console.log('in routes cartProducts willreceiveprops', cartProducts);
-        console.log('should be arr of 2');
 
+        console.log('about to loadGuestCart, cartProducts', cartProducts);
         this.props.loadGuestCart(cartProducts);
 
       }

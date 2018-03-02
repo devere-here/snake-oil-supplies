@@ -14,7 +14,6 @@ const getProducts = products => ({ type: GET_PRODUCTS, products });
 
 export const fetchProducts = () => async (dispatch) => {
   try {
-    console.log('in fetchProducts');
     const products = await axios.get('/api/products');
     dispatch(getProducts(products.data));
   }

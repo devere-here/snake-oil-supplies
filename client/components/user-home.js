@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import { getCartFromLocalStorage } from '../routes';
@@ -7,19 +7,47 @@ import { fetchCart } from '../store';
 
 //import { any component } from './index'
 
+//recentAdd - UserHome was a functional component and is now a class component
+//user cart now loads when immediately when user logs in
+
+
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
-  console.log('in user home');
+export class UserHome extends Component {
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  componentDidMount(){
+
+    this.props.loadUsersCart(this.props.userId);
+
+  }
+
+
+  render(){
+
+    const {email} = this.props
+
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+      </div>
+    )
+
+  }
+
+
+
 }
+// = (props) => {
+//   const {email} = props
+//   console.log('in user home');
+
+//   return (
+//     <div>
+//       <h3>Welcome, {email}</h3>
+//     </div>
+//   )
+// }
 
 /**
  * CONTAINER
@@ -27,7 +55,7 @@ export const UserHome = (props) => {
 const mapState = (state) => {
   return {
     //recentAdd id section
-    id: state.user.id,
+    userId: state.user.id,
     email: state.user.email
   }
 }
@@ -35,7 +63,6 @@ const mapState = (state) => {
 //recentAdd mapDispatch
 const mapDispatch = (dispatch) => ({
   loadUsersCart(userId) {
-    console.log('about to get user cart data');
     dispatch(fetchCart(userId));
   }
 

@@ -34,7 +34,7 @@ class singleProductPage extends Component {
   render() {
 
     const { product } = this.props;
-    console.log('this.props', this.props);
+
     return (
 
       !product ? null
@@ -65,7 +65,6 @@ class singleProductPage extends Component {
 
 const mapState = ({ products, quantity }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);
-  console.log('ownProps', ownProps);
 
   return {
     product: products.find(product => product.id === paramId),

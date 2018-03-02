@@ -13,14 +13,20 @@ const GET_GUEST_CART = 'GET_GUEST_CART';
 const defaultCart = [];
 
 //ACTION CREATORS
-const getCart = cart => ({type: GET_CART, cart});
+//const getCart = cart => ({type: GET_CART, cart});
+
+export const getCart = cart => ({type: GET_CART, cart});
+
+
+
+
 //const getGuestCart = cartProducts => ({type: GET_GUEST_CART, cart: cartProducts});
 
 
 //THUNKS
 export const fetchCart = (userId) => async(dispatch) => {
   try {
-    console.log('userId', userId)
+    console.log('in fetchCart userId', userId)
     // const cart = await axios.get('/api/orders', {
     //   params: {
     //     userId: userId,
@@ -30,14 +36,26 @@ export const fetchCart = (userId) => async(dispatch) => {
     let cart;
 
 
+    //console.log('our cart is, ', cart);
+
     if (userId){
+      console.log('about to make axios request');
+
       cart = await axios.get('/api/products');
-      console.log('cart.data with userId', cart.data);
-      dispatch(getCart(cart.data))
-    } else {
-      console.log('cart.data', cart.data);
-      dispatch(getCart())
+      dispatch(getCart(cart.data));
+
+      // axios.get('/api/products')
+      // .then((stuff) => {
+      //   console.log('stuff from axios request', stuff);
+      // })
+
+
+
     }
+    // else {
+    //   console.log('cart.data', cart.data);
+    //   dispatch(getCart())
+    // }
   }
   catch (err) {
     console.log(err)
@@ -61,7 +79,7 @@ export const fetchGuestCart = (cartProducts) => async(dispatch) => {
 export default function (prevState = defaultCart, action){
   switch (action.type){
     case GET_CART:
-      console.log('in reducer', action.cart);
+    console.log('in reducer', action.cart);
     return action.cart;
     default:
       return prevState;
