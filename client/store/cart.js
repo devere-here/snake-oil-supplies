@@ -7,12 +7,15 @@ const ADD_TO_CART = 'ADD_TO_CART';
 const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const EMPTY_CART = 'EMPTY_CART';
 const GET_CART = 'GET_CART';
+const GET_GUEST_CART = 'GET_GUEST_CART';
 
 //INITIAL STATE
 const defaultCart = [];
 
 //ACTION CREATORS
 const getCart = cart => ({type: GET_CART, cart});
+//const getGuestCart = cartProducts => ({type: GET_GUEST_CART, cart: cartProducts});
+
 
 //THUNKS
 export const fetchCart = (userId) => async(dispatch) => {
@@ -24,13 +27,33 @@ export const fetchCart = (userId) => async(dispatch) => {
     //     completed: false
     //   }
     // })
-    const cart = await axios.get('/api/products');
-    dispatch(getCart(cart.data))
+    let cart;
+
+
+    if (userId){
+      cart = await axios.get('/api/products');
+      console.log('cart.data', cart.data);
+      dispatch(getCart(cart.data))
+    } else {
+      console.log('cart.data', cart.data);
+      dispatch(getCart())
+    }
   }
   catch (err) {
     console.log(err)
   }
 }
+
+
+export const fetchGuestCart = (cartProducts) => async(dispatch) => {
+  try {
+    dispatch(getCart(cartProducts))
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
 
 //REDUCER
 

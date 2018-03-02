@@ -16,12 +16,20 @@ class CartPage extends Component {
 
     if (this.props.isLoggedIn) {
       // put request to server to decrement quantity
+
       console.log('should decrement in server')
     }
     else {
       // decrement quanity in local storage
-      console.log('should decrement in storage')
-      console.log('id', id);
+
+      let quantity = localStorage.getItem(id);
+      quantity--;
+      localStorage.setItem(id, quantity);
+
+      console.log('should decrement in storage');
+
+      console.log('this.props.cart', this.props.cart);
+
 
     }
   }
@@ -31,11 +39,16 @@ class CartPage extends Component {
     if (this.props.isLoggedIn) {
       // put request to server to increment quantity
       console.log('should increment in server')
-    }
-    else {
+
+    } else {
       // increment quanity in local storage
       console.log('should increment in storage')
-      console.log('id', id);
+
+      let quantity = localStorage.getItem(id);
+      quantity++;
+      localStorage.setItem(id, quantity);
+      console.log('this.props.cart', this.props.cart);
+      console.log('this.props.isLoggedIn', this.props.isLoggedIn);
 
     }
   }
