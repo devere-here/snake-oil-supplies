@@ -12,7 +12,7 @@ class CartPage extends Component {
     this.deleteItem = this.deleteItem.bind(this);
   }
 
-  decrementQuantity(evt) {
+  decrementQuantity(id) {
 
     if (this.props.isLoggedIn) {
       // put request to server to decrement quantity
@@ -21,10 +21,12 @@ class CartPage extends Component {
     else {
       // decrement quanity in local storage
       console.log('should decrement in storage')
+      console.log('id', id);
+
     }
   }
 
-  incrementQuanitity(evt) {
+  incrementQuanitity(id) {
 
     if (this.props.isLoggedIn) {
       // put request to server to increment quantity
@@ -33,10 +35,12 @@ class CartPage extends Component {
     else {
       // increment quanity in local storage
       console.log('should increment in storage')
+      console.log('id', id);
+
     }
   }
 
-  deleteItem(evt) {
+  deleteItem(id) {
 
     if (this.props.isLoggedIn) {
       // put request to server to delete item
@@ -45,6 +49,8 @@ class CartPage extends Component {
     else {
       // delete quanity in local storage
       console.log('shoule delete in storage')
+      console.log('id', id);
+
     }
   }
   render() {
@@ -74,9 +80,9 @@ class CartPage extends Component {
                 <h3> {product.name} </h3>
                 <h5> {product.price} </h5>
                 <h2>QUANTITY : {localStorage.getItem(product.id.toString())}</h2>
-                <button onClick={this.decrementQuantity} >-</button>
-                <button onClick={this.incrementQuanitity} >+</button>
-                <button onClick={this.deleteItem} >Delete item</button>
+                <button onClick={() => this.decrementQuantity(product.id)} >-</button>
+                <button onClick={() => this.incrementQuanitity(product.id)} >+</button>
+                <button onClick={() => this.deleteItem(product.id)} >Delete item</button>
                 <hr />
               </div>
 
