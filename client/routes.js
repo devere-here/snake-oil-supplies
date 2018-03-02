@@ -35,9 +35,10 @@ class Routes extends Component {
 
   componentDidMount () {
     this.props.loadInitialData();
-    console.log('in componentDidMount');
+    console.log('in componentDidMount in routes');
 
     if (this.props.isLoggedIn){
+      console.log('in routes about to load cart');
       this.props.loadUsersCart(this.props.userId)
     } else {
       // let keys = Object.keys(localStorage);
@@ -53,6 +54,9 @@ class Routes extends Component {
 
   componentWillReceiveProps(nextProps){
 
+    console.log('in componentWillReceiveProps in routes');
+
+
     //recentAdd guest cart didn't get stored with state until page refresh
     //this is because our getCartFromLocalStorage depends on the store having all the products
     //this did not happen when getCartFromLocalStorage was in componentDidMount because
@@ -61,6 +65,8 @@ class Routes extends Component {
     //recentAdd we also had a bug
     // we had (userId and user are never equal to each other)'nextProps.userId !== this.props.user'
     // changed to this 'nextProps.user !== this.props.user'
+
+
 
     if (nextProps.products !== this.props.products || nextProps.userId !== this.props.userId) {
 
@@ -75,6 +81,9 @@ class Routes extends Component {
       }
 
     }
+
+    console.log('componentWillReceiveProps in routes is over. Our props will be', nextProps);
+
 
   }
 

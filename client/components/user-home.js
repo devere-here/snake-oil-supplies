@@ -14,18 +14,16 @@ import { fetchCart } from '../store';
 /**
  * COMPONENT
  */
-export class UserHome extends Component {
+export const UserHome = (props) => {
 
-  componentDidMount(){
+  // componentDidMount(){
 
-    this.props.loadUsersCart(this.props.userId);
+  //   console.log('in user-home about to load cart');
+  //   this.props.loadUsersCart(this.props.userId);
 
-  }
+  // }
 
-
-  render(){
-
-    const {email} = this.props
+    const {email} = props
 
     return (
       <div>
@@ -33,7 +31,6 @@ export class UserHome extends Component {
       </div>
     )
 
-  }
 
 
 
@@ -55,20 +52,20 @@ export class UserHome extends Component {
 const mapState = (state) => {
   return {
     //recentAdd id section
-    userId: state.user.id,
+    //userId: state.user.id,
     email: state.user.email
   }
 }
 
 //recentAdd mapDispatch
-const mapDispatch = (dispatch) => ({
-  loadUsersCart(userId) {
-    dispatch(fetchCart(userId));
-  }
+// const mapDispatch = (dispatch) => ({
+//   loadUsersCart(userId) {
+//     dispatch(fetchCart(userId));
+//   }
 
-});
+// });
 
-export default connect(mapState, mapDispatch)(UserHome)
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES
