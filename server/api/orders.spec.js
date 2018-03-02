@@ -60,11 +60,9 @@ describe('Order routes', () => {
     const res2 = await agent
     .get('/api/orders')
     .expect(200)
-    // .expect(res.body.userId).to.be.equal(1)
-
-    // expect(res.body).to.be.an('array')
-    // expect(res.body.length).to.be.equal(products.length)
-    // expect(res.body[0].rating)
+    console.log('agent', agent.jar.CookieJar)
+    expect(res2.body).to.be.an('object')
+    expect(res2.body.id).to.be.equal(agent.getCookie)
     //   .to.be.equal(String(products[0].rating))
     // expect(res.body[0].category).to.be.equal(products[0].category)
   })
