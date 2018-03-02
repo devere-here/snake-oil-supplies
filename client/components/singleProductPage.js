@@ -24,7 +24,8 @@ class singleProductPage extends Component {
 
     localStorage.setItem(id, quantity);
 
-    //recentAdd - addItem button now adds item to store as well as localStorage
+    //recentAdd - addItem button now adds item to store as well as localStorage this is only for guests
+    //for users store/ database must be updated
 
     let cartProducts = getCartFromLocalStorage(this.props);
     this.props.loadGuestCart(cartProducts);

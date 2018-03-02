@@ -26,36 +26,14 @@ export const getCart = cart => ({type: GET_CART, cart});
 //THUNKS
 export const fetchCart = (userId) => async(dispatch) => {
   try {
-    console.log('in fetchCart userId', userId)
-    // const cart = await axios.get('/api/orders', {
-    //   params: {
-    //     userId: userId,
-    //     completed: false
-    //   }
-    // })
+
     let cart;
 
-
-    //console.log('our cart is, ', cart);
-
     if (userId){
-      console.log('about to make axios request');
 
       cart = await axios.get('/api/products');
       dispatch(getCart(cart.data));
-
-      // axios.get('/api/products')
-      // .then((stuff) => {
-      //   console.log('stuff from axios request', stuff);
-      // })
-
-
-
     }
-    // else {
-    //   console.log('cart.data', cart.data);
-    //   dispatch(getCart())
-    // }
   }
   catch (err) {
     console.log(err)
@@ -64,7 +42,6 @@ export const fetchCart = (userId) => async(dispatch) => {
 
 
 export const fetchGuestCart = (cartProducts) => async(dispatch) => {
-  console.log('in fetchGuestCart, cartProducts ', cartProducts);
   try {
     dispatch(getCart(cartProducts))
   }
@@ -79,7 +56,6 @@ export const fetchGuestCart = (cartProducts) => async(dispatch) => {
 export default function (prevState = defaultCart, action){
   switch (action.type){
     case GET_CART:
-    console.log('in reducer', action.cart);
     return action.cart;
     default:
       return prevState;

@@ -52,10 +52,6 @@ class Routes extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log('in componentWillReceiveProps');
-    console.log('nextProps.userId', nextProps.userId);
-    console.log('this.props.userId', this.props.userId);
-
 
     //recentAdd guest cart didn't get stored with state until page refresh
     //this is because our getCartFromLocalStorage depends on the store having all the products
@@ -74,7 +70,6 @@ class Routes extends Component {
 
         let cartProducts = getCartFromLocalStorage(nextProps);
 
-        console.log('about to loadGuestCart, cartProducts', cartProducts);
         this.props.loadGuestCart(cartProducts);
 
       }
