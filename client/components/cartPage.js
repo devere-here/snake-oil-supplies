@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import {Link, withRouter} from 'react-router-dom'
 import { ProductSummary } from './index'
+import { fetchGuestCart } from '../store'
+import { getCartFromLocalStorage } from '../routes'
 
 class CartPage extends Component {
   constructor(props) {
@@ -26,6 +28,9 @@ class CartPage extends Component {
       quantity--;
       localStorage.setItem(id, quantity);
 
+      let cartProducts = getCartFromLocalStorage(this.props);
+      this.props.loadGuestCart(cartProducts);
+
       console.log('should decrement in storage');
 
       console.log('this.props.cart', this.props.cart);
@@ -47,6 +52,16 @@ class CartPage extends Component {
       let quantity = localStorage.getItem(id);
       quantity++;
       localStorage.setItem(id, quantity);
+
+      // let keys = Object.keys(localStorage);
+      // let cartProducts = this.props.products.filter(function (product) {
+      //   return keys.indexOf(product.id.toString()) !== -1
+      // })
+
+      let cartProducts = getCartFromLocalStorage(this.props);
+
+      this.props.loadGuestCart(cartProducts);
+
       console.log('this.props.cart', this.props.cart);
       console.log('this.props.isLoggedIn', this.props.isLoggedIn);
 
@@ -61,6 +76,13 @@ class CartPage extends Component {
     }
     else {
       // delete quanity in local storage
+
+      delete localStorage[id];
+
+      let cartProducts = getCartFromLocalStorage(this.props);
+
+      this.props.loadGuestCart(cartProducts);
+
       console.log('shoule delete in storage')
       console.log('id', id);
 
@@ -119,7 +141,15 @@ const mapState = (state, ownProps) => {
     cart: state.cart
   }
 };
-const mapDispatch = (/*dispatch*/) => () => ({});
+const mapDispatch = (dispatch) => ({
+  loadGuestCart(arr){
+    dispatch(fetchGuestCart(arr))
+  },
+  // loadUsersCart(userId) {
+  //   dispatch(fetchCart(userId))
+  // }
+
+});
 export default connect(mapState, mapDispatch)(CartPage);
 
 

@@ -5,11 +5,26 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Category, SingleProductPage, CartPage} from './components'
 import {me, fetchProducts, fetchCart, fetchGuestCart} from './store'
 
+export function getCartFromLocalStorage(props){
+
+  let keys = Object.keys(localStorage);
+
+  return props.products.filter(function (product) {
+    return keys.indexOf(product.id.toString()) !== -1
+  })
+
+}
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
+  // constructor(props) {
+
+  //   super(props);
+  //   this.getCartFromLocalStorage = this.getCartFromLocalStorage.bind(this);
+  // }
+
   componentDidMount () {
     console.log('in routes.js loadInitialData()')
     this.props.loadInitialData()
@@ -17,10 +32,12 @@ class Routes extends Component {
     if (this.props.isLoggedIn){
       this.props.loadUsersCart(this.props.userId)
     } else {
-      let keys = Object.keys(localStorage);
-      let cartProducts = this.props.products.filter(function (product) {
-        return keys.indexOf(product.id.toString()) !== -1
-      })
+      // let keys = Object.keys(localStorage);
+      // let cartProducts = this.props.products.filter(function (product) {
+      //   return keys.indexOf(product.id.toString()) !== -1
+      // })
+      let cartProducts = getCartFromLocalStorage(this.props);
+
       this.props.loadGuestCart(cartProducts);
     }
   }
@@ -33,16 +50,30 @@ class Routes extends Component {
         this.props.loadUsersCart(nextProps.userId)
       } else {
 
-        let keys = Object.keys(localStorage);
-        let cartProducts = nextProps.products.filter(function (product) {
-          return keys.indexOf(product.id.toString()) !== -1
-        })
+        // let keys = Object.keys(localStorage);
+        // let cartProducts = nextProps.products.filter(function (product) {
+        //   return keys.indexOf(product.id.toString()) !== -1
+        // })
+
+        let cartProducts = getCartFromLocalStorage(nextProps);
 
         this.props.loadGuestCart(cartProducts);
 
       }
     }
   }
+
+  getCartFromLocalStorage(props){
+
+    let keys = Object.keys(localStorage);
+
+    return props.products.filter(function (product) {
+      return keys.indexOf(product.id.toString()) !== -1
+    })
+
+  }
+
+
 
   render () {
     const {isLoggedIn} = this.props;
