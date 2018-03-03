@@ -48,6 +48,14 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const guest = () =>
+  dispatch =>
+    axios.post('/auth/guest')
+      .then((res) => {
+        dispatch(getUser(res.data))
+      }
+    )
+
 /**
  * REDUCER
  */

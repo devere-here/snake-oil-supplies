@@ -16,7 +16,7 @@ router.get('/', isSelf, asyncHandler(async (req, res, next) => {
 
 //When user adds additional cart items / guest checks out
 router.post('/', asyncHandler(async (req, res, next) => {
-  const orderDetail = await OrderDetail.create(req.body)
-  res.json(orderDetail)
+  const orderDetails = await OrderDetail.bulkCreate(req.body.orderDetailsArray)
+  res.json(orderDetails)
 }));
 
