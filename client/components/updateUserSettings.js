@@ -16,6 +16,7 @@ class UpdateUserSettings extends Component {
       userInfo[event.target[i].name] = event.target[i].value
     }
     this.props.dispatchUpdateUser(userInfo);
+    this.props.history.push('/settings')
   }
 
 

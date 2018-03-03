@@ -28,21 +28,21 @@ function UserSettings(props) {
       {
         userSections.map(userSection => (
         <div key={Math.floor(Math.random() * 1000)}>
-        <h3>
+        <h2>
           {userSectionsMap.get(userSection)}
-        </h3>
-          <form onSubmit={this.submitHandler}>
+        </h2>
+          <div>
             <ul type="none">
               {
                 Object.keys(userSection).map(detail => (
                   <li key={detail}>
-                  <label>{detail.charAt(0).toUpperCase() + detail.replace(/([A-Z])/g, ' $1').trim().slice(1)}</label>
-                    <h3>{userSection[detail]}</h3>
+                  <h3>{detail.charAt(0).toUpperCase() + detail.replace(/([A-Z])/g, ' $1').trim().slice(1)}</h3>
+                    <p>{userSection[detail]}</p>
                   </li>
                 ))
               }
             </ul>
-          </form>
+          </div>
         </div>
         ))
       }
