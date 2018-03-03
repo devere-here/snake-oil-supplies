@@ -24,10 +24,10 @@ const removeUser = () => ({type: REMOVE_USER})
  * THUNK CREATORS
  */
 
-export const putUser = (user) =>
+export const putUser = (id, user) =>
 async (dispatch) => {
   try {
-    const updatedUser = await axios.put(`/api/users/${user.userId}`, user)
+    const updatedUser = await axios.put(`/api/users/${id}`, user)
     dispatch(updateUser(updatedUser.data))
     return updatedUser;
   }

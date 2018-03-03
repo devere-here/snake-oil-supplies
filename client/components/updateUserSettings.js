@@ -11,11 +11,13 @@ class UpdateUserSettings extends Component {
 
   submitHandler(event) {
     event.preventDefault();
-    let userInfo = {userId: this.props.user.id}
+    const user = this.props.user
+    let updatedUser = Object.assign({}, user)
     for (let i = 0; i < event.target.length - 1; i++) {
-      userInfo[event.target[i].name] = event.target[i].value
+      updatedUser[event.target[i].name] = event.target[i].value
     }
-    this.props.dispatchUpdateUser(userInfo);
+    console.log('THIS IS THE USER', updatedUser)
+    this.props.dispatchUpdateUser(user.id, updatedUser);
     this.props.history.push('/settings')
   }
 
@@ -68,7 +70,7 @@ class UpdateUserSettings extends Component {
 
 const mapState = state => ({user: state.user})
 const mapDispatch = dispatch => ({
-  dispatchUpdateUser: (user) => dispatch(putUser(user))
+  dispatchUpdateUser: (id, user) => dispatch(putUser(id, user))
 })
 
 export default connect(mapState, mapDispatch)(UpdateUserSettings)
