@@ -26,7 +26,7 @@ class CheckoutPage extends Component {
 
     //from the userId, get it's orderId (completed:false) then use the orderID to set (completed: true)
 
-    for (var i=0; i < evt.target.length - 1 ; i++){
+    for (var i = 0; i < evt.target.length - 1 ; i++){
       console.log(evt.target[i].value)
       modifiedOrder['evt.target.name'] = evt.target[i].value;
     }
@@ -91,9 +91,6 @@ class CheckoutPage extends Component {
     }
   }
 }
-
-
-
 
 const mapState = (state, ownProps) => {
   console.log(state)

@@ -131,8 +131,6 @@ class CartPage extends Component {
   }
 }
 
-
-
 const mapState = (state, ownProps) => {
   //const categoryName = ownProps.match.params.name
   console.log(state)
