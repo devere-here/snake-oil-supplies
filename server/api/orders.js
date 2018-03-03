@@ -25,9 +25,16 @@ router.post('/', asyncHandler(async (req, res, next) => {
   res.json(order)
 }));
 
-//When user checks out
+//When user checks out, set completed: true
 router.put('/', asyncHandler(async (req, res, next) => {
-  const order = await Order.update(req.body)
+  console.log('req.body', req.body)
+  const order = await Order.update(req.body, {
+    where: {
+			id: req.body.id
+		},
+		returning: true
+  })
+
   res.json(order)
 }));
 

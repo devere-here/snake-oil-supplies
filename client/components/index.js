@@ -10,4 +10,5 @@ export {default as Category} from './categoryPage'
 export {default as SingleProductPage} from './singleProductPage'
 export {default as ProductSummary} from './productSummary'
 export {default as CartPage} from './cartPage'
+export {default as CheckoutPage} from './checkoutPage'
 

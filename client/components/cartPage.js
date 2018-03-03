@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import {Link, withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { ProductSummary } from './index'
 import { fetchGuestCart } from '../store'
 import { getCartFromLocalStorage } from '../routes'
@@ -124,6 +124,8 @@ class CartPage extends Component {
             )
           })
         }
+      <div>Total Price placeholder</div>
+      <Link to={'/checkout'}><button>Checkout</button></Link>
       </div>
     )
   }

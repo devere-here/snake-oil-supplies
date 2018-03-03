@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { create } from 'domain';
 
 //ACTION TYPES
 
@@ -8,6 +9,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const EMPTY_CART = 'EMPTY_CART';
 const GET_CART = 'GET_CART';
 const GET_GUEST_CART = 'GET_GUEST_CART';
+const CREATE_CART = 'CREATE_CART';
 
 //INITIAL STATE
 const defaultCart = [];
@@ -16,9 +18,7 @@ const defaultCart = [];
 //const getCart = cart => ({type: GET_CART, cart});
 
 export const getCart = cart => ({type: GET_CART, cart});
-
-
-
+export const createCart = cart => ({type: CREATE_CART, cart});
 
 //const getGuestCart = cartProducts => ({type: GET_GUEST_CART, cart: cartProducts});
 
@@ -26,14 +26,24 @@ export const getCart = cart => ({type: GET_CART, cart});
 //THUNKS
 export const fetchCart = (userId) => async(dispatch) => {
   try {
-
-    let cart;
-
     if (userId){
-
-      cart = await axios.get('/api/products');
+      let cart = await axios.get('/api/orders'); // need to fix this
       dispatch(getCart(cart.data));
     }
+    else
+    {
+      // return nothing? elsewhere we will make an new cart
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+export const postCart = () => async(dispatch) => {
+  try {
+    let cart = await axios.post('/api/orders');
+    dispatch(createCart(cart.data));
   }
   catch (err) {
     console.log(err)

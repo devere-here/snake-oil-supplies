@@ -7,13 +7,11 @@ import ProductSummary from './productSummary'
 const CategoryPage = (props) => {
 
   return (
-    <div>
-      <h1>Words</h1>
+    <div className="thumbnail-container">
       { props.selectedProducts.map((product) => {
         return (
-          <div key={product.name}>
+          <div className="thumbnail" key={product.name}>
             <ProductSummary product={product} />
-            <hr />
           </div>
         )
       })
