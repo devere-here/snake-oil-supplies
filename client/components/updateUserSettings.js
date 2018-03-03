@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { putUser } from '../store';
 import filterObj from 'filter-obj';
 
-class Settings extends Component {
+class UpdateUserSettings extends Component {
   constructor(props){
     super(props)
     this.submitHandler = this.submitHandler.bind(this)
@@ -70,4 +70,4 @@ const mapDispatch = dispatch => ({
   dispatchUpdateUser: (user) => dispatch(putUser(user))
 })
 
-export default connect(mapState, mapDispatch)(Settings)
+export default connect(mapState, mapDispatch)(UpdateUserSettings)
