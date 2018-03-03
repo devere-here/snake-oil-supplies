@@ -64,8 +64,21 @@ class CheckoutPage extends Component {
 
     //dispatch thunk
     axios.post('/auth/guest', guestInfo)
+    .then((res) => res.data)
     .then((res) => {
-      guestOrder.userId = res.data.id;
+
+      console.log('res', res);
+
+      guestOrder.userId = res.id;
+      guestOrder.shippingStreet = res.addressStreet;
+      guestOrder.shippingCity = res.addressCity;
+      guestOrder.shippingState = res.addressState;
+      guestOrder.shippingCountry = res.addressCountry;
+      guestOrder.shippingZipCode = res.addressZipCode;
+
+      console.log('guestOrder', guestOrder);
+
+
 
       axios.post('/api/orders', guestOrder)
       .then((resOrders) => {

@@ -22,6 +22,7 @@ router.get('/', isLoggedIn, asyncHandler(async (req, res, next) => {
 //When user adds to cart for first time / guest checks out
 router.post('/', asyncHandler(async (req, res, next) => {
   const order = await Order.create(req.body)
+  console.log('order is, ', order);
   res.json(order)
 }));
 

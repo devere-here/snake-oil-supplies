@@ -7,10 +7,28 @@ const Order = db.define('order', {
     allowNull: false,
     defaultValue: false,
   },
-  shippingAddress: {
+  shippingStreet: {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  shippingCity: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  shippingState: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  shippingCountry: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  shippingZipCode: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+
+
 });
 
 module.exports = Order;
