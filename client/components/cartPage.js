@@ -96,6 +96,7 @@ class CartPage extends Component {
     //dummy data in case it doesn't have a quantity
     //guest cart is rendered directly from state not from localStorage
     let cartProducts = this.props.cart;
+    console.log('cartProducts', cartProducts);
 
     if (this.props.isLoggedIn) {
       cartProducts.forEach((cartProduct) => {

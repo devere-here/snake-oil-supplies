@@ -24,15 +24,28 @@ export const createCart = cart => ({type: CREATE_CART, cart});
 
 
 //THUNKS
-export const fetchCart = (userId) => async(dispatch) => {
+export const fetchCart = (userId) => (dispatch) => {
   try {
     if (userId){
-      let cart = await axios.get('/api/orders'); // need to fix this
-      dispatch(getCart(cart.data));
-    }
-    else
-    {
-      // return nothing? elsewhere we will make an new cart
+      axios.get('/api/orders')
+      .then((order) => {
+        console.log('order up,', order);
+        axios.get(`/api/orderDetails/${order.data[0].id}`)
+        .then((res) => {
+          console.log('res', res);
+          dispatch(getCart(res.data));
+
+        })
+
+      });
+
+      // let cart = await axios.get('/api/orderdetails', {
+      //   where: {
+      //     orderId: orderId
+      //   }
+      // });
+
+      //dispatch(getCart(cart.data));
     }
   }
   catch (err) {

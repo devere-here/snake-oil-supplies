@@ -149,7 +149,10 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProducts());
     },
     loadUsersCart(userId) {
+
       dispatch(fetchCart(userId))
+      //process orderdetails to create cart arr
+      //dispatch cart arr
     },
     loadGuestCart(arr){
       dispatch(fetchGuestCart(arr))

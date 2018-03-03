@@ -1,5 +1,7 @@
+// import products from '../../client/store/products';
+
 const router = require('express').Router()
-const { OrderDetail } = require('../db/models')
+const { OrderDetail, Product } = require('../db/models')
 const asyncHandler = require('express-async-handler')
 const { isSelf } = require('../permissions')
 
@@ -7,16 +9,17 @@ module.exports = router
 
 /****** USER ******/
 //When user creates session, return cart details if exists
-router.get('/', isSelf, asyncHandler(async (req, res, next) => {
-  const orderDetails = await OrderDetail.findAll({
-    where: { orderID: req.body.orderId }
+// got rid of:isSelf
+router.get('/:id', asyncHandler(async (req, res, next) => {
+  const cartProducts = await OrderDetail.findAll({
+    where: { orderId: req.params.id },
   })
-  res.json(orderDetails)
+  res.json(cartProducts)
 }));
 
 //When user adds additional cart items / guest checks out
 router.post('/', asyncHandler(async (req, res, next) => {
-  const orderDetails = await OrderDetail.bulkCreate(req.body.orderDetailsArray)
-  res.json(orderDetails)
+  const cartProducts = await OrderDetail.bulkCreate(req.body.orderDetailsArray)
+  res.json(cartProducts)
 }));
 
