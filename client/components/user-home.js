@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { getCartFromLocalStorage } from '../routes';
-import { fetchCart } from '../store';
+//import { getCartFromLocalStorage } from '../routes';
+//import { fetchCart } from '../store';
 
 
 //import { any component } from './index'
@@ -26,13 +26,13 @@ export const UserHome = (props) => {
     const {email} = props
 
     return (
-      <div>
-        <h3>Welcome, {email}</h3>
+      <div id="userHomePage">
+        <div>
+          <h1>Welcome,</h1>
+          <h2>{email}</h2>
+        </div>
       </div>
     )
-
-
-
 
 }
 // = (props) => {

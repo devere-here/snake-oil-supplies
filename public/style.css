@@ -1,12 +1,7 @@
-/* Imports */
-@font-face {
-  font-family: western;
-  src: url('fontFolder/carnivalee_Freakshow.ttf');
-}
-
 /* Given CSS */
 body {
-  font-family: sans-serif;
+  font-family: serif;
+  margin: 0px;             /*  I changed the body css */
 }
 
 a {
@@ -27,95 +22,231 @@ form div {
   display: inline-block;
 }
 
+
 /*Navbar*/
-.navBar{
+
+#navBar{
   position: absolute;
   width: 100%;
-  height: 15%;
-  background-color: #FFC425;
+  height: 140px;
   z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
-#navBarContainerTop{
+/*Top of Navbar*/
+
+#navBarTopSection{
   display: flex;
-  flex-direction: row;
-  height: 70%;
-
+  justify-content: space-between;
+  height: 90px;
+  background-color: white;
 }
-#navBarContainerTop > h1{
-  width: 70%;
-  color: #492f24;
-  /* font-family: 'Smokum', cursive; */
-  /* font-family: 'Arbutus', cursive; */
-  font-family: 'Maiden Orange', cursive;
 
-
+#navBarTopSectionGuestLinkContainer{
+  width: 35%;
 }
-.navBarTopButton{
-  border: #492f24 1px solid;
-  font-size: 20px;
+
+#navBarTopSectionUserLinkContainer{
+  width: 40%;
+}
+
+.navBarTopLink{
+  border: black 1px solid;
+  background-color: black;
+  color: white;
+  padding: 0px 10px;
+  font-size: 30px;
   height: 50%;
   width: 8%;
   position: relative;
-  top: 20%;
-  left: 8%;
-  margin-right: 1%;
+  top: 40%;
+  margin-right: 8%;
   border-radius: 10px 10px;
-  background-color: #492f24;
-  color: #FFC425;
-  padding: 5px 10px;
 
 }
-#navBarContainerBottom{
-  height: 30%;
-  background-color: #492f24;
+
+
+.navBarSnakeIcon{
+  height: 70px;
+}
+
+#navBarTopSection > h1{
+  margin-top: 5px;
+  line-height: 100%;
+  font-size: 60px;
+  width: 60%;
+
+}
+
+
+/*Bottom Part*/
+
+#navBarBottomSection{
+  background-color: black;
+  color: white;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.navBarBottomButton{
-  width: 20%;
+.navBarBottomLink{
+  width: 15%;
   margin-left: 5%;
   margin-right: 5%;
-  background-color: #492f24;
-  color: white;
-  font-size: 20px;
-  border: 1px white solid;
+  background-color: white;
+  color: black;
+  font-size: 24px;
   border-radius: 8px 8px;
-  height: 90%;
-  margin-top: 2px;
+  height: 70%;
+  margin-top: 7px;
   text-align: center;
-
+  line-height: 140%;
 }
 
-/* Home Section */
-#homePage{
-  height: 740px;
+
+/* Auth-Form Section */
+#formPage{
   background-image: url('https://sonurai.com/wallpaper/GuadalupeMountainsNP_EN-US10701657795.jpg');
   background-size: cover;
-
-
+  height: 740px;
 }
 
-#homePageReview{
-  position: relative;
-  top: 40%;
-  left: 25%;
-  background-color: #492f24;
+#loginSignupForm{
+  background-color: black;
   color: white;
+  width: 28%;
+  margin-left: 5%;
+  height: 400px;
+  position: relative;
+  top: 20%;
+  border-radius: 10%;
+  border: white 4px solid;
+  text-align: center;
+  padding-top: 20px;
+  font-size: 22px;
+}
+
+.loginSignupInputContainer{
+  height: 70px;
+
+  width: 72%;
+  margin: 0px auto 0px auto;
+
+}
+
+.loginSignupInputContainer > input{
+  font-size: 18px;
+  float: right;
+}
+
+.loginSignupInputContainer > label{
+  display: inline;
+}
+
+#loginSignupButtonContainer{
+  margin-bottom: 2px;
+}
+
+#loginSignupForm button{
+  background-color: white;
+  border-radius: 10px 10px;
+  border: black solid 1px;
+  margin: 0px 5px;
+  font-size: 20px;
+
+}
+
+/* Home Page */
+
+#userHomePage{
+
+  background-image: url('https://drive.google.com/uc?export=download&id=1cl1rkt7sBoZnKd4s537AXdzvN_9Os_5w');
+  background-size: cover;
+  height: 740px;
+
+}
+
+#userHomePage > div{
+  background-color: black;
   border: white 3px solid;
+  border-radius: 20px 20px;
+  width: 40%;
+  height: 25%;
+  position: relative;
+  top: 35%;
+  left: 30%;
+  color: white;
+  text-align: center;
+  padding-top: 30px;
+}
+
+#userHomePage h1{
+  font-size: 40px;
+  margin: 15px 0px;
+}
+
+#userHomePage h2{
+  font-size: 30px;
+  margin: 15px 0px;
+}
+
+/* Product List Page */
+
+/* Category Header and Search Bar */
+.titleAndSearchBarContainer{
+  width: 100%;
+  border: 1px solid black;
+  height: 350px;
+  background-size: cover;
+  margin-bottom: 30px;
+}
+
+.all{
+  background-image: url('https://drive.google.com/uc?export=download&id=19dLc0rArwS1ltBetMRAFYv5xRmTFula-');
+}
+
+.apparel{
+  background-image: url('https://drive.google.com/uc?export=download&id=1KRGh_PW_puGeCNqmWlWyd6uYHQGGq-aL');
+}
+
+.health{
+  background-image: url('https://drive.google.com/uc?export=download&id=1e0jfZ6T-bmz9YcqIZpx6XYff8ee7R5t-');
+}
+
+.miscellaneous{
+  background-image: url('https://drive.google.com/uc?export=download&id=1_llwIGyvqOOXZjaPMLvanFcaNTpx3AII');
+}
+
+.titleAndSearchBar{
+  background-color: black;
+  border: 3px white solid;
+  position: relative;
+  top: 30%;
+  left: 35%;
+  width: 30%;
+  color: white;
   border-radius: 15px 15px;
-  font-size: 25px;
-  padding: 2%;
-  width: 50%;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+.titleAndSearchBar > input{
+  font-size: 18px;
+  color: black;
+}
+
+.titleAndSearchBar > span{
+  font-size: 22px;
+  position: relative;
+  top: 3px;
+  left: -5px;
 }
 
 
-
-
-/* product listings */
-
+/* Product Listing */
 .thumbnail-container {
   display: flex;
   flex-wrap: wrap;
@@ -129,6 +260,13 @@ form div {
 .thumbnail img {
   height: 20vh;
 }
+
+
+
+
+
+
+
 
 .checkout-form {
   display: flex;
