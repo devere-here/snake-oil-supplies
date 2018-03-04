@@ -70,9 +70,9 @@ const User = db.define('user', {
   },
   creditNumber: {
     type: Sequelize.INTEGER,
-    validate: {
-      isCreditCard: true
-    }
+    // validate: {
+    //   isCreditCard: false,
+    // }
   },
   creditSecurityCode: {
     type: Sequelize.STRING,

@@ -10,4 +10,6 @@ export {default as Category} from './categoryPage'
 export {default as SingleProductPage} from './singleProductPage'
 export {default as ProductSummary} from './productSummary'
 export {default as CartPage} from './cartPage'
+export {default as UpdateUserSettings} from './updateUserSettings'
+export {default as UserSettings} from './userSettings'
 
