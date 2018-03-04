@@ -11,10 +11,11 @@ module.exports = router
 //When user creates session, return cart details if exists
 // got rid of:isSelf
 router.get('/:id', asyncHandler(async (req, res, next) => {
-  const cartProducts = await OrderDetail.findAll({
+  const orderDetails = await OrderDetail.findAll({
     where: { orderId: req.params.id },
   })
-  res.json(cartProducts)
+  console.log(orderDetails)
+  res.json(orderDetails)
 }));
 
 //When user adds additional cart items / guest checks out

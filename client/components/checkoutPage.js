@@ -30,10 +30,11 @@ class CheckoutPage extends Component {
 
     for (var i = 0; i < evt.target.length - 1 ; i++){
       console.log(evt.target[i].value)
-      let name = evt.target.name;
+      //let name = evt.target.name;
       //`${evt.target.name}`
+      console.log('evt.target[i].name', evt.target[i].name);
 
-      userData[name] = evt.target[i].value;
+      userData[`${evt.target[i].name}`] = evt.target[i].value;
     }
 
     // axios.put(`/api/orders/${orderId}`, modifiedOrder)
