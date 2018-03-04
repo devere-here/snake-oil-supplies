@@ -20,6 +20,24 @@ form div {
   display: inline-block;
 }
 
+.thumbnail-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.thumbnail {
+  width: 19vw;
+  height: 40vh;
+}
+
+.thumbnail img {
+  height: 20vh;
+}
+
+.checkout-form {
+  display: flex;
+  flex-wrap: wrap
+}
 .hidden {
   display: none
 }

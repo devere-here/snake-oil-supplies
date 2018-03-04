@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const {isLoggedIn, isAdmin, isSelf} = require('../permissions')
+const { isAdmin, isSelf} = require('../permissions')
 
 module.exports = router
 
@@ -10,19 +10,13 @@ module.exports = router
 //************************************
 
 router.param('id', asyncHandler(async (req, res, next, id) => {
-  try {
-    const user = await User.findById(id, { attributes: ['id', 'email', 'isAdmin'] })
-    if (!user) {
-      const err = new Error('NOT FOUND')
-      err.status = 401
-      next(err)
-    } else {
-      req.requestedUser = user
-      next()
-    }
-  }
-  catch (err) {
-    console.error(err)
+  const user = await User.findById(id, { attributes: ['id', 'email', 'isAdmin'] })
+  if (!user) {
+    const err = new Error('NOT FOUND')
+    err.status = 401
+    next(err)
+  } else {
+    req.requestedUser = user
   }
 }))
 

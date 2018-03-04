@@ -7,7 +7,7 @@ import {ProductSummary} from './index'
 const CategoryPage = (props) => {
 
   return (
-    <div>
+    <div className="thumbnail-container">
       <h1>Words</h1>
       <label>Filter By Name</label>
       <input onChange={event => {
@@ -22,7 +22,7 @@ const CategoryPage = (props) => {
       } } />
       { props.selectedProducts.map((product) => {
         return (
-          <div key={product.name}>
+          <div className="thumbnail" key={product.name}>
             <ProductSummary product={product} />
           </div>
         )

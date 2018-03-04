@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCartFromLocalStorage } from '../routes';
-import { fetchGuestCart } from '../store';
+import { updateCart } from '../store';
 
 
 class singleProductPage extends Component {
@@ -28,7 +28,7 @@ class singleProductPage extends Component {
     //for users store/ database must be updated
 
     let cartProducts = getCartFromLocalStorage(this.props);
-    this.props.loadGuestCart(cartProducts);
+    this.props.loadCart(cartProducts);
 
   }
 
@@ -75,8 +75,8 @@ const mapState = ({ products, quantity }, ownProps) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  loadGuestCart(arr){
-    dispatch(fetchGuestCart(arr))
+  loadCart(arr){
+    dispatch(updateCart(arr))
   },
   // loadUsersCart(userId) {
   //   dispatch(fetchCart(userId))

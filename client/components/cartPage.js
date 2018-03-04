@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 //import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-// import {Link, withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { ProductSummary } from './index'
-import { fetchGuestCart } from '../store'
+import { updateCart } from '../store'
 import { getCartFromLocalStorage } from '../routes'
 
 class CartPage extends Component {
@@ -29,7 +29,7 @@ class CartPage extends Component {
       localStorage.setItem(id, quantity);
 
       let cartProducts = getCartFromLocalStorage(this.props);
-      this.props.loadGuestCart(cartProducts);
+      this.props.loadCart(cartProducts);
 
       console.log('should decrement in storage');
 
@@ -61,7 +61,7 @@ class CartPage extends Component {
       let cartProducts = getCartFromLocalStorage(this.props);
       console.log('cartProducts', cartProducts);
 
-      this.props.loadGuestCart(cartProducts);
+      this.props.loadCart(cartProducts);
 
       console.log('this.props.cart', this.props.cart);
       console.log('this.props.isLoggedIn', this.props.isLoggedIn);
@@ -82,7 +82,7 @@ class CartPage extends Component {
 
       let cartProducts = getCartFromLocalStorage(this.props);
 
-      this.props.loadGuestCart(cartProducts);
+      this.props.loadCart(cartProducts);
 
       console.log('shoule delete in storage')
       console.log('id', id);
@@ -96,6 +96,7 @@ class CartPage extends Component {
     //dummy data in case it doesn't have a quantity
     //guest cart is rendered directly from state not from localStorage
     let cartProducts = this.props.cart;
+    console.log('cartProducts', cartProducts);
 
     if (this.props.isLoggedIn) {
       cartProducts.forEach((cartProduct) => {
@@ -124,12 +125,12 @@ class CartPage extends Component {
             )
           })
         }
+      <div>Total Price placeholder</div>
+      <Link to={'/checkout'}><button>Checkout</button></Link>
       </div>
     )
   }
 }
-
-
 
 const mapState = (state, ownProps) => {
   //const categoryName = ownProps.match.params.name
@@ -142,8 +143,8 @@ const mapState = (state, ownProps) => {
   }
 };
 const mapDispatch = (dispatch) => ({
-  loadGuestCart(arr){
-    dispatch(fetchGuestCart(arr))
+  loadCart(cart) {
+    dispatch(updateCart(cart))
   },
   // loadUsersCart(userId) {
   //   dispatch(fetchCart(userId))
