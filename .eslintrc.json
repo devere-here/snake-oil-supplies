@@ -5,7 +5,8 @@
 	"rules": {
 		"semi": 0,
     "new-cap": [1, { "capIsNewExceptions": ["Router"] }],
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "guard-for-in": "off"
   },
   "parserOptions": {
     "ecmaVersion": 8

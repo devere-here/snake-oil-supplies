@@ -18,6 +18,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" className="navBarTopButton" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/settings">Settings</Link>
         </div>
       ) : (
         <div>
