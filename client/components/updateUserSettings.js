@@ -16,7 +16,7 @@ class UpdateUserSettings extends Component {
     for (let i = 0; i < event.target.length - 1; i++) {
       updatedUser[event.target[i].name] = event.target[i].value
     }
-    console.log('THIS IS THE USER', updatedUser)
+    //console.log('THIS IS THE USER', updatedUser)
     this.props.dispatchUpdateUser(user.id, updatedUser);
     this.props.history.push('/settings')
   }
