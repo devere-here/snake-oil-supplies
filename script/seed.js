@@ -24,19 +24,19 @@ for (let i = 0; i < NUM_USERS; i++) {
   let user = {
     email: `user${i + 5}@email.com`,
     password: '123',
-    addressStreet: `${ Math.random().toString(36).substring(2, 15) } street`,
-    addressCity: `${ Math.random().toString(36).substring(2, 15) } city`,
-    addressState: `${ Math.random().toString(36).substring(2, 15) } state`,
-    addressCountry: `${ Math.random().toString(36).substring(2, 15) } country`,
+    addressStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+    addressCity: `${Math.random().toString(36).substring(2, 15)} city`,
+    addressState: `${Math.random().toString(36).substring(2, 15)} state`,
+    addressCountry: `${Math.random().toString(36).substring(2, 15)} country`,
     addressZipCode: Math.floor(Math.random() * 90000) + 10000,
     creditCardName: `user${i + 5}'s name`,
     creditNumber: Math.floor(Math.random() * 9000000000000000) + 1000000000000000,
     creditSecurityCode: Math.floor(Math.random() * 900) + 100,
     creditExpirationDate: Date.now() + Math.floor(Math.random() * 90000000000) + 10000000000,
-    billingStreet: `${ Math.random().toString(36).substring(2, 15) } street`,
-    billingCity: `${ Math.random().toString(36).substring(2, 15) } city`,
-    billingState: `${ Math.random().toString(36).substring(2, 15) } state`,
-    billingCountry: `${ Math.random().toString(36).substring(2, 15) } country`,
+    billingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+    billingCity: `${Math.random().toString(36).substring(2, 15)} city`,
+    billingState: `${Math.random().toString(36).substring(2, 15)} state`,
+    billingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
     billingZipCode: Math.floor(Math.random() * 90000) + 10000,
   }
   arrUsers.push(user);
@@ -58,7 +58,8 @@ for (let key in categories) {
       description: `description ${i}`,
       price: Math.floor(Math.random() * Math.floor(100)),
       imageUrl: `https://picsum.photos/500/400?image=${randomImageNumber}`,
-      rating: Math.floor(Math.random() * Math.floor(5))
+      rating: Math.floor(Math.random() * Math.floor(5)),
+      review: `${Math.random().toString(36).substring(2, 15)} review`,
     }
     arrProducts.push(randomProduct);
   }
@@ -71,7 +72,11 @@ for (let userId = 1; userId <= arrUsers.length; userId++) { // for each user ...
     let orderInstance = {
       userId: userId,
       completed: true,
-      shippingAddress: `${orderIndex} Hanover Square`,
+      shippingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+      shippingCity: `${Math.random().toString(36).substring(2, 15)} city`,
+      shippingState: `${Math.random().toString(36).substring(2, 15)} state`,
+      shippingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+      shippingZipCode: Math.floor(Math.random() * 90000) + 10000,
     }
     arrOrders.push(orderInstance);
   }
