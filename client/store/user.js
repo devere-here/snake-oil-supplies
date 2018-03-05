@@ -27,10 +27,8 @@ const removeUser = () => ({type: REMOVE_USER})
 export const putUser = (id, user) =>
 async (dispatch) => {
   try {
-    //console.log('TRYING TO SEND TO DATABASE', user)
     const updatedUser = await axios.put(`/api/users/${id}`, user)
     dispatch(updateUser(updatedUser.data))
-    console.log('UPDATED USER', updatedUser)
     return updatedUser;
   }
   catch (err) {

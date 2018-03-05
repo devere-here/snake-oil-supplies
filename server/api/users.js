@@ -17,6 +17,7 @@ router.param('id', asyncHandler(async (req, res, next, id) => {
     next(err)
   } else {
     req.requestedUser = user
+    next()
   }
 }))
 
@@ -36,7 +37,6 @@ router.get('/:id', isSelf, (req, res, next) => {
 })
 
 router.put('/:id', isSelf, (req, res, next) => {
-  console.log('YO IM HERE', req.requestedUser)
   req.requestedUser.update(req.body)
     .then(user => res.json(user))
     .catch(next)
