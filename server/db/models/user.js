@@ -70,7 +70,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
   },
   creditNumber: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     // validate: {
     //   isCreditCard: false,
     // }
