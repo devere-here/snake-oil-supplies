@@ -23,3 +23,32 @@ router.post('/', asyncHandler(async (req, res, next) => {
   res.json(cartProducts)
 }));
 
+router.put('/', asyncHandler(async (req, res, next) => {
+  const cartProducts = await OrderDetail.bulkCreate(req.body.orderDetailsArray)
+  res.json(cartProducts)
+}));
+
+router.put('/:id', asyncHandler(async (req, res, next) => {
+  const orderDetails = await OrderDetail.update(req.body, {
+    where: {
+      orderId: req.body.orderId,
+      productId: req.body.productId
+		},
+		returning: true
+  })
+
+  res.json(orderDetails)
+}));
+
+
+router.delete('/:id', asyncHandler(async (req, res, next) => {
+  const orderDetails = await OrderDetail.destroy({
+    where: {
+      orderId: req.body.orderId,
+      productId: req.body.productId
+    }
+  })
+
+  res.json(orderDetails)
+}));
+

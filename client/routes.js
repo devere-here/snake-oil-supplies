@@ -48,6 +48,8 @@ class Routes extends Component {
       productObj.quantity = detail.quantity
       return productObj;
     })
+    cartProducts.id = userOrder.data[0].id;
+    console.log('cartProducts', cartProducts);
     return cartProducts
   }
 
@@ -58,6 +60,7 @@ class Routes extends Component {
     } else {
       cartProducts = getCartFromLocalStorage(nextProps);
     }
+    console.log('in conditionallyLoadCart', cartProducts);
     this.props.loadCart(cartProducts)
   }
 
@@ -76,8 +79,6 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, isAdmin } = this.props;
-    //console.log('routes', this.props)
-    console.log('Mike is admin?', isAdmin)
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -123,7 +124,7 @@ const mapState = (state) => {
     isAdmin: !!state.user.isAdmin,
     userId: state.user.id,
     products: state.products,
-    cart: state.cart
+    cart: state.cart,
 
   }
 }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getCartFromLocalStorage } from '../routes';
 import { updateCart } from '../store';
-
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class singleProductPage extends Component {
   constructor(props) {
@@ -11,24 +12,68 @@ class singleProductPage extends Component {
     this.addToCart = this.addToCart.bind(this);
   }
 
-  addToCart(evt) {
+  async addToCart(evt) {
     evt.preventDefault();
 
     let id = this.props.product.id,
+        addedProduct = this.props.product,
         quantity = evt.target.quantity.value,
         keys = Object.keys(localStorage);
 
-    if (keys.find((key) => +key === id)) {
-      quantity = +localStorage.getItem(id) + +quantity
+    let localCart = this.props.cart;
+
+
+    let index = localCart.indexOf(addedProduct);
+
+    if (index !== -1) {
+      localCart[index].quantity += +quantity;
+      if (this.props.isLoggedIn){
+
+        let putObj = {
+          quantity: localCart[index].quantity,
+          productId: localCart[index].id,
+          orderId: this.props.orderId
+        }
+        await axios.put(`/api/orderDetails/${putObj.orderId}`, putObj)
+
+      }
+    } else {
+      addedProduct.quantity = quantity;
+      localCart.push(addedProduct);
+      if (this.props.isLoggedIn){
+
+        let postObj = {
+          quantity: quantity,
+          productId: addedProduct.id,
+          orderId: this.props.orderId
+        }
+        console.log('about to post');
+        await axios.post('/api/orderDetails', {orderDetailsArray: [postObj]});
+      }
     }
 
-    localStorage.setItem(id, quantity);
+    if (!this.props.isLoggedIn){
+      localStorage.setItem(id, quantity);
+
+    }
+
+    console.log('the localCart', localCart);
+    this.props.dispatchUpdateCart(localCart);
+
+    this.props.history.push('/cart');
+
+    // if (keys.find((key) => +key === id)) {
+    //   quantity = +localStorage.getItem(id) + +quantity
+    // }
+
+    //localStorage.setItem(id, quantity);
 
     //recentAdd - addItem button now adds item to store as well as localStorage this is only for guests
     //for users store/ database must be updated
 
-    let cartProducts = getCartFromLocalStorage(this.props);
-    this.props.loadCart(cartProducts);
+    //let cartProducts = getCartFromLocalStorage(this.props);
+
+
 
   }
 
@@ -64,18 +109,21 @@ class singleProductPage extends Component {
   }
 }
 
-const mapState = ({ products, quantity }, ownProps) => {
+const mapState = ({ products, quantity, cart, user }, ownProps) => {
   const paramId = Number(ownProps.match.params.id);
 
   return {
     product: products.find(product => product.id === paramId),
     quantity,
-    products
+    products,
+    cart,
+    orderId: cart.id,
+    isLoggedIn: !!user.id
   }
 };
 
 const mapDispatch = (dispatch) => ({
-  loadCart(arr){
+  dispatchUpdateCart(arr){
     dispatch(updateCart(arr))
   },
   // loadUsersCart(userId) {
