@@ -33,8 +33,7 @@ const CategoryPage = (props) => {
               <ProductSummary product={product} />
             </div>
           )
-        })
-      }
+        })}
       </div>
     </div>
   )

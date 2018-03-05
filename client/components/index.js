@@ -13,4 +13,8 @@ export {default as CartPage} from './cartPage'
 export {default as CheckoutPage} from './checkoutPage'
 export {default as UpdateUserSettings} from './updateUserSettings'
 export {default as UserSettings} from './userSettings'
+export {default as AllUsers} from './allUsers'
+export {default as UserSummary} from './userSummary'
+export {default as UserEdit} from './userEdit'
+export {default as AdminPage} from './admin'
 

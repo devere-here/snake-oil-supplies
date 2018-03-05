@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings } from './components'
+import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage } from './components'
 import { me, fetchProducts, updateCart } from './store'
 
 export function getCartFromLocalStorage(props) {
@@ -75,7 +75,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isAdmin } = this.props;
     //console.log('routes', this.props)
     return (
       <Switch>
@@ -95,6 +95,13 @@ class Routes extends Component {
               <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
             </Switch>
         }
+        {
+          isAdmin &&
+            <Switch>
+            <Route exact path="/admin" component={AdminPage} />
+              <Route exact path="/settings/:id" component={UserEdit} />
+            </Switch>
+        }
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
@@ -111,6 +118,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: !!state.user.isAdmin,
     userId: state.user.id,
     products: state.products,
     cart: state.cart

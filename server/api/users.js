@@ -21,13 +21,17 @@ router.param('id', asyncHandler(async (req, res, next, id) => {
   }
 }))
 
-router.get('/', (req, res, next) => {
-  User.findAll({
+router.get('/', asyncHandler( async (req, res, next) => {
+  const users = await User.findAll({
     attributes: ['id', 'email']
   })
-    .then(users => res.json(users))
-    .catch(next)
-})
+  res.json(users)
+}))
+
+router.get('/all', isAdmin, asyncHandler( async (req, res, next) => {
+  const users = await User.findAll()
+  res.json(users)
+}))
 
 router.get('/:id', isSelf, (req, res, next) => {
   res.json(req.requestedUser)
