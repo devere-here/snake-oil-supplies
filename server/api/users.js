@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const { isAdmin, isSelf} = require('../permissions')
+const { isAdmin, isSelf, isLoggedIn} = require('../permissions')
 
 module.exports = router
 
@@ -17,6 +17,7 @@ router.param('id', asyncHandler(async (req, res, next, id) => {
     next(err)
   } else {
     req.requestedUser = user
+    next()
   }
 }))
 
