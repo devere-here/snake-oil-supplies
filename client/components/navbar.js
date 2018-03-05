@@ -5,33 +5,51 @@ import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div>
-    <h1>Snake Oil Supplies</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          <Link to="/settings">Settings</Link>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+  <div className="navBar">
 
-        </div>
-      )}
-      <Link to="/category/apparel">Apparel</Link>
-      <Link to="/category/health">Health/Supplements</Link>
-      <Link to="/category/miscellaneous">Miscellaneous</Link>
-      <Link to="/cart">View Cart</Link>
-    </nav>
-    <hr />
+    <div id="navBarTopSection">
+      <h1>
+        <img className="navBarSnakeIcon"src="https://png.icons8.com/android/200/year-of-snake.png" />
+      Snake Oil Supplies
+      </h1>
+
+      <div id={isLoggedIn ? 'navBarTopSectionUserLinkContainer' : 'navBarTopSectionGuestLinkContainer'}>
+        {isLoggedIn ? (
+          <span>
+            {/* The navbar will show these links after you log in */}
+            <Link className="navBarTopLink" to="/home">
+              Home
+            </Link>
+            <a href="#" className="navBarTopLink" onClick={handleClick}>
+              Logout
+            </a>
+            <Link className="navBarTopLink" to="/settings">Settings</Link>
+          </span>
+        ) : (
+          <span>
+            {/* The navbar will show these links before you log in */}
+            <Link className="navBarTopLink" to="/login">
+              Login
+            </Link>
+            <Link className="navBarTopLink" to="/signup">
+              Sign Up
+            </Link>
+          </span>
+        )}
+        <Link className="navBarTopLink" to="/cart">
+          Cart
+        </Link>
+      </div>
+    </div>
+
+    <div id="navBarBottomSection">
+      <Link className="navBarBottomLink" to="/category/all">All Products</Link>
+      <Link className="navBarBottomLink" to="/category/apparel">Apparel</Link>
+      <Link className="navBarBottomLink" to="/category/health">Health/Supplements</Link>
+      <Link className="navBarBottomLink" to="/category/miscellaneous">Miscellaneous</Link>
+    </div>
   </div>
+
 )
 
 /**
@@ -60,3 +78,4 @@ Navbar.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
+

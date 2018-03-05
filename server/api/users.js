@@ -23,9 +23,6 @@ router.param('id', asyncHandler(async (req, res, next, id) => {
 
 router.get('/', (req, res, next) => {
   User.findAll({
-    // explicitly select only the id and email fields - even though
-    // users' passwords are encrypted, it won't help if we just
-    // send everything to anyone who asks!
     attributes: ['id', 'email']
   })
     .then(users => res.json(users))
@@ -43,6 +40,6 @@ router.put('/:id', isSelf, (req, res, next) => {
 })
 router.delete('/:id', isAdmin, (req, res, next) => {
   req.requestedUser.destroy()
-    .then(user => res.sendStatus(204))
+    .then(() => res.sendStatus(204))
     .catch(next)
 })

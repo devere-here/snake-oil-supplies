@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import { getCartFromLocalStorage } from '../routes';
-import { fetchCart } from '../store';
+//import { getCartFromLocalStorage } from '../routes';
+//import { fetchCart } from '../store';
 
 
 //import { any component } from './index'
@@ -16,43 +16,25 @@ import { fetchCart } from '../store';
  */
 export const UserHome = (props) => {
 
-  // componentDidMount(){
-
-  //   console.log('in user-home about to load cart');
-  //   this.props.loadUsersCart(this.props.userId);
-
-  // }
-
     const {email} = props
 
     return (
-      <div>
-        <h3>Welcome, {email}</h3>
+      <div id="userHomePage">
+        <div>
+          <h1>Welcome,</h1>
+          <h2>{email}</h2>
+        </div>
       </div>
     )
 
-
-
-
 }
-// = (props) => {
-//   const {email} = props
-//   console.log('in user home');
-
-//   return (
-//     <div>
-//       <h3>Welcome, {email}</h3>
-//     </div>
-//   )
-// }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    //recentAdd id section
-    //userId: state.user.id,
+    userId: state.user.id,
     email: state.user.email
   }
 }
