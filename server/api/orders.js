@@ -29,7 +29,7 @@ router.put('/', asyncHandler(async (req, res, next) => {
   console.log('req.body', req.body)
   const order = await Order.update(req.body, {
     where: {
-			id: req.body.id
+      id: req.body.id,
 		},
 		returning: true
   })
