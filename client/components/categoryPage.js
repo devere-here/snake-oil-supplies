@@ -18,9 +18,9 @@ const CategoryPage = (props) => {
             props.selectedProducts.map( product => {
               let productElem = document.getElementById(product.id)
               if (event.target.value === '') {
-                productElem.className = 'active'
+                productElem.parentElement.parentElement.classList.remove('hidden');
               } else if (!product.name.includes(event.target.value)) {
-                productElem.className = 'hidden'
+                productElem.parentElement.parentElement.classList.add('hidden');
               }
             })
           } } />

@@ -14,7 +14,7 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   const orderDetails = await OrderDetail.findAll({
     where: { orderId: req.params.id },
   })
-  console.log(orderDetails)
+  console.log('orderDetails', orderDetails)
   res.json(orderDetails)
 }));
 
