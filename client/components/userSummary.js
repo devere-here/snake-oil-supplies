@@ -5,13 +5,14 @@ import {Link} from 'react-router-dom'
 
 
 const UserSummary = (props) => {
-  const {user} = props;
+  const {customer} = props;
+  console.log('customer', customer)
   return (
-    <Link to={`/settings/${user.id}`}>
-      <div id={user.id} className="visible">
-      <p>{user.id}: {user.name}: {user.email}</p>
+    <Link to={`/settings/${customer.id}`}>
+      <div id={customer.id} className="visible">
+      <p>{customer.id}: {customer.creditCardName}: {customer.email}</p>
         {
-      //to be rendered upon click <SOS-Form formObj={user} />
+      //to be rendered upon click <SOS-Form formObj={customer} />
         }
       </div>
     </Link>

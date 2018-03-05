@@ -6,10 +6,11 @@ import {UserSummary} from './index'
 const AllUsers = (props) => {
   return (
     <div>
-    { props.allUsers.map( user => {
+    { props.users.map( user => {
+      console.log('customer', user)
       return (
         <div key={user.email}>
-          <UserSummary user={user} />
+          <UserSummary customer={user} />
         </div>
       )
     })}
@@ -17,6 +18,6 @@ const AllUsers = (props) => {
   )
 }
 
-  const mapState = state => ({allUsers: state.users})
+  const mapState = state => ({users: state.users})
   const mapDispatch = (/*dispatch*/) => () => ({})
   export default connect(mapState, mapDispatch)(AllUsers)
