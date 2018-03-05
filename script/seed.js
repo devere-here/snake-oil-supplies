@@ -14,6 +14,23 @@ const { User, Product, Order, OrderDetail } = require('../server/db/models')
 const NUM_PRODUCTS = 30; // number of random products per category. 30 products X 3 categories = 90 total
 const NUM_USERS = 30; // we make 4 users, then an additional 30 users for a total of 34
 
+var randArrayEl = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+var getFakeFirstName = function () {
+  var fakeFirsts = ['Nimit', 'Dave', 'Shanna', 'Ashi', 'Gabriel', 'Emily', 'Ashley', 'Kimber', 'Ani'];
+
+  return randArrayEl(fakeFirsts)
+};
+
+var getFakeLastName = function () {
+
+  var fakeLasts = ['Hashington', 'Hopperson', 'McQueue', 'OLogn', 'Ternary', 'Claujure', 'Dunderproto', 'Binder', 'Docsreader', 'Ecma'];
+
+  return randArrayEl(fakeLasts);
+};
+
 let arrUsers = [
   { email: 'marko@lis.com', password: '123' },
   { email: 'esteve@dev.com', password: '123' },
@@ -21,15 +38,17 @@ let arrUsers = [
   { email: 'johnny@ara.com', password: '123', isAdmin: true },
 ]
 for (let i = 0; i < NUM_USERS; i++) {
+  let fakeFirstName = getFakeFirstName();
+  let fakeLastName = getFakeLastName();
   let user = {
-    email: `user${i + 5}@email.com`,
+    email: `${fakeFirstName}${fakeLastName}${i}@email.com`,
     password: '123',
     addressStreet: `${Math.random().toString(36).substring(2, 15)} street`,
     addressCity: `${Math.random().toString(36).substring(2, 15)} city`,
     addressState: `${Math.random().toString(36).substring(2, 15)} state`,
     addressCountry: `${Math.random().toString(36).substring(2, 15)} country`,
     addressZipCode: Math.floor(Math.random() * 90000) + 10000,
-    creditCardName: `user${i + 5}'s name`,
+    creditCardName: `${fakeFirstName} ${fakeLastName} ${i}`,
     creditNumber: Math.floor(Math.random() * 9000000000000000) + 1000000000000000,
     creditSecurityCode: Math.floor(Math.random() * 900) + 100,
     creditExpirationDate: Date.now() + Math.floor(Math.random() * 90000000000) + 10000000000,
