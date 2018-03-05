@@ -8,14 +8,12 @@ module.exports = router
 /****** USER ******/
 //When user creates session, return cart if exists
 router.get('/', isLoggedIn, asyncHandler(async (req, res, next) => {
-  //console.log('REQ.USER', req.user)
   const order = await Order.findOrCreate({
     where: {
       userId: req.user.id,
       completed: false,
     }
   })
-  console.log('order', order)
   res.json(order)
 }));
 

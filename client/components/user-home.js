@@ -16,13 +16,6 @@ import {connect} from 'react-redux';
  */
 export const UserHome = (props) => {
 
-  // componentDidMount(){
-
-  //   console.log('in user-home about to load cart');
-  //   this.props.loadUsersCart(this.props.userId);
-
-  // }
-
     const {email} = props
 
     return (
@@ -35,24 +28,13 @@ export const UserHome = (props) => {
     )
 
 }
-// = (props) => {
-//   const {email} = props
-//   console.log('in user home');
-
-//   return (
-//     <div>
-//       <h3>Welcome, {email}</h3>
-//     </div>
-//   )
-// }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    //recentAdd id section
-    //userId: state.user.id,
+    userId: state.user.id,
     email: state.user.email
   }
 }

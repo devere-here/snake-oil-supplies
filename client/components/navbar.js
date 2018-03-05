@@ -79,29 +79,3 @@ Navbar.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
 }
 
-
-// <h1>Snake Oil Supplies</h1>
-//     <nav>
-//       {isLoggedIn ? (
-//         <div>
-//           {/* The navbar will show these links after you log in */}
-//           <Link to="/home">Home</Link>
-//           <a href="#" onClick={handleClick}>
-//             Logout
-//           </a>
-//         </div>
-//       ) : (
-//         <div>
-//           {/* The navbar will show these links before you log in */}
-//           <Link to="/login">Login</Link>
-//           <Link to="/signup">Sign Up</Link>
-
-//         </div>
-//       )}
-//       <Link to="/category/apparel">Apparel</Link>
-//       <Link to="/category/health">Health/Supplements</Link>
-//       <Link to="/category/miscellaneous">Miscellaneous</Link>
-//       <Link to="/cart">View Cart</Link>
-//     </nav>
-  //   <hr />
-  // </div>
