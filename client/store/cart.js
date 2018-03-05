@@ -1,6 +1,5 @@
 import axios from 'axios'
 import history from '../history'
-import { create } from 'domain';
 
 //ACTION TYPES
 
@@ -19,21 +18,6 @@ export const updateCart = cart => {
   return {type: UPDATE_CART, cart}};
 
 //THUNKS
-
-// export const updateUserCartThunk = (id, cartOrder) => async(dispatch) => {
-//   try {
-//     let obj = {
-//       quantity: cartOrder.quantity,
-//       productId: cartOrder.id
-//       orderId:
-//     }
-//     let orderDeets = await axios.put(`/api/orderDetails/${id}`, obj)
-//   }
-//   catch (err) {
-//     console.log(err)
-//   }
-
-// }
 
 export const postCart = () => async(dispatch) => {
   try {
@@ -57,11 +41,3 @@ export default function (prevState = defaultCart, action){
       return prevState;
   }
 }
-
-// using localStorage window object. cart in the store should
-// not be necessary
-
-
-// case GET_CART:
-//       return Object.assign({}, prevState, action.cart);
-//       //return action.cart;
