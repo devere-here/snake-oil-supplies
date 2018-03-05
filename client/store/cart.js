@@ -20,6 +20,21 @@ export const updateCart = cart => {
 
 //THUNKS
 
+// export const updateUserCartThunk = (id, cartOrder) => async(dispatch) => {
+//   try {
+//     let obj = {
+//       quantity: cartOrder.quantity,
+//       productId: cartOrder.id
+//       orderId:
+//     }
+//     let orderDeets = await axios.put(`/api/orderDetails/${id}`, obj)
+//   }
+//   catch (err) {
+//     console.log(err)
+//   }
+
+// }
+
 export const postCart = () => async(dispatch) => {
   try {
     let cart = await axios.post('/api/orders');
@@ -30,11 +45,13 @@ export const postCart = () => async(dispatch) => {
   }
 }
 
+
 //REDUCER
 
 export default function (prevState = defaultCart, action){
   switch (action.type){
     case UPDATE_CART:
+      console.log('in reducer', action.cart);
       return action.cart;
     default:
       return prevState;
