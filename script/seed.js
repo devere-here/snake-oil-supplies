@@ -11,25 +11,54 @@
  */
 const db = require('../server/db')
 const { User, Product, Order, OrderDetail } = require('../server/db/models')
+const NUM_PRODUCTS = 30; // number of random products per category. 30 products X 3 categories = 90 total
+const NUM_USERS = 30; // we make 4 users, then an additional 30 users for a total of 34
 
-const NUM_PRODUCTS = 30;
-const NUM_USERS = 30;
-const NUM_ORDERS = 100;
-const NUM_ORDER_DETAILS = 500;
+var randArrayEl = function (arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+};
+
+var getFakeFirstName = function () {
+  var fakeFirsts = ['Nimit', 'Dave', 'Shanna', 'Ashi', 'Gabriel', 'Emily', 'Ashley', 'Kimber', 'Ani'];
+
+  return randArrayEl(fakeFirsts)
+};
+
+var getFakeLastName = function () {
+
+  var fakeLasts = ['Hashington', 'Hopperson', 'McQueue', 'OLogn', 'Ternary', 'Claujure', 'Dunderproto', 'Binder', 'Docsreader', 'Ecma'];
+
+  return randArrayEl(fakeLasts);
+};
 
 let arrUsers = [
   { email: 'marko@lis.com', password: '123' },
-  { email: 'esteve@dev.com', password: '123'},
+  { email: 'esteve@dev.com', password: '123' },
   { email: 'mike@sam.com', password: '123', isAdmin: true },
-  { email: 'johnny@ara.com', password: '123', isAdmin: true},
+  { email: 'johnny@ara.com', password: '123', isAdmin: true },
 ]
-for (var i = 0; i < NUM_USERS; i++) {
-  
-  let randomUser = {
-    email: `user${i+1}@email.com`,
-    password: '123'
+for (let i = 0; i < NUM_USERS; i++) {
+  let fakeFirstName = getFakeFirstName();
+  let fakeLastName = getFakeLastName();
+  let user = {
+    email: `${fakeFirstName}${fakeLastName}${i}@email.com`,
+    password: '123',
+    addressStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+    addressCity: `${Math.random().toString(36).substring(2, 15)} city`,
+    addressState: `${Math.random().toString(36).substring(2, 15)} state`,
+    addressCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+    addressZipCode: Math.floor(Math.random() * 90000) + 10000,
+    creditCardName: `${fakeFirstName} ${fakeLastName} ${i}`,
+    creditNumber: Math.floor(Math.random() * 9000000000000000) + 1000000000000000,
+    creditSecurityCode: Math.floor(Math.random() * 900) + 100,
+    creditExpirationDate: Date.now() + Math.floor(Math.random() * 90000000000) + 10000000000,
+    billingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+    billingCity: `${Math.random().toString(36).substring(2, 15)} city`,
+    billingState: `${Math.random().toString(36).substring(2, 15)} state`,
+    billingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+    billingZipCode: Math.floor(Math.random() * 90000) + 10000,
   }
-  arrUsers.push(randomUser);
+  arrUsers.push(user);
 }
 
 let arrProducts = []
@@ -38,9 +67,9 @@ let categories = {
   health: NUM_PRODUCTS,
   miscellaneous: NUM_PRODUCTS,
 }
-for (key in categories){
+for (let key in categories) {
   let randomProduct = {}
-  for (var i = 0; i < categories[key]; i++) {
+  for (let i = 0; i < categories[key]; i++) {
     let randomImageNumber = Math.floor(Math.random() * Math.floor(200))
     randomProduct = {
       name: `${key} ${i}`,
@@ -48,37 +77,47 @@ for (key in categories){
       description: `description ${i}`,
       price: Math.floor(Math.random() * Math.floor(100)),
       imageUrl: `https://picsum.photos/500/400?image=${randomImageNumber}`,
-      rating: Math.floor(Math.random() * Math.floor(5))
+      rating: Math.floor(Math.random() * Math.floor(5)),
+      review: `${Math.random().toString(36).substring(2, 15)} review`,
     }
-    //console.log('randomProduct', randomProduct)
     arrProducts.push(randomProduct);
   }
 }
 
 let arrOrders = [];
-for (var orderIndex = 0; orderIndex < NUM_ORDERS; orderIndex++) {
-  let randomUserId = Math.floor(Math.random() * arrUsers.length) + 1;
-  let randomOrder = {
-    completed: true,
-    shippingAddress: `${orderIndex+1} Hanover Square`,
-    //userId: randomUserId,
+for (let userId = 1; userId <= arrUsers.length; userId++) { // for each user ...
+  let num = Math.floor(Math.random() * 5) + 1 // generate between 1 and 5 orders
+  for (let orderIndex = 1; orderIndex <= num; orderIndex++) {
+    let orderInstance = {
+      userId: userId,
+      completed: true,
+      shippingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
+      shippingCity: `${Math.random().toString(36).substring(2, 15)} city`,
+      shippingState: `${Math.random().toString(36).substring(2, 15)} state`,
+      shippingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+      shippingZipCode: Math.floor(Math.random() * 90000) + 10000,
+    }
+    arrOrders.push(orderInstance);
   }
-  arrOrders.push(randomOrder);
 }
 
 let arrOrderDetails = [];
-for (var i = 0; i < NUM_ORDER_DETAILS; i++) {
-    let randomQuantity = Math.floor(Math.random() * Math.floor(5));
-    let randomOrderId = Math.floor(Math.random() * Math.floor(arrOrders.length));
-    let randomProductId = Math.floor(Math.random() * Math.floor(arrProducts.length));
-  let randomOrderDetail = {
-    quantity: randomQuantity,
-    orderId: randomOrderId,
-    productId: randomProductId,
+
+for (let orderIdx = 1; orderIdx <= arrOrders.length; orderIdx++) {  // for each unique order and product pair ...
+  for (let productIndex = 1; productIndex <= arrProducts.length; productIndex++) {
+
+    let randomQuantity = Math.floor(Math.random() * 5) + 1
+
+    let orderDetailInstance = {
+      orderId: orderIdx,
+      productId: productIndex,
+      quantity: randomQuantity,
+    }
+    arrOrderDetails.push(orderDetailInstance)
   }
-  arrOrderDetails.push(randomOrderDetail);
 }
 
+// }
 // const arrProducts = [
 //   {
 //     name: 'shoes',
@@ -137,28 +176,28 @@ for (var i = 0; i < NUM_ORDER_DETAILS; i++) {
 //     rating: 4.5,
 //   },
 
-
 async function seed() {
   await db.sync({ force: true })
   console.log('db synced!')
-  // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
-  // executed until that promise resolves!
 
-  const tables = await Promise.all([
-    User.bulkCreate(arrUsers),
-    Product.bulkCreate(arrProducts),
-    Order.bulkCreate(arrOrders),
-    OrderDetail.bulkCreate(arrOrderDetails)
-  ])
-  // Wowzers! We can even `await` on the right-hand side of the assignment operator
-  // and store the result that the promise resolves to in a variable! This is nice!
-  console.log(`seeded ${tables[0].length} users`)
-  console.log(`seeded ${tables[1].length} products`)
-  console.log(`seeded ${tables[2].length} orders`)
-  console.log(`seeded ${tables[3].length} order details`)
+  await User.bulkCreate(arrUsers)
+    .then(() => {
+      console.log(`seeded ${arrUsers.length} users`);
+      Product.bulkCreate(arrProducts);
+    })
+    .then(() => {
+      console.log(`seeded ${arrProducts.length} products`);
+      Order.bulkCreate(arrOrders);
+    })
+    .then(() => {
+      console.log(`seeded ${arrOrders.length} orders`);
+      OrderDetail.bulkCreate(arrOrderDetails);
+    })
+    .then(() => {
+      console.log(`seeded ${arrOrderDetails.length} orderDetails`);
+    })
   console.log(`seeded successfully`)
 }
-
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
 // that might occur inside of `seed`
@@ -173,7 +212,6 @@ seed()
     db.close()
     console.log('db connection closed')
   })
-
 /*
  * note: everything outside of the async function is totally synchronous
  * The console.log below will occur before any of the logs that occur inside
