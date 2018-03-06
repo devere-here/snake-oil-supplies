@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { AllUsers, AllProducts } from './index'
+import { AllUsers, AllProducts, AllOrders } from './index'
 import { fetchAllUsers, fetchAllOrders } from '../store'
 
 
@@ -15,22 +15,13 @@ class AdminPage extends Component {
     console.log('ADMIN DID MOUNT', this.props.fetchUsersAndOrders)
     this.props.fetchUsersAndOrders();
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps !== this.props) {
-  //     console.log('ADMIN DID RECEIVE')
-  //     this.props.fetchUsersAndOrders();
-  //   }
-  // }
-
   render() {
     console.log('Admin Page should render')
     return (
       <div>
         <h1>Admin Page</h1>
-        { /*
-          <Orders />
-        */}
         
+        <AllOrders />
         <AllProducts />
         <AllUsers />
 
@@ -40,12 +31,13 @@ class AdminPage extends Component {
 }
 
 const mapState = (state) => ({
-  users: state.users
+  users: state.users,
+  orders: state.orderDetails,
 });
 const mapDispatch = (dispatch) => () => ({
   fetchUsersAndOrders() {
     dispatch(fetchAllUsers())
-    //dispatch(fetchAllOrders())
+    dispatch(fetchAllOrders())
   }
 });
 export default connect(mapState, mapDispatch)(AdminPage);

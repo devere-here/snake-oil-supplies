@@ -11,7 +11,7 @@ export {default as SingleProductPage} from './singleProductPage'
 export {default as ProductSummary} from './productSummary'
 export {default as ProductEdit} from './productEdit'
 export {default as AllProducts} from './allProducts'
-
+export {default as AllOrders} from './allOrders'
 export {default as CartPage} from './cartPage'
 export {default as CheckoutPage} from './checkoutPage'
 export {default as UpdateUserSettings} from './updateUserSettings'
