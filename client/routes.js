@@ -6,8 +6,19 @@ import PropTypes from 'prop-types'
 import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage, ProductEdit } from './components'
 import { me, fetchProducts, updateCart, fetchPastOrders, fetchReviews } from './store'
 
-export function getCartFromLocalStorage(props) {
+import {
+  Login, Signup, UserHome, Category,
+  SingleProductPage, CartPage, CheckoutPage,
+  fetchReviews, UserSettings, PastOrderPage,
+  UpdateUserSettings, AdminPage,
+  UserEdit, ProductEdit, OrderEdit,
+  AllUsers, AllProducts, AllOrders
+} from './components'
 
+import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAllOrders, fetchReviews  } from './store'
+
+
+export function getCartFromLocalStorage(props) {
   console.log(' in getCartFromLocalStorage, props', props);
 
   let keys = Object.keys(localStorage);
@@ -16,14 +27,11 @@ export function getCartFromLocalStorage(props) {
     return keys.indexOf(product.id.toString()) !== -1
   })
 
-  // recentAdd - our cart data in state did not have a quantity property. It does now
   cartProducts.forEach((cartProduct) => {
     cartProduct.quantity = +localStorage.getItem(cartProduct.id)
-
   })
 
   return cartProducts;
-
 }
 
 
@@ -98,9 +106,10 @@ class Routes extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.products !== this.props.products || nextProps.userId !== this.props.userId) {
       console.log('receive - load cart')
-
-
       this.conditionallyLoadCart(nextProps)
+
+      console.log('routes.js admin comp WP', this.props.isAdmin)
+      if (this.props.isAdmin) this.props.adminFetch()
     }
   }
 
@@ -127,8 +136,13 @@ class Routes extends Component {
               isAdmin &&
               <Switch>
                 <Route exact path="/admin" component={AdminPage} />
-                <Route exact path="/settings/:id" component={UserEdit} />
+                <Route exact path="/users/admin" component={AllUsers} />
+                <Route exact path="/products/admin" component={AllProducts} />
+                <Route exact path="/orders/admin" component={AllOrders} />
+                <Route exact path="/users/admin/:id" component={UserEdit} />
                 <Route exact path="/products/admin/:id" component={ProductEdit} />
+                <Route exact path="/orders/admin/:id" component={OrderEdit} />
+
               </Switch>
             }
           </Switch>
@@ -154,7 +168,8 @@ const mapState = (state) => {
     userId: state.user.id,
     products: state.products,
     cart: state.cart,
-
+    users: state.users,
+    orders: state.orders,
   }
 }
 
@@ -168,6 +183,10 @@ const mapDispatch = (dispatch) => {
     loadCart(cart) {
       dispatch(updateCart(cart));
       dispatch(fetchPastOrders());
+    },
+    adminFetch() {
+      dispatch(fetchAllUsers())
+      dispatch(fetchAllOrders())
     },
     loadProductReviews() {
       dispatch(fetchReviews())

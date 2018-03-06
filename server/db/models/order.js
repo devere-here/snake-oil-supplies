@@ -27,6 +27,16 @@ const Order = db.define('order', {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  shipped: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
+  canceled: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 
 
 });
