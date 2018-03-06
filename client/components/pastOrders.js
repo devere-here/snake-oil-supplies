@@ -19,6 +19,9 @@ const PastOrders = props =>  {
                   <div key={itemInOrder.name}>
                     <ul type="none">
                       <h3>Product Name</h3>
+                      <li>
+                      <img src={itemInOrder.imageUrl} height="200px" width="200px" />
+                      </li>
                       <li>{itemInOrder.name}</li>
                       <h3>Quantity</h3>
                       <li>{itemInOrder.orderDetail.quantity}</li>
