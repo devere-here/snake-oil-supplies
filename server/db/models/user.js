@@ -34,7 +34,7 @@ const User = db.define('user', {
     defaultValue: false
   },
   phone: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     validate: {
       len: [10, 10]
     },
@@ -76,7 +76,7 @@ const User = db.define('user', {
     // }
   },
   creditSecurityCode: {
-    type: Sequelize.STRING,
+    type: Sequelize.INTEGER,
     validate: {
       len: [3, 4]
     }

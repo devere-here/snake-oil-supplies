@@ -43,6 +43,7 @@ for (let i = 0; i < NUM_USERS; i++) {
   let user = {
     email: `${fakeFirstName}${fakeLastName}${i}@email.com`,
     password: '123',
+    phone: Math.floor(Math.random() * 9000000000) + 1000000000,
     addressStreet: `${Math.random().toString(36).substring(2, 15)} street`,
     addressCity: `${Math.random().toString(36).substring(2, 15)} city`,
     addressState: `${Math.random().toString(36).substring(2, 15)} state`,
