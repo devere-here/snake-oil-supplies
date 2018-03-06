@@ -12,7 +12,7 @@ class UpdateUserSettings extends Component {
   submitHandler(event) {
     event.preventDefault();
     const user = this.props.user
-    let updatedUser = Object.assign({}, user)
+    const updatedUser = Object.assign({}, user)
     for (let i = 0; i < event.target.length - 1; i++) {
       updatedUser[event.target[i].name] = event.target[i].value
     }

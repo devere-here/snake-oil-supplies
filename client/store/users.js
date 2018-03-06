@@ -13,7 +13,7 @@ const getUsers = users => ({ type: GET_USERS, users })
 //THUNK CREATORS
 export const fetchAllUsers = () => async (dispatch) => {
   try {
-    const allUsers = await axios.get('/api/users/all')
+    const allUsers = await axios.get('/api/users/admin')
     dispatch(getUsers(allUsers.data))
   } catch (err) {
     console.log(err)
