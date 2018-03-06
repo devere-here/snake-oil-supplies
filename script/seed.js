@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Product, Order, OrderDetail } = require('../server/db/models')
+const { User, Product, Order, OrderDetail, Review } = require('../server/db/models')
 const NUM_PRODUCTS = 30; // number of random products per category. 30 products X 3 categories = 90 total
 const NUM_USERS = 30; // we make 4 users, then an additional 30 users for a total of 34
 
@@ -18,7 +18,7 @@ var randArrayEl = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-// simple fisher yates implementation
+// // simple fisher yates implementation
 // const shuffle = (deck) => {
 //   let randomizedDeck = [];
 //   let array = deck.slice();
@@ -246,6 +246,29 @@ for (let orderIdx = 1; orderIdx <= arrOrders.length; orderIdx++) {  // for each 
   arrOrderDetails.push(orderDetailInstance)
 }
 
+let arrReviews = [];
+
+// let shuffledUserIds = []
+// for (let i = 1; i <= arrUsers.length; i++){
+//   shuffledUserIds.push(i)
+// }
+// shuffledUserIds = shuffle(shuffledUserIds)
+
+for (let i = 1; i <= arrProducts.length; i++) {
+  let randomRating = Math.floor(Math.random() * 5) + 1;
+  //let randomProduct = Math.floor(Math.random() * arrProducts.length) + 1;
+  let randomUser = Math.floor(Math.random() * arrUsers.length) + 1
+
+  let reviewInstance = {
+    rating: randomRating,
+    reviewText: `It's ${getAdj()}`,
+    emailAddress: `${getAdj()}${getNoun()}${i}@email.com`,
+    userId: randomUser,
+    productId: i
+  }
+  arrReviews.push(reviewInstance);
+}
+
 
 // }
 // const arrProducts = [
@@ -325,6 +348,10 @@ async function seed() {
     })
     .then(() => {
       console.log(`seeded ${arrOrderDetails.length} orderDetails`);
+      Review.bulkCreate(arrReviews);
+    })
+    .then(() => {
+      console.log(`seeded ${arrReviews.length} reviews`);
     })
   console.log(`seeded successfully`)
 }

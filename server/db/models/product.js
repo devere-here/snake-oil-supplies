@@ -32,9 +32,6 @@ const Product = db.define('product', {
       max: 5
     }
   },
-  review: {
-    type: Sequelize.TEXT,
-  }
 
 })
 
