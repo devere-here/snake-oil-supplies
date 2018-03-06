@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
 //import { getCartFromLocalStorage } from '../routes';
 //import { fetchCart } from '../store';
 
@@ -23,6 +24,7 @@ export const UserHome = (props) => {
         <div>
           <h1>Welcome,</h1>
           <h2>{email}</h2>
+          <Link to="/pastorders" ><button>See Past Orders</button></Link>
         </div>
       </div>
     )

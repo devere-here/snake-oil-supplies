@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, ProductEdit, OrderEdit } from './components'
-import { me, fetchProducts, updateCart } from './store'
+import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage, ProductEdit, OrderEdit } from './components'
+import { me, fetchProducts, updateCart, fetchPastOrders } from './store'
 
 export function getCartFromLocalStorage(props) {
 
@@ -94,6 +94,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/settings" component={UserSettings} />
+            <Route path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
             {
               isAdmin &&
@@ -102,7 +103,7 @@ class Routes extends Component {
                 <Route exact path="/settings/:id" component={UserEdit} />
                 <Route exact path="/products/admin/:id" component={ProductEdit} />
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
-                
+
               </Switch>
             }
           </Switch>
@@ -140,7 +141,8 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchProducts());
     },
     loadCart(cart) {
-      dispatch(updateCart(cart))
+      dispatch(updateCart(cart));
+      dispatch(fetchPastOrders());
     },
   }
 }
