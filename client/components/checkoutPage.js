@@ -16,60 +16,47 @@ class CheckoutPage extends Component {
 
   }
 
-  handleUserSubmit(evt) {
+async handleUserSubmit(evt) {
     evt.preventDefault();
+    let userData = {};
+
+    for (var i = 0; i < evt.target.length - 1 ; i++){
+      userData[`${evt.target[i].name}`] = evt.target[i].value;
+    }
 
     let modifiedOrder = {
       id: this.props.cart.id,
       userId: this.props.user.id,
       completed: true,
+      shippingStreet: userData.addressStreet,
+      shippingCity: userData.addressCity,
+      shippingState: userData.addressState,
+      shippingCountry: userData.addressCountry,
+      shippingZipCode: userData.addressZipCode
     }
 
-    //from the userId, get it's orderId (completed:false) then use the orderID to set (completed: true)
-    let userData;
-
-    for (var i = 0; i < evt.target.length - 1 ; i++){
-      console.log(evt.target[i].value)
-      //let name = evt.target.name;
-      //`${evt.target.name}`
-      console.log('evt.target[i].name', evt.target[i].name);
-
-      userData[`${evt.target[i].name}`] = evt.target[i].value;
-    }
-
-    // axios.put(`/api/orders/${orderId}`, modifiedOrder)
-    // .then()
+    await axios.put(`/api/users/${this.props.user.id}`, userData)
+    await axios.put(`/api/orders`, modifiedOrder)
   }
 
-  handleGuestSubmit(evt) {
+handleGuestSubmit(evt) {
     evt.preventDefault();
 
     let guestInfo = {
       isGuest: 'true',
       password: '123'
     }
-
     let guestOrder = {
       completed: 'true'
     }
-
     for (var i = 0; i < evt.target.length - 1 ; i++){
-      console.log(evt.target[i].value)
-      //let name = evt.target.name;
-      //`${evt.target.name}`
       guestInfo[`${evt.target[i].name}`] = evt.target[i].value;
     }
-
-    console.log('guestInfo', guestInfo);
-
 
     //dispatch thunk
     axios.post('/auth/guest', guestInfo)
     .then((res) => res.data)
     .then((res) => {
-
-      console.log('res', res);
-
       guestOrder.userId = res.id;
       guestOrder.shippingStreet = res.addressStreet;
       guestOrder.shippingCity = res.addressCity;
@@ -77,14 +64,8 @@ class CheckoutPage extends Component {
       guestOrder.shippingCountry = res.addressCountry;
       guestOrder.shippingZipCode = res.addressZipCode;
 
-      console.log('guestOrder', guestOrder);
-
-
-
       axios.post('/api/orders', guestOrder)
       .then((resOrders) => {
-        console.log('in api/orders');
-        // let orderId = res.data.id;
         let orderDetailsArray = this.props.cart.map((cartItem) => {
           return {
             orderId: resOrders.data.id,
@@ -95,20 +76,13 @@ class CheckoutPage extends Component {
 
         axios.post('/api/orderDetails', {orderDetailsArray})
         .then(() => {console.log('orderdetails should be made, check your database')})
-
-
       })
-
     })
-    //.then(res.data.id)
-
-
   }
 
   render() {
 
     if (this.props.isLoggedIn) {
-      console.log('we are a logged in user', this.props.user)
 
       return (
         <div>
