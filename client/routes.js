@@ -3,13 +3,10 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage, ProductEdit } from './components'
-import { me, fetchProducts, updateCart, fetchPastOrders, fetchReviews } from './store'
-
 import {
   Login, Signup, UserHome, Category,
   SingleProductPage, CartPage, CheckoutPage,
-  fetchReviews, UserSettings, PastOrderPage,
+  UserSettings, PastOrderPage,
   UpdateUserSettings, AdminPage,
   UserEdit, ProductEdit, OrderEdit,
   AllUsers, AllProducts, AllOrders
