@@ -1,18 +1,25 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { fetchPastOrders } from '../store'
 
 class PastOrders extends Component {
   constructor(props) {
     super(props);
     //this;
   }
+
+  componentDidMount(){
+    this.props.loadPastOrders();
+
+  }
+
   render() {
-    console.log('in render');
-    console.log('this.props.pastOrders', this.props.pastOrders);
+
+    let pastOrders = this.props.pastOrders.reverse();
     return (
       <div>
       <h1>In past orders</h1>
-      { this.props.pastOrders.map((pastOrder) => {
+      { pastOrders.map((pastOrder) => {
       return (
           <div>
             <h1>Submitted At: {pastOrder.updatedAt}</h1>
@@ -39,6 +46,12 @@ const mapState = state => {
     pastOrders: state.pastOrders
   }
 };
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    loadPastOrders() {
+      dispatch(fetchPastOrders());
+    },
+  }
+}
 
 export default connect(mapState, mapDispatch)(PastOrders);
