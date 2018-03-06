@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, OrderDetail } = require('../db/models')
+const { Order, OrderDetail, User, Product } = require('../db/models')
 const asyncHandler = require('express-async-handler')
 const {isSelf, isAdmin, isLoggedIn} = require('../permissions')
 
@@ -48,15 +48,15 @@ router.delete('/:id', isSelf, asyncHandler(async (req, res, next) => {
 }))
 
 //When user wants to view past orders
-router.get('/pastOrders', isSelf, asyncHandler(async (req, res, next) => {
+router.get('/pastOrders', isLoggedIn, asyncHandler(async (req, res, next) => {
   const order = await Order.findAll({
     where: {
       userId: req.user.id,
       completed: true,
     },
-    include: {
-      model: OrderDetail,
-    },
+    include: [{
+      model: Product
+    }],
   })
   res.json(order)
 }));
