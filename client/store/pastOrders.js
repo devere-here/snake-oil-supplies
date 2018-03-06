@@ -30,10 +30,8 @@ export const fetchPastOrders = () => async (dispatch) => {
 export default function (prevState = defaultOrders, action) {
   switch (action.type) {
     case GET_PAST_ORDERS:
-      return action.pastOrders;
+      return action.pastOrders.reverse();
     default:
       return prevState;
   }
 }
-
-

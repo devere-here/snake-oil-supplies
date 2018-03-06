@@ -1,30 +1,38 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 
-class PastOrders extends Component {
-  constructor(props) {
-    super(props);
-    //this;
-  }
-  render() {
-    console.log('in render');
-    console.log('this.props.pastOrders', this.props.pastOrders);
+const PastOrders = props =>  {
+
     return (
       <div>
       <h1>In past orders</h1>
-      { this.props.pastOrders.map((pastOrder) => {
+      { props.pastOrders.map((pastOrder) => {
+        var totalPrice = 0;
       return (
-          <div>
-            <h1>Submitted At: {pastOrder.updatedAt}</h1>
+          <div key={pastOrder.id}>
+            <h1>Submitted At: {new Date(pastOrder.updatedAt).toDateString()}</h1>
             <ul>
               {pastOrder.products.map((itemInOrder) => {
-                return (<li>
-                  <h3>{itemInOrder.name}</h3>
-                  <h3>{itemInOrder.quantity}</h3>
-                  <h3>{itemInOrder.price}</h3>
-                  </li>)
+                totalPrice += itemInOrder.price * itemInOrder.orderDetail.quantity
+                let price = itemInOrder.price * itemInOrder.orderDetail.quantity
+                return (
+                  <div key={itemInOrder.name}>
+                    <ul type="none">
+                      <h3>Product Name</h3>
+                      <li>{itemInOrder.name}</li>
+                      <h3>Quantity</h3>
+                      <li>{itemInOrder.orderDetail.quantity}</li>
+                      <h3>Price</h3>
+                      <li>${price}</li>
+                    </ul>
+                    <hr />
+
+                  </div>
+                )
               })}
             </ul>
+            <h2>TOTAL PRICE</h2>
+            <h3>{totalPrice}</h3>
           </div>
         )
       })}
@@ -32,7 +40,7 @@ class PastOrders extends Component {
 
     )
   }
-}
+
 
 const mapState = state => {
   return {

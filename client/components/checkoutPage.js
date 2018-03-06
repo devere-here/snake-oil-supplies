@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import {auth} from '../store'
+import { fetchPastOrders } from '../store/pastOrders'
 //import {Link, withRouter} from 'react-router-dom'
 // import { ProductSummary } from './index'
 // import { fetchGuestCart } from '../store'
@@ -37,6 +38,8 @@ async handleUserSubmit(evt) {
 
     await axios.put(`/api/users/${this.props.user.id}`, userData)
     await axios.put(`/api/orders`, modifiedOrder)
+    this.props.loadCart()
+    this.props.history.push('/pastOrders')
   }
 
 handleGuestSubmit(evt) {
@@ -178,14 +181,9 @@ const mapState = (state, ownProps) => {
   }
 };
 const mapDispatch = (dispatch) => ({
-  // loadGuestCart(arr) {
-  //   dispatch(fetchGuestCart(arr))
-  // },
-  // loadUsersCart(userId) {
-  //   dispatch(fetchCart(userId))
-  // }
-
-
+  loadCart() {
+    dispatch(fetchPastOrders())
+  },
 });
 
 export default connect(mapState, mapDispatch)(CheckoutPage);
