@@ -15,7 +15,7 @@ import {
   AllUsers, AllProducts, AllOrders
 } from './components'
 
-import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAllOrders  } from './store'
+import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAllOrders, fetchReviews  } from './store'
 
 
 export function getCartFromLocalStorage(props) {
@@ -184,16 +184,13 @@ const mapDispatch = (dispatch) => {
       dispatch(updateCart(cart));
       dispatch(fetchPastOrders());
     },
-<<<<<<< HEAD
     adminFetch() {
       dispatch(fetchAllUsers())
       dispatch(fetchAllOrders())
-    }
-=======
+    },
     loadProductReviews() {
       dispatch(fetchReviews())
     },
->>>>>>> master
   }
 }
 
