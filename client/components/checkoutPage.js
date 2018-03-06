@@ -33,7 +33,9 @@ async handleUserSubmit(evt) {
       shippingCity: userData.addressCity,
       shippingState: userData.addressState,
       shippingCountry: userData.addressCountry,
-      shippingZipCode: userData.addressZipCode
+      shippingZipCode: userData.addressZipCode,
+      email: this.props.user.email
+
     }
 
     await axios.put(`/api/users/${this.props.user.id}`, userData)
@@ -66,6 +68,7 @@ handleGuestSubmit(evt) {
       guestOrder.shippingState = res.addressState;
       guestOrder.shippingCountry = res.addressCountry;
       guestOrder.shippingZipCode = res.addressZipCode;
+      guestOrder.email = res.email;
 
       axios.post('/api/orders', guestOrder)
       .then((resOrders) => {

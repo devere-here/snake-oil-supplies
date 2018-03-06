@@ -16,8 +16,6 @@ const isAdmin = function (req, res, next) {
 }
 
 const isSelf = function (req, res, next) {
-  console.log('MADE IT HERE', req.user)
-  console.log('REQ.REQUESTEDUSER', req.requestedUser)
   _isLoggedIn(req) && _isSelf(req) ? next() : deny(next)
 }
 
