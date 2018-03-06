@@ -26,6 +26,28 @@ export function getCartFromLocalStorage(props) {
 
 }
 
+
+function mergeCarts(userCart, guestCart) {
+
+  let userCartIdArr = userCart.map((cartItem) => cartItem.id);
+  let orderDetailsArray = [];
+
+  guestCart.forEach((guestCartItem) => {
+    if (!userCartIdArr.find((cartItemId) => cartItemId === guestCartItem.id)){
+      userCart.push(guestCartItem);
+      orderDetailsArray.push({
+        orderId: userCart.id,
+        productId: guestCartItem.id,
+        quantity: guestCartItem.quantity
+      })
+    }
+  })
+
+  axios.post('/api/orderDetails', {orderDetailsArray})
+  return userCart;
+}
+
+
 /**
  * COMPONENT
  */
@@ -55,14 +77,18 @@ class Routes extends Component {
 
   async conditionallyLoadCart(nextProps) {
     let cartProducts = [];
+    let localStorageCartProducts = getCartFromLocalStorage(nextProps);
     if (nextProps.isLoggedIn) {
       cartProducts = await this.fetchCart()
+      cartProducts = mergeCarts(cartProducts, localStorageCartProducts);
+      //important I need to make a put request to api/orderDetails, but are we keeping it?
     } else {
-      cartProducts = getCartFromLocalStorage(nextProps);
+      cartProducts = localStorageCartProducts
     }
     console.log('in conditionallyLoadCart', cartProducts);
     this.props.loadCart(cartProducts)
   }
+
 
   componentDidMount() {
     this.props.loadInitialData()
