@@ -13,6 +13,7 @@ export {default as Category} from './categoryPage'
 export {default as ProductSummary} from './productSummary'
 export {default as SingleProductPage} from './singleProductPage'
 export {default as ProductEdit} from './productEdit'
+export {default as AddProduct} from './addProduct'
 
 export {default as AllOrders} from './allOrders'
 export {default as OrderSummary} from './orderSummary'

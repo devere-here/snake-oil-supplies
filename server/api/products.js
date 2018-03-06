@@ -19,12 +19,12 @@ router.get('/:id', asyncHandler(async (req, res, next) => {
   res.json(product)
 }))
 
-router.post('/', isAdmin, asyncHandler(async (req, res, next) => {
+router.post('/admin', isAdmin, asyncHandler(async (req, res, next) => {
   const product = await Product.create(req.body)
   res.status(201).json(product)
 }))
 
-router.put('/:id', isAdmin, asyncHandler(async (req, res, next) => {
+router.put('/admin:id', isAdmin, asyncHandler(async (req, res, next) => {
   const product = await Product.update(req.body, {
     where: {
       id: req.params.id
@@ -34,15 +34,12 @@ router.put('/:id', isAdmin, asyncHandler(async (req, res, next) => {
   res.json(product[1][0])
 }))
 
-router.delete('/:id', isAdmin, asyncHandler(async (req, res, next) => {
-  const product = await Product.destroy({
+router.delete('/admin:id', isAdmin, asyncHandler(async (req, res, next) => {
+  await Product.destroy({
     where: {
       id: req.params.id
     }
   })
   res.status(204)
 }))
-
-
-
 
