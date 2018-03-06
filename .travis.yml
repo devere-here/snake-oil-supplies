@@ -17,12 +17,12 @@ install:
 before_script:
   - psql -c 'create database "snake-oil-supplies-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: whispering-chamber-32888 # see README
+  api_key:
+    secure: "YYInIVTNE3iquIOUrCPgpSEtZTYGV6Y9MJE38BpYvQ76zn5+BJoOS+QZOzqnKszu4750LrCRKuU/r8XS8yfkzQxEuQLDYrYkLBvc5T8rFxlnXWJVGv135LaHskedkiH7JGIgn/cpiU/eOzkkehwkPvB4hGkS2mbv3K4U12bjg9AMU8NinqDs4FDVqbS1kRZRUab28wbJa95cDzRPtlc+Nh5si9s0ziTKf65C4BnmDMrusFiDPJFb9peMZsKgDDPc3ZpP2Mi/7Fg7U+JcI2DJV8/cpV+0q+j6fom6GAuKuTz9+j+8qjyfUDgbEpyTG846fQ3/7f83/d2033jOUEO+agefqsPde0wKh+i4GfvQcDhEV7b3QAW6UhS5rLvNECb9DH7n2sFfEywT83vJfwtW9W5IzQZ/eV+duyjS+MlJHDHk7hS0L43BYQboe3Og17pjfT/gfDTcwmeVKAHe3YbgEwHkpZLZ0kEYc3IQs3dxLGB9pIlGi8R2YzvVryQU9p3f4HpgX3c2n3DFXC0HJ3Y5/vPSjlPFK8nJk41g4zfecpmxNcIzHYCAuSUzW3x98XBzh6aGq3X4Et/PxGCB5VDS8D0HVQeQ0bvBhUV+p6ZVGXn0UsBV6WObzOyNH06O/TJ8FollmdDFWt9+I0go5jBrMCSxI0OTwrhgOAafTVwcLHY=" # see README
