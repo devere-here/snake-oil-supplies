@@ -3,6 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/orders', require('./orders'))
+router.use('/review', require('./review'))
 router.use('/orderDetails', require('./orderDetails'))
 router.use('/products', require('./products'))
 
