@@ -11,7 +11,6 @@ class OrderEdit extends Component {
     super()
     this.updateOrder = this.updateOrder.bind(this)
     this.updateDetail = this.updateDetail.bind(this)
-    this.state = {id: 0, productId: 0}
   }
 
   async updateOrder(event) {
@@ -35,10 +34,8 @@ class OrderEdit extends Component {
     for (let field of event.target) {
       if (field.value) orderDetail[field.name] = field.value
     }
-    console.log('orderDetail', orderDetail)
     try {
       await axios.put(`/api/orderDetails/admin`, orderDetail)
-      console.log('fetch orders')
       this.props.fetchOrders()
     }
     catch (err) {
@@ -51,7 +48,6 @@ class OrderEdit extends Component {
     const order = this.props.orders.find((orderInstance) => {
       return orderInstance.id === orderId
     })
-    console.log('order', order)
 
     let orderDetailsArr = [];
     if (order.products.length > 0) {
@@ -61,18 +57,20 @@ class OrderEdit extends Component {
       })
       delete order.products
     }
-
+    const template = {quantity: 0, orderId: 0, productId: 0}
     const disabledKeys = ['orderId', 'productId']
 
     return (
       <div id={order.id} className="visible">
         <h3>Edit Order #{order.id}</h3>
         <SOSForm obj={order} handleSubmit={this.updateOrder} />
+        <h3>Add To Order</h3>
+        <SOSForm obj={template} handleSubmit={this.updateDetail} />
         <h3>Edit Order List</h3>
         {
           orderDetailsArr.map( details => (
             <div key ={details.productId}>
-              <h5>{details.name}</h5>
+              <h4>{details.name}</h4>
               {delete details.name}
               <SOSForm obj={details} handleSubmit={this.updateDetail} exclude={disabledKeys} />
             </div>
