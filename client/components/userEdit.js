@@ -14,27 +14,20 @@ class UserEdit extends Component {
 
   async handleSubmit(event) {
     event.preventDefault()
-    const fieldsReqInt = ['id', 'phone', 'creditNumber', 'creditSecurityCode', 'billingZipCode', 'addressZipCode']
-    const fieldsReqBool = ['isAdmin', 'isGuest']
     const user = {};
     for (let field of event.target) {
-      console.log('target field', field)
-      if (fieldsReqInt.includes(field)) {
-        user[field.name] = Number(field.value)
-      }
-      else if (fieldsReqBool.includes(field)) {
-        user[field.name] = Boolean(field.value)
-      }
-      else {user[field.name] = field.value}
+      if (field.value) user[field.name] = field.value
     }
     console.log('user', user)
     try {
       await axios.put(`/api/users/admin/${user.id}`, user)
+      console.log('fetch users')
       this.props.fetchUsers()
     }
     catch (err) {
       console.log(err)
     }
+    console.log('redirect to /admin')
     this.props.history.push('/admin')
   }
 

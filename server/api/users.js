@@ -31,12 +31,12 @@ router.get('/admin/:id', isAdmin, (req, res, next) => {
 });
 
 router.put('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
-    await User.update(req.body, {
-      where: {
-        id: req.params.id
-      }
+    const response = await User.update(req.body, {
+      where: { id: req.params.id },
+      returning: true,
+      
     });
-    res.sendStatus(201);
+    res.json(response)
   })
 );
 

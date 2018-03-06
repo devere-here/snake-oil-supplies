@@ -9,6 +9,9 @@ export {Login, Signup} from './auth-form'
 export {default as Category} from './categoryPage'
 export {default as SingleProductPage} from './singleProductPage'
 export {default as ProductSummary} from './productSummary'
+export {default as ProductEdit} from './productEdit'
+export {default as AllProducts} from './allProducts'
+
 export {default as CartPage} from './cartPage'
 export {default as CheckoutPage} from './checkoutPage'
 export {default as UpdateUserSettings} from './updateUserSettings'
@@ -18,4 +21,5 @@ export {default as UserSummary} from './userSummary'
 export {default as UserEdit} from './userEdit'
 export {default as AdminPage} from './admin'
 export {default as SOSForm} from './sos-form'
+
 
