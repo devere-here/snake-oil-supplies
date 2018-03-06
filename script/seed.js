@@ -29,6 +29,13 @@ var randArrayEl = function (arr) {
 //   }
 //   return randomizedDeck;
 // };
+
+// let shuffledUserIds = []
+// for (let i = 1; i <= arrUsers.length; i++){
+//   shuffledUserIds.push(i)
+// }
+// shuffledUserIds = shuffle(shuffledUserIds)
+
 //const deck = [1,2,3,4,5,6,7,8];
 // Testing
 //console.log(shuffle(deck));
@@ -235,7 +242,7 @@ for (let userId = 1; userId <= arrUsers.length; userId++) { // for each user ...
 let arrOrderDetails = [];
 for (let orderIdx = 1; orderIdx <= arrOrders.length; orderIdx++) {  // for each unique order and product pair ...
 
-  let randomProduct = Math.floor(Math.random() * arrProducts.length)
+  let randomProduct = Math.floor(Math.random() * arrProducts.length) + 1
   let randomQuantity = Math.floor(Math.random() * 5) + 1
 
   let orderDetailInstance = {
@@ -247,12 +254,6 @@ for (let orderIdx = 1; orderIdx <= arrOrders.length; orderIdx++) {  // for each 
 }
 
 let arrReviews = [];
-
-// let shuffledUserIds = []
-// for (let i = 1; i <= arrUsers.length; i++){
-//   shuffledUserIds.push(i)
-// }
-// shuffledUserIds = shuffle(shuffledUserIds)
 
 for (let i = 1; i <= arrProducts.length; i++) {
   let randomRating = Math.floor(Math.random() * 5) + 1;
@@ -334,26 +335,21 @@ async function seed() {
   console.log('db synced!')
 
   await User.bulkCreate(arrUsers)
-    .then(() => {
-      console.log(`seeded ${arrUsers.length} users`);
-      Product.bulkCreate(arrProducts);
-    })
-    .then(() => {
-      console.log(`seeded ${arrProducts.length} products`);
-      Order.bulkCreate(arrOrders);
-    })
-    .then(() => {
-      console.log(`seeded ${arrOrders.length} orders`);
-      OrderDetail.bulkCreate(arrOrderDetails);
-    })
-    .then(() => {
-      console.log(`seeded ${arrOrderDetails.length} orderDetails`);
-      Review.bulkCreate(arrReviews);
-    })
-    .then(() => {
-      console.log(`seeded ${arrReviews.length} reviews`);
-    })
-  console.log(`seeded successfully`)
+  console.log(`seeded ${arrUsers.length} users`);
+  
+  await Product.bulkCreate(arrProducts);
+  console.log(`seeded ${arrProducts.length} products`);
+  
+  await Order.bulkCreate(arrOrders);
+  console.log(`seeded ${arrOrders.length} orders`);
+  
+  await OrderDetail.bulkCreate(arrOrderDetails);
+  console.log(`seeded ${arrOrderDetails.length} orderDetails`);
+  
+  await Review.bulkCreate(arrReviews);
+  console.log(`seeded ${arrReviews.length} reviews`);
+  
+  console.log(`seeded successfully`);
 }
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
