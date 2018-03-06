@@ -4,7 +4,7 @@ import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage, ProductEdit } from './components'
-import { me, fetchProducts, updateCart, fetchPastOrders } from './store'
+import { me, fetchProducts, updateCart, fetchPastOrders, fetchReviews } from './store'
 
 export function getCartFromLocalStorage(props) {
 
@@ -91,7 +91,8 @@ class Routes extends Component {
 
 
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.loadInitialData();
+    this.props.loadProductReviews();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -167,6 +168,9 @@ const mapDispatch = (dispatch) => {
     loadCart(cart) {
       dispatch(updateCart(cart));
       dispatch(fetchPastOrders());
+    },
+    loadProductReviews() {
+      dispatch(fetchReviews())
     },
   }
 }
