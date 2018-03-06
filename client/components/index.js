@@ -18,4 +18,6 @@ export {default as UserSummary} from './userSummary'
 export {default as UserEdit} from './userEdit'
 export {default as AdminPage} from './admin'
 export {default as SOSForm} from './sos-form'
+export {default as PastOrderPage} from './pastOrders'
+
 
