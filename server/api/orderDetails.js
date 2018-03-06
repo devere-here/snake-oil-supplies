@@ -1,9 +1,9 @@
 // import products from '../../client/store/products';
 
 const router = require('express').Router()
-const { OrderDetail, Product } = require('../db/models')
+const { OrderDetail } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const { isSelf } = require('../permissions')
+const { isAdmin } = require('../permissions')
 
 module.exports = router
 
@@ -52,3 +52,14 @@ router.delete('/:id', asyncHandler(async (req, res, next) => {
   res.json(orderDetails)
 }));
 
+router.put('/admin', isAdmin, asyncHandler(async (req, res, next) => {
+  const orderDetails = await OrderDetail.update(req.body, {
+    where: {
+      orderId: req.body.orderId,
+      productId: req.body.productId
+		},
+		returning: true
+  })
+
+  res.json(orderDetails)
+}));

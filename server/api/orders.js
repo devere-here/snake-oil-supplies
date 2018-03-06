@@ -39,7 +39,7 @@ router.put('/', asyncHandler(async (req, res, next) => {
 
 //When user wants to clear cart
 router.delete('/:id', isSelf, asyncHandler(async (req, res, next) => {
-  const destroy = await Order.destroy({
+  await Order.destroy({
     where: {
       userId: req.user.id,
       completed: false,
@@ -61,14 +61,35 @@ router.get('/pastOrders', isLoggedIn, asyncHandler(async (req, res, next) => {
   res.json(order)
 }));
 
-
 /****** ADMIN ******/
 //When admin wants to see all orders
-router.get('/', isAdmin, asyncHandler(async (req, res, next) => {
+router.get('/admin', isAdmin, asyncHandler(async (req, res, next) => {
   const order = await Order.findAll({
-    include: {
-      model: OrderDetail,
-    },
+    include: [{
+      model: Product,
+    }],
   })
   res.json(order)
 }));
+
+//admin put
+router.put('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
+  console.log('req.body', req.body)
+  const order = await Order.update(req.body, {
+    where: {
+      id: req.params.id,
+		},
+		returning: true
+  })
+  res.json(order)
+}));
+
+//admin delete
+router.delete('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
+  await Order.destroy({
+    where: {
+      userId: req.params.id,
+      completed: false,
+  }})
+  res.status(204)
+}))
