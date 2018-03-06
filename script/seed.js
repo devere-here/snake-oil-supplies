@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Product, Order, OrderDetail } = require('../server/db/models')
+const { User, Product, Order, OrderDetail, Review } = require('../server/db/models')
 const NUM_PRODUCTS = 30; // number of random products per category. 30 products X 3 categories = 90 total
 const NUM_USERS = 30; // we make 4 users, then an additional 30 users for a total of 34
 
@@ -18,24 +18,159 @@ var randArrayEl = function (arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-var getFakeFirstName = function () {
-  var fakeFirsts = ['Nimit', 'Dave', 'Shanna', 'Ashi', 'Gabriel', 'Emily', 'Ashley', 'Kimber', 'Ani'];
+// // simple fisher yates implementation
+// const shuffle = (deck) => {
+//   let randomizedDeck = [];
+//   let array = deck.slice();
+//   while (array.length !== 0) {
+//   	let rIndex = Math.floor(array.length * Math.random());
+//     randomizedDeck.push(array[rIndex]);
+//     array.splice(rIndex, 1)
+//   }
+//   return randomizedDeck;
+// };
 
+// let shuffledUserIds = []
+// for (let i = 1; i <= arrUsers.length; i++){
+//   shuffledUserIds.push(i)
+// }
+// shuffledUserIds = shuffle(shuffledUserIds)
+
+//const deck = [1,2,3,4,5,6,7,8];
+// Testing
+//console.log(shuffle(deck));
+
+var getFakeFirstName = function () {
+  var fakeFirsts = ['Nimit', 'Dave', 'Shanna', 'Ashi', 'Gabriel', 'Emily', 'Ashley', 'Kimber', 'Ani', 'Mike', 'Sam', 'Johnny', 'Marko', 'Steve'];
   return randArrayEl(fakeFirsts)
 };
 
 var getFakeLastName = function () {
-
-  var fakeLasts = ['Hashington', 'Hopperson', 'McQueue', 'OLogn', 'Ternary', 'Claujure', 'Dunderproto', 'Binder', 'Docsreader', 'Ecma'];
-
+  var fakeLasts = ['Hashington', 'Hopperson', 'McQueue', 'OLogn', 'Ternary', 'Claujure', 'Dunderproto', 'Binder', 'Docsreader', 'Ecma', 'Ara', 'Lis', 'Dev'];
   return randArrayEl(fakeLasts);
 };
 
+var getBool = function () {
+  var fakeBool = [true, false]
+  return randArrayEl(fakeBool)
+}
+
+var getAdj = function () {
+  var fakeAdj = [
+    'capable'
+    , 'educational'
+    , 'dramatic'
+    , 'aware'
+    , 'boring'
+    , 'financial'
+    , 'technical'
+    , 'alive'
+    , 'happy'
+    , 'wooden'
+    , 'cultural'
+    , 'southern'
+    , 'powerful'
+    , 'former'
+    , 'practical'
+    , 'friendly'
+    , 'dangerous'
+    , 'lonely'
+    , 'substantial'
+    , 'electronic'
+    , 'mad'
+    , 'serious'
+    , 'helpful'
+    , 'old'
+    , 'medical'
+    , 'impressive'
+    , 'actual'
+    , 'united'
+    , 'global'
+    , 'critical'
+    , 'angry'
+    , 'unfair'
+    , 'weak'
+    , 'known'
+    , 'guilty'
+    , 'competitive'
+    , 'suitable'
+    , 'tall'
+    , 'ugly'
+    , 'hot'
+    , 'confident'
+    , 'sorry'
+    , 'conscious'
+    , 'additional'
+    , 'lucky'
+    , 'existing'
+    , 'huge'
+    , 'terrible'
+    , 'administrative'
+    , 'political'
+
+  ]
+  return randArrayEl(fakeAdj)
+}
+
+var getNoun = function () {
+  var fakeNoun = [
+    'operation'
+    , 'debt'
+    , 'art'
+    , 'garbage'
+    , 'drama'
+    , 'river'
+    , 'instruction'
+    , 'supermarket'
+    , 'concept'
+    , 'responsibility'
+    , 'recommendation'
+    , 'procedure'
+    , 'tongue'
+    , 'president'
+    , 'consequence'
+    , 'economics'
+    , 'literature'
+    , 'selection'
+    , 'map'
+    , 'restaurant'
+    , 'investment'
+    , 'psychology'
+    , 'hair'
+    , 'writer'
+    , 'medicine'
+    , 'payment'
+    , 'politics'
+    , 'relation'
+    , 'soup'
+    , 'person'
+    , 'blood'
+    , 'depression'
+    , 'presence'
+    , 'entertainment'
+    , 'percentage'
+    , 'variety'
+    , 'employee'
+    , 'entry'
+    , 'difference'
+    , 'government'
+    , 'advertising'
+    , 'perspective'
+    , 'camera'
+    , 'law'
+    , 'category'
+    , 'length'
+    , 'reaction'
+    , 'hospital'
+    , 'oven'
+    , 'professor'
+
+  ]
+  return randArrayEl(fakeNoun)
+}
+
 let arrUsers = [
-  { email: 'marko@lis.com', password: '123' },
-  { email: 'esteve@dev.com', password: '123' },
-  { email: 'mike@sam.com', password: '123', isAdmin: true },
-  { email: 'johnny@ara.com', password: '123', isAdmin: true },
+  { email: 'admin@fullstack.com', password: '123', isAdmin: true }
 ]
 for (let i = 0; i < NUM_USERS; i++) {
   let fakeFirstName = getFakeFirstName();
@@ -44,19 +179,19 @@ for (let i = 0; i < NUM_USERS; i++) {
     email: `${fakeFirstName}${fakeLastName}${i}@email.com`,
     password: '123',
     phone: Math.floor(Math.random() * 9000000000) + 1000000000,
-    addressStreet: `${Math.random().toString(36).substring(2, 15)} street`,
-    addressCity: `${Math.random().toString(36).substring(2, 15)} city`,
-    addressState: `${Math.random().toString(36).substring(2, 15)} state`,
-    addressCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+    addressStreet: `${getAdj()} ${getNoun()} street`,
+    addressCity: `${getAdj()} ${getNoun()} city`,
+    addressState: `${getAdj()} ${getNoun()} state`,
+    addressCountry: `${getAdj()} ${getNoun()} country`,
     addressZipCode: Math.floor(Math.random() * 90000) + 10000,
     creditCardName: `${fakeFirstName} ${fakeLastName} ${i}`,
     creditNumber: Math.floor(Math.random() * 9000000000000000) + 1000000000000000,
     creditSecurityCode: Math.floor(Math.random() * 900) + 100,
     creditExpirationDate: Date.now() + Math.floor(Math.random() * 90000000000) + 10000000000,
-    billingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
-    billingCity: `${Math.random().toString(36).substring(2, 15)} city`,
-    billingState: `${Math.random().toString(36).substring(2, 15)} state`,
-    billingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+    billingStreet: `${getAdj()} ${getNoun()} street`,
+    billingCity: `${getAdj()} ${getNoun()} city`,
+    billingState: `${getAdj()} ${getNoun()} state`,
+    billingCountry: `${getAdj()} ${getNoun()} country`,
     billingZipCode: Math.floor(Math.random() * 90000) + 10000,
   }
   arrUsers.push(user);
@@ -73,13 +208,13 @@ for (let key in categories) {
   for (let i = 0; i < categories[key]; i++) {
     let randomImageNumber = Math.floor(Math.random() * Math.floor(200))
     randomProduct = {
-      name: `${key} ${i}`,
+      name: `${getAdj()} ${getNoun()} ${i}`,
       category: `${key}`,
-      description: `description ${i}`,
+      description: `It's a ${getAdj()}, ${getAdj()}, and ${getAdj()} ${getNoun()}`,
       price: Math.floor(Math.random() * Math.floor(100)),
       imageUrl: `https://picsum.photos/500/400?image=${randomImageNumber}`,
       rating: Math.floor(Math.random() * Math.floor(5)),
-      review: `${Math.random().toString(36).substring(2, 15)} review`,
+      review: `It's ${getAdj()}`,
     }
     arrProducts.push(randomProduct);
   }
@@ -91,11 +226,13 @@ for (let userId = 1; userId <= arrUsers.length; userId++) { // for each user ...
   for (let orderIndex = 1; orderIndex <= num; orderIndex++) {
     let orderInstance = {
       userId: userId,
-      completed: true,
-      shippingStreet: `${Math.random().toString(36).substring(2, 15)} street`,
-      shippingCity: `${Math.random().toString(36).substring(2, 15)} city`,
-      shippingState: `${Math.random().toString(36).substring(2, 15)} state`,
-      shippingCountry: `${Math.random().toString(36).substring(2, 15)} country`,
+      completed: getBool(),
+      shipped: getBool(),
+      cancelled: getBool(),
+      shippingStreet: `${getAdj()} ${getNoun()} street`,
+      shippingCity: `${getAdj()} ${getNoun()} city`,
+      shippingState: `${getAdj()} ${getNoun()} state`,
+      shippingCountry: `${getAdj()} ${getNoun()} country`,
       shippingZipCode: Math.floor(Math.random() * 90000) + 10000,
     }
     arrOrders.push(orderInstance);
@@ -103,20 +240,36 @@ for (let userId = 1; userId <= arrUsers.length; userId++) { // for each user ...
 }
 
 let arrOrderDetails = [];
-
 for (let orderIdx = 1; orderIdx <= arrOrders.length; orderIdx++) {  // for each unique order and product pair ...
-  for (let productIndex = 1; productIndex <= arrProducts.length; productIndex++) {
 
-    let randomQuantity = Math.floor(Math.random() * 5) + 1
+  let randomProduct = Math.floor(Math.random() * arrProducts.length) + 1
+  let randomQuantity = Math.floor(Math.random() * 5) + 1
 
-    let orderDetailInstance = {
-      orderId: orderIdx,
-      productId: productIndex,
-      quantity: randomQuantity,
-    }
-    arrOrderDetails.push(orderDetailInstance)
+  let orderDetailInstance = {
+    orderId: orderIdx,
+    productId: randomProduct,
+    quantity: randomQuantity,
   }
+  arrOrderDetails.push(orderDetailInstance)
 }
+
+let arrReviews = [];
+
+for (let i = 1; i <= arrProducts.length; i++) {
+  let randomRating = Math.floor(Math.random() * 5) + 1;
+  //let randomProduct = Math.floor(Math.random() * arrProducts.length) + 1;
+  let randomUser = Math.floor(Math.random() * arrUsers.length) + 1
+
+  let reviewInstance = {
+    rating: randomRating,
+    reviewText: `It's ${getAdj()}`,
+    emailAddress: `${getAdj()}${getNoun()}${i}@email.com`,
+    userId: randomUser,
+    productId: i
+  }
+  arrReviews.push(reviewInstance);
+}
+
 
 // }
 // const arrProducts = [
@@ -182,22 +335,21 @@ async function seed() {
   console.log('db synced!')
 
   await User.bulkCreate(arrUsers)
-    .then(() => {
-      console.log(`seeded ${arrUsers.length} users`);
-      Product.bulkCreate(arrProducts);
-    })
-    .then(() => {
-      console.log(`seeded ${arrProducts.length} products`);
-      Order.bulkCreate(arrOrders);
-    })
-    .then(() => {
-      console.log(`seeded ${arrOrders.length} orders`);
-      OrderDetail.bulkCreate(arrOrderDetails);
-    })
-    .then(() => {
-      console.log(`seeded ${arrOrderDetails.length} orderDetails`);
-    })
-  console.log(`seeded successfully`)
+  console.log(`seeded ${arrUsers.length} users`);
+  
+  await Product.bulkCreate(arrProducts);
+  console.log(`seeded ${arrProducts.length} products`);
+  
+  await Order.bulkCreate(arrOrders);
+  console.log(`seeded ${arrOrders.length} orders`);
+  
+  await OrderDetail.bulkCreate(arrOrderDetails);
+  console.log(`seeded ${arrOrderDetails.length} orderDetails`);
+  
+  await Review.bulkCreate(arrReviews);
+  console.log(`seeded ${arrReviews.length} reviews`);
+  
+  console.log(`seeded successfully`);
 }
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors

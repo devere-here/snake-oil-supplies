@@ -2,6 +2,21 @@ const router = require('express').Router()
 const { Order, Product } = require('../db/models')
 const asyncHandler = require('express-async-handler')
 const {isSelf, isAdmin, isLoggedIn} = require('../permissions')
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'snakeoilsalesmen1701@gmail.com',
+    pass: 'snakeoil'
+  }
+});
+
+const emailInfo = {
+  from: 'snakeoilsalesmen1701@gmail.com',
+  subject: 'Snake Oil Salesmen Confirmation Email',
+  text: 'We have gotten your order. And will ship it in a couple days.'
+}
 
 module.exports = router
 
@@ -19,14 +34,43 @@ router.get('/', isLoggedIn, asyncHandler(async (req, res, next) => {
 
 //When user adds to cart for first time / guest checks out
 router.post('/', asyncHandler(async (req, res, next) => {
+  //if (req.body.completed === true) {
+    emailInfo.to = req.body.email;
+    console.log('emailInfo', emailInfo);
+
+    transporter.sendMail(emailInfo, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    delete req.body.email;
+
+  //}
   const order = await Order.create(req.body)
-  console.log('order is, ', order);
   res.json(order)
 }));
 
 //When user checks out, set completed: true
 router.put('/', asyncHandler(async (req, res, next) => {
-  console.log('req.body', req.body)
+  if (req.body.completed === true) {
+    emailInfo.to = req.body.email;
+    console.log('emailInfo', emailInfo);
+
+
+    transporter.sendMail(emailInfo, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    delete req.body.email;
+
+  }
   const order = await Order.update(req.body, {
     where: {
       id: req.body.id,
