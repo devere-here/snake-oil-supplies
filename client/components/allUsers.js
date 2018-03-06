@@ -7,7 +7,6 @@ const AllUsers = (props) => {
   return (
     <div>
     { props.users.map( user => {
-      console.log('customer', user)
       return (
         <div key={user.email}>
           <UserSummary customer={user} />

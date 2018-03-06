@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { AllUsers } from './index'
+import { AllUsers, AllProducts } from './index'
 import { fetchAllUsers, fetchAllOrders } from '../store'
 
 
@@ -28,10 +28,10 @@ class AdminPage extends Component {
       <div>
         <h1>Admin Page</h1>
         { /*
-        <Products />
-        <Orders />
-      */}
-
+          <Orders />
+        */}
+        
+        <AllProducts />
         <AllUsers />
 
       </div>

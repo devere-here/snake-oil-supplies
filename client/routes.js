@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage } from './components'
+import { Login, Signup, UserHome, Category, SingleProductPage, CartPage, CheckoutPage, UserSettings, UpdateUserSettings, UserEdit, AdminPage, PastOrderPage, ProductEdit } from './components'
 import { me, fetchProducts, updateCart, fetchPastOrders } from './store'
 
 export function getCartFromLocalStorage(props) {
@@ -101,6 +101,7 @@ class Routes extends Component {
               <Switch>
                 <Route exact path="/admin" component={AdminPage} />
                 <Route exact path="/settings/:id" component={UserEdit} />
+                <Route exact path="/products/admin/:id" component={ProductEdit} />
               </Switch>
             }
           </Switch>
