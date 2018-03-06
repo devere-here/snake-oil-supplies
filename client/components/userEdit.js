@@ -27,13 +27,14 @@ class UserEdit extends Component {
     catch (err) {
       console.log(err)
     }
-    console.log('redirect to /admin')
-    this.props.history.push('/admin')
+    console.log('redirect to /users')
+    this.props.history.push('/users/admin')
   }
 
   render() {
+    const userId = +this.props.match.params.id
     const user = this.props.users.find((userInstance) => {
-      return userInstance.id === +this.props.match.params.id
+      return userInstance.id === userId
     })
     return (
       <div id={user.id} className="visible">

@@ -10,14 +10,13 @@ function SOSForm(props) {
 
   return (
     <div>
-      <h1>User Information</h1>
       <form onSubmit={props.handleSubmit}>
         <ul type="none">
           {
             keys.map(key => (
               <li key={key}>
                 <label>{key}</label>
-                <input name ={key} defaultValue={obj[key]} />
+                <input name ={key} defaultValue={obj[key]} disabled={props.exclude && props.exclude.includes(key)} />
               </li>
             ))
           }
@@ -29,6 +28,6 @@ function SOSForm(props) {
 
 }
 
-const mapState = state => ({ user: state.user })
+const mapState = null
 const mapDispatch = null
 export default connect(mapState, mapDispatch)(SOSForm);

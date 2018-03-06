@@ -61,20 +61,18 @@ router.get('/pastOrders', isLoggedIn, asyncHandler(async (req, res, next) => {
   res.json(order)
 }));
 
-
 /****** ADMIN ******/
 //When admin wants to see all orders
-router.get('/', isAdmin, asyncHandler(async (req, res, next) => {
+router.get('/admin', isAdmin, asyncHandler(async (req, res, next) => {
   const order = await Order.findAll({
-    include: {
-      model: OrderDetail,
-    },
+    include: [{
+      model: Product,
+    }],
   })
   res.json(order)
 }));
 
 //admin put
-
 router.put('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
   console.log('req.body', req.body)
   const order = await Order.update(req.body, {

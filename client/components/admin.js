@@ -1,43 +1,26 @@
-import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { AllUsers, AllProducts, AllOrders } from './index'
-import { fetchAllUsers, fetchAllOrders } from '../store'
 
+function AdminPage() {
 
-class AdminPage extends Component {
-  constructor() {
-    super()
-  }
-
-  componentDidMount() {
-    console.log('ADMIN DID MOUNT', this.props.fetchUsersAndOrders)
-    this.props.fetchUsersAndOrders();
-  }
-  render() {
-    console.log('Admin Page should render')
-    return (
-      <div>
-        <h1>Admin Page</h1>
-        
-        <AllOrders />
-        <AllProducts />
-        <AllUsers />
-
-      </div>
-    )
-  }
+  return (
+    <div>
+      <h1>Admin Page</h1>
+      <Link to="/orders/admin">
+        <button>All Orders</button>
+      </Link>
+      <Link to="/users/admin">
+        <button>All Customers</button>
+      </Link>
+      <Link to="/products/admin">
+        <button>All Products</button>
+      </Link>
+    </div>
+  )
 }
 
-const mapState = (state) => ({
-  users: state.users,
-  orders: state.orderDetails,
-});
-const mapDispatch = (dispatch) => () => ({
-  fetchUsersAndOrders() {
-    dispatch(fetchAllUsers())
-    dispatch(fetchAllOrders())
-  }
-});
+const mapState = null;
+const mapDispatch = null;
+
 export default connect(mapState, mapDispatch)(AdminPage);

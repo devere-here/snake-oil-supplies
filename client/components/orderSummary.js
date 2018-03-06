@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 
 const OrderSummary = (props) => {
   const { order } = props;
+
   return (
     <div>
       <Link to={`/orders/admin/${order.id}`}>
@@ -13,13 +14,11 @@ const OrderSummary = (props) => {
           <p>Order# {order.id}, UserId: {order.userId}, Completed:{order.completed}</p>
         </div>
       </Link>
-     
+
     </div>
   )
 }
 
-const mapState = (state) => ({
-  isAdmin: !!state.user.isAdmin,
-});
+const mapState = (/*state*/) => ({});
 const mapDispatch = (/*dispatch*/) => () => ({});
 export default connect(mapState, mapDispatch)(OrderSummary);
