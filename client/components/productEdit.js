@@ -5,41 +5,54 @@ import {SOSForm} from './index'
 import { fetchProducts } from '../store'
 import axios from 'axios'
 
-
 class ProductEdit extends Component {
   constructor () {
     super()
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.editProduct = this.editProduct.bind(this)
+    this.deleteProduct = this.deleteProduct.bind(this)
   }
 
-  async handleSubmit(event) {
+  async editProduct(event) {
     event.preventDefault()
     const product = {};
     for (let field of event.target) {
       if (field.value) product[field.name] = field.value
     }
-    console.log('product', product)
+
     try {
-      await axios.put(`/api/products/${product.id}`, product)
-      console.log('fetch products')
+      await axios.put(`/api/products/admin/${product.id}`, product)
       this.props.fetchProducts()
     }
     catch (err) {
       console.log(err)
     }
-    console.log('redirect to /admin')
-    this.props.history.push('/admin')
+    this.props.history.push('/products/admin')
+  }
+
+  async deleteProduct(id) {
+    event.preventDefault()
+
+    try {
+      await axios.delete(`/api/products/admin/${id}`)
+      this.props.fetchProducts()
+    }
+    catch (err) {
+      console.log(err)
+    }
+    this.props.history.push('/products/admin')
   }
 
   render() {
+    const productId = +this.props.match.params.id
     const product = this.props.products.find((productInstance) => {
-      return productInstance.id === +this.props.match.params.id
+      return productInstance.id === productId
     })
-    console.log('product', product)
+
     return (
-      <div id={product.id} className="visible">
+      <div id={productId} className="visible">
         <h3>Edit {product.name}</h3>
-        <SOSForm obj={product} handleSubmit={this.handleSubmit} />
+        <SOSForm obj={product} handleSubmit={this.editProduct} />
+        <button onClick={ () => this.deleteProduct(product.id)}>Delete</button>
       </div>
     )
   }

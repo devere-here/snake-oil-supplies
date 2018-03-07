@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 //ACTION TYPES
 const GET_PRODUCTS = 'GET_PRODUCTS';
@@ -11,7 +10,6 @@ const defaultProducts = [];
 const getProducts = products => ({ type: GET_PRODUCTS, products });
 
 //THUNKS
-
 export const fetchProducts = () => async (dispatch) => {
   try {
     const products = await axios.get('/api/products');
@@ -24,7 +22,6 @@ export const fetchProducts = () => async (dispatch) => {
 }
 
 //REDUCER
-
 export default function (prevState = defaultProducts, action) {
   switch (action.type) {
     case GET_PRODUCTS:
@@ -33,4 +30,3 @@ export default function (prevState = defaultProducts, action) {
       return prevState;
   }
 }
-

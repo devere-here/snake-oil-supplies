@@ -5,7 +5,6 @@ import {SOSForm} from './index'
 import { fetchAllUsers } from '../store'
 import axios from 'axios'
 
-
 class UserEdit extends Component {
   constructor () {
     super()
@@ -18,16 +17,14 @@ class UserEdit extends Component {
     for (let field of event.target) {
       if (field.value) user[field.name] = field.value
     }
-    console.log('user', user)
+
     try {
       await axios.put(`/api/users/admin/${user.id}`, user)
-      console.log('fetch users')
       this.props.fetchUsers()
     }
     catch (err) {
       console.log(err)
     }
-    console.log('redirect to /users')
     this.props.history.push('/users/admin')
   }
 

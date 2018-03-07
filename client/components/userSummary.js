@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 const UserSummary = (props) => {
   const {customer} = props;
   return (
-    <Link to={`/settings/${customer.id}`}>
+    <Link to={`/users/admin/${customer.id}`}>
       <div id={customer.id} className="visible">
         <p>{customer.id}: {customer.creditCardName}: {customer.email}</p>
       </div>
