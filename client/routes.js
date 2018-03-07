@@ -139,7 +139,7 @@ class Routes extends Component {
                 <Route exact path="/users/admin/:id" component={UserEdit} />
                 <Route exact path="/products/admin/:id" component={ProductEdit} />
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
-
+                <Route path="/" component={UserHome} />
               </Switch>
             }
           </Switch>

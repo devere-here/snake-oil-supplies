@@ -19,15 +19,15 @@ export const updateCart = cart => {
 
 //THUNKS
 
-export const postCart = () => async(dispatch) => {
-  try {
-    let cart = await axios.post('/api/orders');
-    dispatch(createCart(cart.data));
-  }
-  catch (err) {
-    console.log(err)
-  }
-}
+// export const postCart = () => async(dispatch) => {
+//   try {
+//     let cart = await axios.post('/api/orders');
+//     dispatch(createCart(cart.data));
+//   }
+//   catch (err) {
+//     console.log(err)
+//   }
+// }
 
 
 //REDUCER
