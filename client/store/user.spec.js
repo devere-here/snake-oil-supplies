@@ -34,7 +34,7 @@ describe('thunk creators', () => {
       return store.dispatch(me())
         .then(() => {
           const actions = store.getActions()
-          expect(actions[0].type).to.be.equal('GET_USER')
+          expect(actions[0].type).to.be.equal('SET_USER')
           expect(actions[0].user).to.be.deep.equal(fakeUser)
         })
     })
