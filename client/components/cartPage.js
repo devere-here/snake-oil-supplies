@@ -69,7 +69,6 @@ class CartPage extends Component {
     if (this.props.isLoggedIn) {
       cartProducts.forEach((cartProduct) => {
         cartProduct.quantity = cartProduct.quantity || 1;
-        totalPrice += (cartProduct.quantity) * cartProduct.price;
       })
     }
 
