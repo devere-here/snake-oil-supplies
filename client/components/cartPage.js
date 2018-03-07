@@ -78,7 +78,6 @@ class CartPage extends Component {
     })
 
 
-
     return (
       <div>
         <h1>In the cart page</h1>

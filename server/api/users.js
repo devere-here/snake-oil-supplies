@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../db/models');
 const asyncHandler = require('express-async-handler');
-const { isAdmin, isSelf, isLoggedIn } = require('../permissions');
+const { isAdmin, isSelf } = require('../permissions');
 
 module.exports = router;
 
@@ -34,7 +34,7 @@ router.put('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
     const response = await User.update(req.body, {
       where: { id: req.params.id },
       returning: true,
-      
+
     });
     res.json(response)
   })

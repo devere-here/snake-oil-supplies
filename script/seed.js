@@ -336,19 +336,19 @@ async function seed() {
 
   await User.bulkCreate(arrUsers)
   console.log(`seeded ${arrUsers.length} users`);
-  
+
   await Product.bulkCreate(arrProducts);
   console.log(`seeded ${arrProducts.length} products`);
-  
+
   await Order.bulkCreate(arrOrders);
   console.log(`seeded ${arrOrders.length} orders`);
-  
+
   await OrderDetail.bulkCreate(arrOrderDetails);
   console.log(`seeded ${arrOrderDetails.length} orderDetails`);
-  
+
   await Review.bulkCreate(arrReviews);
   console.log(`seeded ${arrReviews.length} reviews`);
-  
+
   console.log(`seeded successfully`);
 }
 // Execute the `seed` function
