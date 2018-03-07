@@ -16,9 +16,9 @@ class AddProduct extends Component {
     for (let field of event.target) {
       if (field.value) product[field.name] = field.value
     }
-    let newProduct = {}
+
     try {
-      newProduct = await axios.post(`/api/products/admin`, product)
+      await axios.post(`/api/products/admin`, product)
     }
     catch (err) {
       console.log(err)
