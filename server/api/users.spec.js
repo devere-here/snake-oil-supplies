@@ -20,7 +20,7 @@ describe('User routes', () => {
       })
     })
 
-    xit('GET /api/users', () => {
+    it('GET /api/users', () => {
       return request(app)
         .get('/api/users')
         .expect(200)
