@@ -16,9 +16,9 @@ async handleUserSubmit(evt) {
     evt.preventDefault();
     let userData = {};
 
-    for (let field of event){
-      userData[field.name] = field.value;
-    }
+    for (var i = 0; i < evt.target.length - 1 ; i++){
+      userData[`${evt.target[i].name}`] = evt.target[i].value;
+   }
 
     let modifiedOrder = {
       id: this.props.cart.id,
