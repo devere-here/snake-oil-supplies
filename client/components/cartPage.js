@@ -77,7 +77,7 @@ class CartPage extends Component {
               <div key={product.id}>
                 <img src={product.imageUrl} height="200px" width="200px" />
                 <h3> {product.name} </h3>
-                <h5> {product.price} </h5>
+                <h5> ${product.price} </h5>
                 <h2>QUANTITY : {product.quantity}</h2>
                 <button onClick={() => this.incrementOrDecrement(product, 'decrement')} >-</button>
                 <button onClick={() => this.incrementOrDecrement(product, 'increment')} >+</button>

@@ -10,7 +10,8 @@ import {
   UserSettings, PastOrderPage,
   UpdateUserSettings, AdminPage,
   UserEdit, ProductEdit, OrderEdit,
-  AllUsers, AllProducts, AllOrders
+  AllUsers, AllProducts, AllOrders,
+  Confirmation
 } from './components'
 
 import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAllOrders, fetchReviews  } from './store'
@@ -121,6 +122,7 @@ class Routes extends Component {
         <Route path="/checkout" component={CheckoutPage} />
         <Route exact path="/category/:name" component={Category} />
         <Route path="/category/:name/:id" component={SingleProductPage} />
+        <Route path="/confirmation" component={Confirmation} />
         {
           isLoggedIn &&
           <Switch>
@@ -129,6 +131,7 @@ class Routes extends Component {
             <Route exact path="/settings" component={UserSettings} />
             <Route path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
+            
             {
               isAdmin &&
               <Switch>

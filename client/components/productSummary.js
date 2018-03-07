@@ -6,10 +6,6 @@ const ProductSummary = (props) => {
   const { product } = props
   return (
     <div>
-      {
-        !props.isAdmin ? null :
-          <Link to={`/products/admin/add-product`}>Add Product</Link>
-      }
       <Link to={`/category/${product.category}/${product.id}`}>
         <div id={product.id} className="visible">
           <img src={product.imageUrl} height="200px" width="200px" />
