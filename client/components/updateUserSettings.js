@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { putUser } from '../store';
-import filterObj from 'filter-obj';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { putUser } from '../store'
+import filterObj from 'filter-obj'
+import {SOSForm} from './index'
 
 class UpdateUserSettings extends Component {
   constructor(props){
@@ -13,13 +14,12 @@ class UpdateUserSettings extends Component {
     event.preventDefault();
     const user = this.props.user
     const updatedUser = Object.assign({}, user)
-    for (let i = 0; i < event.target.length - 1; i++) {
-      updatedUser[event.target[i].name] = event.target[i].value
+    for (let field of event.target) {
+      updatedUser[field.name] = field.value
     }
     this.props.dispatchUpdateUser(user.id, updatedUser);
     this.props.history.push('/settings')
   }
-
 
   render() {
     const user = this.props.user
