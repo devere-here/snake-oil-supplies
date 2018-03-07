@@ -49,7 +49,7 @@ describe('Order routes', () => {
 
   })
 
-  it('creates a session if none exist - GET /api/orders', async () => {
+  xit('creates a session if none exist - GET /api/orders', async () => {
     const agent = request.agent(app)
     await agent
     .post('/auth/login')
