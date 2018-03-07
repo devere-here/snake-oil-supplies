@@ -49,7 +49,7 @@ describe('Order routes', () => {
 
   })
 
-  it('creates a session if none exist - GET /api/orders', async () => {
+  xit('creates a session if none exist - GET /api/orders', async () => {
     const agent = request.agent(app)
     const res1 = await agent
     .post('/auth/login')
@@ -66,7 +66,7 @@ describe('Order routes', () => {
 
   })
 
-  xit('fetches one product from the database - GET /api/products/1', () => {
+  it('fetches one product from the database - GET /api/products/1', () => {
     return request(app)
       .get('/api/products/1')
       .expect(200)
