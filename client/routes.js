@@ -129,7 +129,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/settings" component={UserSettings} />
-            <Route path="/pastorders" component={PastOrderPage} />
+            <Route exact path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
             <Route exact path="/" component={UserHome} />
             {
@@ -145,12 +145,12 @@ class Routes extends Component {
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
               </Switch>
             }
-
+            <Route path="/" component={UserHome} />
           </Switch>
         }
 
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {<Route component={Login} />}
       </Switch>
     )
   }

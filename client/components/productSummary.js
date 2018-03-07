@@ -7,17 +7,17 @@ const ProductSummary = (props) => {
   return (
     <div>
       <Link to={`/category/${product.category}/${product.id}`}>
-        <div id={product.id} className="visible">
-          <img src={product.imageUrl} height="200px" width="200px" />
+        <div id={product.id} className="visible projectSummary">
           <h3>{product.name}</h3>
-          <h5>${product.price}</h5>
+          <img className="thumbNailImage" src={product.imageUrl} height="200px" width="200px" />
+          <h4>${product.price}</h4>
         </div>
+        <button>Add To Cart</button>
       </Link>
       {
         !props.isAdmin ? null :
           <Link to={`/products/admin/${product.id}`}><button>Edit</button></Link>
       }
-      <hr />
     </div>
   )
 }

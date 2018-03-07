@@ -28,10 +28,10 @@ class CategoryPage extends Component {
             }} />
           </div>
         </div>
-        <div className="thumbnail-container">
+        <div id="thumbNailContainer">
           { this.state.selectedProducts.map((product) => {
             return (
-              <div className="thumbnail" key={product.name}>
+              <div className="thumbNail" key={product.name}>
                 <ProductSummary product={product} />
               </div>
             )
