@@ -131,7 +131,7 @@ class Routes extends Component {
             <Route exact path="/settings" component={UserSettings} />
             <Route path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
-            
+            <Route exact path="/" component={UserHome} />
             {
               isAdmin &&
               <Switch>
@@ -143,12 +143,9 @@ class Routes extends Component {
                 <Route exact path="/users/admin/:id" component={UserEdit} />
                 <Route exact path="/products/admin/:id" component={ProductEdit} />
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
-<<<<<<< HEAD
-                <Route path="/" component={UserHome} />
-=======
->>>>>>> master
               </Switch>
             }
+
           </Switch>
         }
 
