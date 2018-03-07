@@ -29,7 +29,7 @@ describe('Product routes', () => {
     Product.bulkCreate(products)
   })
 
-  xit('fetches all products from the database - GET /api/products', async () => {
+  it('fetches all products from the database - GET /api/products', async () => {
 
     const res = await request(app)
     .get('/api/products')
