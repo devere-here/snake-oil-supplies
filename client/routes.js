@@ -126,6 +126,7 @@ class Routes extends Component {
             <Route exact path="/settings" component={UserSettings} />
             <Route exact path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
+            <Route exact path="/" component={UserHome} />
 
             {
               isAdmin &&
@@ -140,11 +141,12 @@ class Routes extends Component {
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
               </Switch>
             }
-            <Route path="/" component={UserHome} />
+            <Route exact path="/" component={UserHome} />
           </Switch>
         }
 
         {/* Displays our Login component as a fallback */}
+        <Route component = { Login } />
       </Switch>
     )
   }
