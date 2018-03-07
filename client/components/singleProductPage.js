@@ -9,19 +9,25 @@ class singleProductPage extends Component {
 
     this.addToCart = this.addToCart.bind(this);
     this.submitReview = this.submitReview.bind(this);
-    this.ran = false;
+    this.validationQuantity = 0;
   }
 
   async addToCart(evt) {
     evt.preventDefault();
 
+    this.validationQuantity = +evt.target.quantity.value;
+
     let id = this.props.product.id,
         addedProduct = this.props.product,
         quantity = evt.target.quantity.value;
 
+    if (quantity < 1){
+      quantity = 1;
+    } else if (Number.isInteger() === false){
+      quantity = Math.ceil(quantity);
+    }
+
     let localCart = this.props.cart;
-
-
     let index = localCart.indexOf(addedProduct);
 
     if (index !== -1) {
@@ -61,8 +67,6 @@ class singleProductPage extends Component {
   }
 
   submitReview(evt){
-
-    //evt.preventDefault();
 
     let reviewData = {
       emailAddress: this.props.user.email,
@@ -108,6 +112,8 @@ class singleProductPage extends Component {
                   name="quantity"
                   defaultValue="1"
                   onChange={this.handleChange}
+                  min="0"
+                  step="1"
                 />
                 <button type="submit">Add To Cart</button>
               </form>

@@ -97,27 +97,27 @@ handleGuestSubmit(evt) {
 
               <h2>Shipping Address</h2>
                 <label htmlFor="name">Full name</label>
-                <input name="name" defaultValue={user.creditCardName} />
+                <input name="name" defaultValue={user.creditCardName} required />
                 <label htmlFor="addressStreet">Street Address</label>
-                <input name="addressStreet" defaultValue={user.addressStreet} />
+                <input name="addressStreet" defaultValue={user.addressStreet} required />
                 <label htmlFor="addressCity">City</label>
-                <input name="addressCity" defaultValue={user.addressCity} />
+                <input name="addressCity" defaultValue={user.addressCity} required />
                 <label htmlFor="addressState">State</label>
-                <input name="addressState" defaultValue={user.addressState} />
+                <input name="addressState" defaultValue={user.addressState}required />
                 <label htmlFor="addressCountry">Country</label>
-                <input name="addressCountry" defaultValue={user.addressCountry} />
+                <input name="addressCountry" defaultValue={user.addressCountry} required />
                 <label htmlFor="addressZipCode">ZipCode</label>
-                <input name="addressZipCode" defaultValue={user.addressZipCode} />
+                <input name="addressZipCode" defaultValue={user.addressZipCode} required />
 
               <h2>Credit Card Details</h2>
                 <label htmlFor="name">Full name</label>
-                <input name="name" defaultValue={user.creditCardName} />
+                <input name="name" defaultValue={user.creditCardName} required />
                 <label htmlFor="creditNumber">Credit Card Number</label>
-                <input name="creditNumber" defaultValue={user.creditNumber} />
+                <input name="creditNumber" defaultValue={user.creditNumber} required />
                 <label htmlFor="creditSecurityCode">Security Code</label>
-                <input name="creditSecurityCode" defaultValue={user.creditSecurityCode} />
+                <input name="creditSecurityCode" defaultValue={user.creditSecurityCode} required />
                 <label htmlFor="creditExpirationDate">Expiration Date</label>
-                <input name="creditExpirationDate" defaultValue={user.creditExpirationDate} />
+                <input name="creditExpirationDate" defaultValue={user.creditExpirationDate} required />
               <br />
               <button type="submit">Submit</button>
             </form>
@@ -134,31 +134,31 @@ handleGuestSubmit(evt) {
               <form onSubmit={this.handleGuestSubmit}>
 
                 <label htmlFor="email">Email</label>
-                  <input name="email"  />
+                  <input name="email"  required />
 
                 <h2>Shipping Address</h2>
                   <label htmlFor="name">Full name</label>
-                  <input name="name"  />
+                  <input name="name"  required />
                   <label htmlFor="addressStreet">Street Address</label>
-                  <input name="addressStreet"  />
+                  <input name="addressStreet" required />
                   <label htmlFor="addressCity">City</label>
-                  <input name="addressCity"  />
+                  <input name="addressCity" required />
                   <label htmlFor="addressState">State</label>
-                  <input name="addressState" />
+                  <input name="addressState" required />
                   <label htmlFor="addressCountry">Country</label>
-                  <input name="addressCountry" />
+                  <input name="addressCountry" required />
                   <label htmlFor="addressZipCode">ZipCode</label>
-                  <input name="addressZipCode" />
+                  <input name="addressZipCode" required />
 
                 <h2>Credit Card Details</h2>
                   <label htmlFor="name">Full name</label>
-                  <input name="name" />
+                  <input name="name" required />
                   <label htmlFor="creditNumber">Credit Card Number</label>
-                  <input name="creditNumber" />
+                  <input name="creditNumber" required />
                   <label htmlFor="creditSecurityCode">Security Code</label>
-                  <input name="creditSecurityCode" />
+                  <input name="creditSecurityCode" required />
                   <label htmlFor="creditExpirationDate">Expiration Date</label>
-                  <input name="creditExpirationDate" />
+                  <input name="creditExpirationDate" required />
                 <br />
                 <button type="submit">Submit</button>
               </form>
