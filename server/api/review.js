@@ -1,7 +1,6 @@
 const router = require('express').Router()
-const { Review, Product } = require('../db/models')
+const { Review } = require('../db/models')
 const asyncHandler = require('express-async-handler')
-const { isSelf } = require('../permissions')
 
 
 module.exports = router
@@ -18,7 +17,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 }))
 
 router.put('/:id', asyncHandler(async (req, res, next) => {
-  console.log('req.body', req.body);
   const reviews = await Review.update(req.body, {
     where: {
       productId: req.body.productId,

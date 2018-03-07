@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-//const {Order, OrderDetail} = require('./index')
 
 const Product = db.define('product', {
   name: {
@@ -23,7 +22,7 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'https://placeimg.com/640/480/animals',
-  
+
   },
 
 })

@@ -18,12 +18,12 @@ class singleProductPage extends Component {
     this.validationQuantity = +evt.target.quantity.value;
 
     let id = this.props.product.id,
-        addedProduct = this.props.product,
-        quantity = evt.target.quantity.value;
+      addedProduct = this.props.product,
+      quantity = evt.target.quantity.value;
 
-    if (quantity < 1){
+    if (quantity < 1) {
       quantity = 1;
-    } else if (Number.isInteger() === false){
+    } else if (Number.isInteger() === false) {
       quantity = Math.ceil(quantity);
     }
 
@@ -32,7 +32,7 @@ class singleProductPage extends Component {
 
     if (index !== -1) {
       localCart[index].quantity += +quantity;
-      if (this.props.isLoggedIn){
+      if (this.props.isLoggedIn) {
 
         let putObj = {
           quantity: localCart[index].quantity,
@@ -45,18 +45,18 @@ class singleProductPage extends Component {
     } else {
       addedProduct.quantity = quantity;
       localCart.push(addedProduct);
-      if (this.props.isLoggedIn){
+      if (this.props.isLoggedIn) {
 
         let postObj = {
           quantity: quantity,
           productId: addedProduct.id,
           orderId: this.props.orderId
         }
-        await axios.post('/api/orderDetails', {orderDetailsArray: [postObj]});
+        await axios.post('/api/orderDetails', { orderDetailsArray: [postObj] });
       }
     }
 
-    if (!this.props.isLoggedIn){
+    if (!this.props.isLoggedIn) {
       localStorage.setItem(id, quantity);
 
     }
@@ -66,7 +66,7 @@ class singleProductPage extends Component {
     this.props.history.push('/cart');
   }
 
-  submitReview(evt){
+  submitReview(evt) {
 
     let reviewData = {
       emailAddress: this.props.user.email,
@@ -81,10 +81,10 @@ class singleProductPage extends Component {
       arrayOfUserIds.push(review.userId)
     })
 
-    if (arrayOfUserIds.indexOf(this.props.user.id) === -1){
+    if (arrayOfUserIds.indexOf(this.props.user.id) === -1) {
       this.props.addReview(reviewData)
     } else {
-        this.props.updateReview(this.props.productId, reviewData)
+      this.props.updateReview(this.props.productId, reviewData)
     }
 
 
@@ -92,56 +92,70 @@ class singleProductPage extends Component {
 
   render() {
 
-    console.log('PROPS OVA HERE', this.props)
     const { product, review } = this.props;
 
     return (
 
       !product ? null
         : (
-          <div>
-            <div>
-              <img src={product.imageUrl} width="50%" />
-              <h1>{product.name}</h1>
-              <h2>Price: ${product.price}</h2>
-              <h3>Rating: {product.rating}</h3>
-              <p>Additional Info: {'Temporary description'}</p>
-              <h3>Quantity:</h3>
-              <form onSubmit={this.addToCart}>
-                <input
-                  name="quantity"
-                  defaultValue="1"
-                  onChange={this.handleChange}
-                  min="0"
-                  step="1"
-                />
-                <button type="submit">Add To Cart</button>
-              </form>
-            </div>
-            <div>
-              <h3>Write a review for this Product</h3>
-              <form onSubmit={this.submitReview}>
-                <textarea rows="5" cols="60"  name="textRating" />
-                <select name="numberRating">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-                <input type="submit" />
-              </form>
-            </div>
-            <div>
-              {
-                review.map((singleReview, index) => (
-                  <div className="review-box" key = {index}>
-                    <p>by: {singleReview.emailAddress}</p>
-                    <p>{singleReview.reviewText}</p>
-                    <p>Rating: {singleReview.rating}</p>
-                  </div>
-                ))
-              }
+          <div id="productPageBackground">
+            <div id="productPageContainer">
+              <div id="productPageContainerTop">
+                <img id="productPageMainPhoto" src={product.imageUrl} width="50%" />
+                <div id="productPageInfoContainer">
+                  <h1>{product.name}</h1>
+                  <h2>Price: ${product.price}</h2>
+                  <h4>Additional Info:</h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vel vulputate nulla, ac blandit sapien. Vivamus vel ligula at erat ultricies aliquet. Vestibulum feugiat, neque ac pharetra tempor, est tellus imperdiet tellus, eget lacinia mi augue a ante. Etiam et orci a justo lobortis lacinia in vel leo. Vestibulum suscipit massa eget tempor vehicula. Vivamus eget euismod lectus, eget faucibus nulla. Maecenas lobortis sollicitudin leo. Aenean interdum rutrum leo sit amet vestibulum. Nullam sollicitudin non massa id tincidunt.
+
+            Phasellus viverra consectetur nulla eget suscipit. Praesent vulputate tristique dui, auctor bibendum orci scelerisque nec. Pellentesque mauris nisl, molestie ac ex in, fringilla elementum ligula.</p>
+                  <form id="productPageFormContainer" onSubmit={this.addToCart}>
+                    <label>Quantity:</label>
+                    <input
+                      name="quantity"
+                      defaultValue="1"
+                      onChange={this.handleChange}
+                      min="0"
+                      step="1"
+                      size="15"
+                    />
+                    <button type="submit">Add To Cart</button>
+                  </form>
+                </div>
+              </div>
+              <div>
+                <h2>Previous Reviews:</h2>
+                <div className="productPageReviewBox">
+                  {
+                    review.map((singleReview) => (
+                      <div className="review-box" key={singleReview.id}>
+                        <h5>Rating: {singleReview.rating}</h5>
+                        <p>{singleReview.reviewText}</p>
+                        <h5>by: {singleReview.emailAddress}</h5>
+                      </div>
+                    ))
+                  }
+                </div>
+              </div>
+              {!this.props.isLoggedIn ? null
+              : (
+              <div id="productPageReviewFormContainer">
+                <h3>Write a review for this Product</h3>
+
+                <form onSubmit={this.submitReview}>
+                  <textarea rows="5" cols="60" name="textRating" />
+                  <select name="numberRating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <input type="submit" />
+                </form>
+              </div>
+              )}
+
             </div>
           </div>
 
@@ -169,7 +183,7 @@ const mapState = ({ products, quantity, cart, user, review }, ownProps) => {
 };
 
 const mapDispatch = (dispatch) => ({
-  dispatchUpdateCart(arr){
+  dispatchUpdateCart(arr) {
     dispatch(updateCart(arr))
   },
   addReview(review) {

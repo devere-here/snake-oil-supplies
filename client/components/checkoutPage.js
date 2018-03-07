@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {auth, updateCart, fetchPastOrders} from '../store'
+import {updateCart, fetchPastOrders} from '../store'
 
 class CheckoutPage extends Component {
   constructor(props) {
@@ -125,7 +125,6 @@ handleGuestSubmit(evt) {
       )
     }
     else {
-      console.log('we are a guest user')
       return (
         <div>
           <h1>In the guest's checkout page</h1>

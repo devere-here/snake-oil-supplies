@@ -37,13 +37,10 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/guest', (req, res) => {
-  console.log('in auth/guest');
   console.log(req.body);
   User.create(req.body)
   .then((guest) => res.json(guest));
 
-  //req.session.destroy()
-  //res.redirect('/')
 })
 
 router.get('/me', (req, res) => {

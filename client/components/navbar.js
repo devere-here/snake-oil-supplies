@@ -20,9 +20,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
             <Link className="navBarTopLink" to="/home">
               Home
             </Link>
-            <Link className="navBarTopLink" to="/login">
+            <a className="navBarTopLink" href="#" onClick={handleClick}>
               Logout
-            </Link>
+            </a>
             <Link className="navBarTopLink" to="/settings">Settings</Link>
           </span>
         ) : (

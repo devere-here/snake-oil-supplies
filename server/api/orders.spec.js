@@ -42,7 +42,7 @@ describe('Order routes', () => {
   ]
 
   before( async () => {
-    const synced = await db.sync({force: true})
+    await db.sync({force: true})
     Product.bulkCreate(products)
     User.bulkCreate(users)
     Order.create({userId: 1, completed: false})
@@ -63,11 +63,10 @@ describe('Order routes', () => {
     console.log('agent', agent.jar.CookieJar)
     expect(res2.body).to.be.an('object')
     expect(res2.body.id).to.be.equal(agent.getCookie)
-    //   .to.be.equal(String(products[0].rating))
-    // expect(res.body[0].category).to.be.equal(products[0].category)
+
   })
 
-  xit('fetches one product from the database - GET /api/products/1', () => {
+  it('fetches one product from the database - GET /api/products/1', () => {
     return request(app)
       .get('/api/products/1')
       .expect(200)

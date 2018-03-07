@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { putUser } from '../store'
 import filterObj from 'filter-obj'
-import {SOSForm} from './index'
 
 class UpdateUserSettings extends Component {
   constructor(props){

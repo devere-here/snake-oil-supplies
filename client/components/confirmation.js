@@ -6,18 +6,12 @@ import { Link } from 'react-router-dom';
 /**
  * COMPONENT
  */
-export const Confirmation = (props) => {
-
-    const {email, order} = props
+export const Confirmation = () => {
 
     return (
       <div id="guest-confirmation">
         <div>
           <h1>Thanks!</h1>
-          {
-            // <h2>{email}</h2>
-            // <h3>Order Number: {order.id}</h3>
-          }
           <p>We have received your order, please check your email for your invoice and order confirmation.</p>
           <Link to="/home" ><button>Return to homepage</button></Link>
         </div>

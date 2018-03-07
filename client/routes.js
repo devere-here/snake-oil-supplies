@@ -18,7 +18,6 @@ import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAll
 
 
 export function getCartFromLocalStorage(props) {
-  console.log(' in getCartFromLocalStorage, props', props);
 
   let keys = Object.keys(localStorage);
 
@@ -78,7 +77,6 @@ class Routes extends Component {
       return productObj;
     })
     cartProducts.id = userOrder.data[0].id;
-    console.log('cartProducts', cartProducts);
     return cartProducts
   }
 
@@ -91,7 +89,6 @@ class Routes extends Component {
     } else {
       cartProducts = localStorageCartProducts
     }
-    console.log('in conditionallyLoadCart', cartProducts);
     this.props.loadCart(cartProducts)
   }
 
@@ -103,10 +100,8 @@ class Routes extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.products !== this.props.products || nextProps.userId !== this.props.userId) {
-      console.log('receive - load cart')
       this.conditionallyLoadCart(nextProps)
 
-      console.log('routes.js admin comp WP', this.props.isAdmin)
       if (this.props.isAdmin) this.props.adminFetch()
     }
   }
@@ -129,7 +124,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/home" component={UserHome} />
             <Route exact path="/settings" component={UserSettings} />
-            <Route path="/pastorders" component={PastOrderPage} />
+            <Route exact path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
             <Route exact path="/" component={UserHome} />
             {
@@ -145,12 +140,12 @@ class Routes extends Component {
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
               </Switch>
             }
-
+            <Route exact path="/" component={UserHome} />
           </Switch>
         }
 
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {<Route component={Login} />}
       </Switch>
     )
   }
@@ -160,7 +155,6 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = (state) => {
-  console.log('state in routes.js', state);
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
@@ -175,7 +169,6 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch) => {
-  console.log('about to update store');
   return {
     loadInitialData() {
       dispatch(me());
