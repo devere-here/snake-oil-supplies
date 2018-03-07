@@ -60,11 +60,13 @@ router.get('/:id', isSelf, (req, res, next) => {
 });
 
 router.put('/:id', isSelf, asyncHandler(async (req, res, next) => {
-    await User.update(req.body, {
+    const response = await User.update(req.body, {
       where: {
         id: req.params.id
-      }
+      },
+      returning: true
     });
-    res.sendStatus(201);
+    console.log(response)
+    res.json(response[1][0])
   })
 );
