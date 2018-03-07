@@ -42,7 +42,7 @@ describe('Order routes', () => {
   ]
 
   before( async () => {
-    const synced = await db.sync({force: true})
+    await db.sync({force: true})
     Product.bulkCreate(products)
     User.bulkCreate(users)
     Order.create({userId: 1, completed: false})

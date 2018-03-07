@@ -40,15 +40,15 @@ describe('Product routes', () => {
     expect(res.body[0].category).to.be.equal(products[0].category)
   })
 
-  it('fetches one product from the database - GET /api/products/1', async () => {
-    const res = await request(app)
-      .get('/api/products/1')
-      .expect(200)
+  // xit('fetches one product from the database - GET /api/products/1', async () => {
+  //   const res = await request(app)
+  //     .get('/api/products/1')
+  //     .expect(200)
 
-      expect(res.body).to.be.an('object')
-      expect(res.body.description).to.be.equal(productShoes.description)
-      expect(res.body[0].category).to.be.equal(aProduct.category)
-  })
+  //     expect(res.body).to.be.an('object')
+  //     expect(res.body.description).to.be.equal(productShoes.description)
+  //     expect(res.body[0].category).to.be.equal(aProduct.category)
+  // })
 
    // end describe('/api/products')
 }) // end describe('Products routes')
