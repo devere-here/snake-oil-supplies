@@ -16,6 +16,9 @@ class CartPage extends Component {
     let localCart = this.props.cart;
     let index = localCart.indexOf(product);
     type === 'increment' ? localCart[index].quantity++ : localCart[index].quantity--;
+    if (localCart[index].quantity < 0){
+      localCart[index].quantity = 0;
+    }
 
     if (this.props.isLoggedIn) {
       let putObj = {
@@ -60,13 +63,21 @@ class CartPage extends Component {
     this.props.loadCart(newLocalCart);
   }
   render() {
+    let totalPrice = 0;
     let cartProducts = this.props.cart;
 
     if (this.props.isLoggedIn) {
       cartProducts.forEach((cartProduct) => {
         cartProduct.quantity = cartProduct.quantity || 1;
+        totalPrice += (cartProduct.quantity) * cartProduct.price;
       })
     }
+
+    cartProducts.forEach((cartProduct) => {
+      totalPrice += (cartProduct.quantity) * cartProduct.price;
+    })
+
+
 
     return (
       <div>
@@ -88,7 +99,7 @@ class CartPage extends Component {
             )
           })
         }
-      <div>Total Price placeholder</div>
+      <h2>Total Price: ${totalPrice}.00</h2>
       <Link to={'/checkout'}><button>Checkout</button></Link>
       </div>
     )

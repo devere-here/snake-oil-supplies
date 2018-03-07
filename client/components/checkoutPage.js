@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
-import {auth} from '../store'
-import { fetchPastOrders } from '../store/pastOrders'
-//import {Link, withRouter} from 'react-router-dom'
-// import { ProductSummary } from './index'
-// import { fetchGuestCart } from '../store'
-// import { getCartFromLocalStorage } from '../routes'
+import {auth, updateCart, fetchPastOrders} from '../store'
 
 class CheckoutPage extends Component {
   constructor(props) {
@@ -21,8 +16,8 @@ async handleUserSubmit(evt) {
     evt.preventDefault();
     let userData = {};
 
-    for (var i = 0; i < evt.target.length - 1 ; i++){
-      userData[`${evt.target[i].name}`] = evt.target[i].value;
+    for (let field of event){
+      userData[field.name] = field.value;
     }
 
     let modifiedOrder = {
@@ -39,7 +34,8 @@ async handleUserSubmit(evt) {
 
     await axios.put(`/api/users/${this.props.user.id}`, userData)
     await axios.put(`/api/orders`, modifiedOrder)
-    this.props.loadCart()
+    this.props.getPreviousOrders();
+    this.props.clearCart();
     this.props.history.push('/pastOrders')
   }
 
@@ -53,8 +49,8 @@ handleGuestSubmit(evt) {
     let guestOrder = {
       completed: 'true'
     }
-    for (var i = 0; i < evt.target.length - 1 ; i++){
-      guestInfo[`${evt.target[i].name}`] = evt.target[i].value;
+    for (let field of evt.target){
+      guestInfo[field.name] = field.value;
     }
 
     axios.post('/auth/guest', guestInfo)
@@ -80,7 +76,8 @@ handleGuestSubmit(evt) {
 
         axios.post('/api/orderDetails', {orderDetailsArray})
         .then(() => {
-          console.log('orderdetails should be made, check your database')
+          localStorage.clear();
+          this.props.clearCart();
         })
       })
       this.props.history.push(`/confirmation`)
@@ -88,8 +85,8 @@ handleGuestSubmit(evt) {
   }
 
   render() {
-
     if (this.props.isLoggedIn) {
+      const {user} = this.props
 
       return (
         <div>
@@ -99,27 +96,27 @@ handleGuestSubmit(evt) {
 
               <h2>Shipping Address</h2>
                 <label htmlFor="name">Full name</label>
-                <input name="name" onChange={this.handleChange} defaultValue={this.props.user.creditCardName} />
+                <input name="name" defaultValue={user.creditCardName} required />
                 <label htmlFor="addressStreet">Street Address</label>
-                <input name="addressStreet" onChange={this.handleChange} defaultValue={this.props.user.addressStreet} />
+                <input name="addressStreet" defaultValue={user.addressStreet} required />
                 <label htmlFor="addressCity">City</label>
-                <input name="addressCity" onChange={this.handleChange} defaultValue={this.props.user.addressCity} />
+                <input name="addressCity" defaultValue={user.addressCity} required />
                 <label htmlFor="addressState">State</label>
-                <input name="addressState" onChange={this.handleChange} defaultValue={this.props.user.addressState} />
+                <input name="addressState" defaultValue={user.addressState}required />
                 <label htmlFor="addressCountry">Country</label>
-                <input name="addressCountry" onChange={this.handleChange} defaultValue={this.props.user.addressCountry} />
+                <input name="addressCountry" defaultValue={user.addressCountry} required />
                 <label htmlFor="addressZipCode">ZipCode</label>
-                <input name="addressZipCode" onChange={this.handleChange} defaultValue={this.props.user.addressZipCode} />
+                <input name="addressZipCode" defaultValue={user.addressZipCode} required />
 
               <h2>Credit Card Details</h2>
                 <label htmlFor="name">Full name</label>
-                <input name="name" onChange={this.handleChange} defaultValue={this.props.user.creditCardName} />
+                <input name="name" defaultValue={user.creditCardName} required />
                 <label htmlFor="creditNumber">Credit Card Number</label>
-                <input name="creditNumber" onChange={this.handleChange} defaultValue={this.props.user.creditNumber} />
+                <input name="creditNumber" defaultValue={user.creditNumber} required />
                 <label htmlFor="creditSecurityCode">Security Code</label>
-                <input name="creditSecurityCode" onChange={this.handleChange} defaultValue={this.props.user.creditSecurityCode} />
+                <input name="creditSecurityCode" defaultValue={user.creditSecurityCode} required />
                 <label htmlFor="creditExpirationDate">Expiration Date</label>
-                <input name="creditExpirationDate" onChange={this.handleChange} defaultValue={this.props.user.creditExpirationDate} />
+                <input name="creditExpirationDate" defaultValue={user.creditExpirationDate} required />
               <br />
               <button type="submit">Submit</button>
             </form>
@@ -136,31 +133,31 @@ handleGuestSubmit(evt) {
               <form onSubmit={this.handleGuestSubmit}>
 
                 <label htmlFor="email">Email</label>
-                  <input name="email" onChange={this.handleChange}  />
+                  <input name="email"  required />
 
                 <h2>Shipping Address</h2>
                   <label htmlFor="name">Full name</label>
-                  <input name="name" onChange={this.handleChange}  />
+                  <input name="name"  required />
                   <label htmlFor="addressStreet">Street Address</label>
-                  <input name="addressStreet" onChange={this.handleChange}  />
+                  <input name="addressStreet" required />
                   <label htmlFor="addressCity">City</label>
-                  <input name="addressCity" onChange={this.handleChange}  />
+                  <input name="addressCity" required />
                   <label htmlFor="addressState">State</label>
-                  <input name="addressState" onChange={this.handleChange} />
+                  <input name="addressState" required />
                   <label htmlFor="addressCountry">Country</label>
-                  <input name="addressCountry" onChange={this.handleChange} />
+                  <input name="addressCountry" required />
                   <label htmlFor="addressZipCode">ZipCode</label>
-                  <input name="addressZipCode" onChange={this.handleChange} />
+                  <input name="addressZipCode" required />
 
                 <h2>Credit Card Details</h2>
                   <label htmlFor="name">Full name</label>
-                  <input name="name" onChange={this.handleChange} />
+                  <input name="name" required />
                   <label htmlFor="creditNumber">Credit Card Number</label>
-                  <input name="creditNumber" onChange={this.handleChange} />
+                  <input name="creditNumber" required />
                   <label htmlFor="creditSecurityCode">Security Code</label>
-                  <input name="creditSecurityCode" onChange={this.handleChange} />
+                  <input name="creditSecurityCode" required />
                   <label htmlFor="creditExpirationDate">Expiration Date</label>
-                  <input name="creditExpirationDate" onChange={this.handleChange} />
+                  <input name="creditExpirationDate" required />
                 <br />
                 <button type="submit">Submit</button>
               </form>
@@ -173,9 +170,7 @@ handleGuestSubmit(evt) {
   }
 }
 
-const mapState = (state, ownProps) => {
-  console.log(state)
-
+const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
     user: state.user,
@@ -183,20 +178,13 @@ const mapState = (state, ownProps) => {
   }
 };
 const mapDispatch = (dispatch) => ({
-  loadCart() {
+  getPreviousOrders() {
     dispatch(fetchPastOrders())
   },
+  clearCart() {
+    dispatch(updateCart([]))
+  }
 });
 
 export default connect(mapState, mapDispatch)(CheckoutPage);
 
-
-// { props.selectedProducts.map((product) => {
-//   return (
-//     <div key={product.name}>
-//       <ProductSummary product={product} />
-//       <hr />
-//     </div>
-//   )
-// })
-// }

@@ -131,7 +131,7 @@ class Routes extends Component {
             <Route exact path="/settings" component={UserSettings} />
             <Route path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
-            
+            <Route exact path="/" component={UserHome} />
             {
               isAdmin &&
               <Switch>
@@ -145,6 +145,7 @@ class Routes extends Component {
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
               </Switch>
             }
+
           </Switch>
         }
 
