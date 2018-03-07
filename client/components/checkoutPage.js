@@ -35,7 +35,6 @@ async handleUserSubmit(evt) {
       shippingCountry: userData.addressCountry,
       shippingZipCode: userData.addressZipCode,
       email: this.props.user.email
-
     }
 
     await axios.put(`/api/users/${this.props.user.id}`, userData)
@@ -58,7 +57,6 @@ handleGuestSubmit(evt) {
       guestInfo[`${evt.target[i].name}`] = evt.target[i].value;
     }
 
-    //dispatch thunk
     axios.post('/auth/guest', guestInfo)
     .then((res) => res.data)
     .then((res) => {
@@ -81,8 +79,11 @@ handleGuestSubmit(evt) {
         })
 
         axios.post('/api/orderDetails', {orderDetailsArray})
-        .then(() => {console.log('orderdetails should be made, check your database')})
+        .then(() => {
+          console.log('orderdetails should be made, check your database')
+        })
       })
+      this.props.history.push(`/confirmation`)
     })
   }
 
@@ -136,8 +137,6 @@ handleGuestSubmit(evt) {
 
                 <label htmlFor="email">Email</label>
                   <input name="email" onChange={this.handleChange}  />
-
-
 
                 <h2>Shipping Address</h2>
                   <label htmlFor="name">Full name</label>

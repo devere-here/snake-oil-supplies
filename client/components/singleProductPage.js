@@ -99,7 +99,7 @@ class singleProductPage extends Component {
             <div>
               <img src={product.imageUrl} width="50%" />
               <h1>{product.name}</h1>
-              <h2>Price: {product.price}</h2>
+              <h2>Price: ${product.price}</h2>
               <h3>Rating: {product.rating}</h3>
               <p>Additional Info: {'Temporary description'}</p>
               <h3>Quantity:</h3>
@@ -129,10 +129,10 @@ class singleProductPage extends Component {
             <div>
               {
                 review.map((singleReview, index) => (
-                  <div key = {index}>
-                    <p>{singleReview.reviewText}</p>
-                    <p>{singleReview.rating}</p>
+                  <div className="review-box" key = {index}>
                     <p>by: {singleReview.emailAddress}</p>
+                    <p>{singleReview.reviewText}</p>
+                    <p>Rating: {singleReview.rating}</p>
                   </div>
                 ))
               }

@@ -35,7 +35,7 @@ const PastOrders = props =>  {
               })}
             </ul>
             <h2>TOTAL PRICE</h2>
-            <h3>{totalPrice}</h3>
+            <h3>$ {totalPrice}</h3>
           </div>
         )
       })}
