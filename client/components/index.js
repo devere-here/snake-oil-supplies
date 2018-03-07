@@ -29,6 +29,4 @@ export {default as SOSForm} from './sos-form'
 export {default as CartPage} from './cartPage'
 export {default as CheckoutPage} from './checkoutPage'
 export {default as PastOrderPage} from './pastOrders'
-
-
-
+export {default as Confirmation} from './confirmation'
