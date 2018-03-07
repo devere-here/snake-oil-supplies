@@ -3,13 +3,15 @@ import { connect } from 'react-redux'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import PropTypes from 'prop-types'
+
 import {
   Login, Signup, UserHome, Category,
-  SingleProductPage, CartPage, CheckoutPage,
+  SingleProductPage, AddProduct, CartPage, CheckoutPage,
   UserSettings, PastOrderPage,
   UpdateUserSettings, AdminPage,
   UserEdit, ProductEdit, OrderEdit,
-  AllUsers, AllProducts, AllOrders
+  AllUsers, AllProducts, AllOrders,
+  Confirmation
 } from './components'
 
 import { me, fetchProducts, updateCart, fetchPastOrders, fetchAllUsers, fetchAllOrders, fetchReviews  } from './store'
@@ -86,7 +88,6 @@ class Routes extends Component {
     if (nextProps.isLoggedIn) {
       cartProducts = await this.fetchCart()
       cartProducts = mergeCarts(cartProducts, localStorageCartProducts);
-      //important I need to make a put request to api/orderDetails, but are we keeping it?
     } else {
       cartProducts = localStorageCartProducts
     }
@@ -121,6 +122,7 @@ class Routes extends Component {
         <Route path="/checkout" component={CheckoutPage} />
         <Route exact path="/category/:name" component={Category} />
         <Route path="/category/:name/:id" component={SingleProductPage} />
+        <Route path="/confirmation" component={Confirmation} />
         {
           isLoggedIn &&
           <Switch>
@@ -129,17 +131,22 @@ class Routes extends Component {
             <Route exact path="/settings" component={UserSettings} />
             <Route path="/pastorders" component={PastOrderPage} />
             <Route exact path="/settings/updateSettings" component={UpdateUserSettings} />
+            
             {
               isAdmin &&
               <Switch>
                 <Route exact path="/admin" component={AdminPage} />
                 <Route exact path="/users/admin" component={AllUsers} />
                 <Route exact path="/products/admin" component={AllProducts} />
+                <Route exact path="/products/admin/add-product" component={AddProduct} />
                 <Route exact path="/orders/admin" component={AllOrders} />
                 <Route exact path="/users/admin/:id" component={UserEdit} />
                 <Route exact path="/products/admin/:id" component={ProductEdit} />
                 <Route exact path="/orders/admin/:id" component={OrderEdit} />
+<<<<<<< HEAD
                 <Route path="/" component={UserHome} />
+=======
+>>>>>>> master
               </Switch>
             }
           </Switch>

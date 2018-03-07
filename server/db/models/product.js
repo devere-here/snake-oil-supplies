@@ -23,18 +23,8 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'https://placeimg.com/640/480/animals',
+  
   },
-  rating: {
-    type: Sequelize.DECIMAL,
-    //NOTE eventually we want to pull data from the reviews table and calculate this field using a virtual getter
-    validate: {
-      min: 0,
-      max: 5
-    }
-  },
-  review: {
-    type: Sequelize.TEXT,
-  }
 
 })
 

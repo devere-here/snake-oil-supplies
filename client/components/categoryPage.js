@@ -1,52 +1,53 @@
-import React from 'react'
-//import PropTypes from 'prop-types'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import {Link, withRouter} from 'react-router-dom'
 import {ProductSummary} from './index'
 
-const CategoryPage = (props) => {
-  let title = props.match.params.name;
-  title = title[0].toUpperCase() + title.slice(1);
+class CategoryPage extends Component {
+  constructor() {
+    super()
+    this.state = {selectedProducts: []}
+  }
 
-  return (
-    <div>
-      <div className={`titleAndSearchBarContainer ${props.match.params.name}`}>
-        <div className="titleAndSearchBar">
-          <h1>{title}</h1>
-          <span>Filter By Name:</span>
-          <input onChange={event => {
-            props.selectedProducts.map( product => {
-              let productElem = document.getElementById(product.id)
-              if (event.target.value === '') {
-                productElem.parentElement.parentElement.classList.remove('hidden');
-              } else if (!product.name.includes(event.target.value)) {
-                productElem.parentElement.parentElement.classList.add('hidden');
-              }
-            })
-          } } />
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedProducts) this.setState({selectedProducts: nextProps.selectedProducts})
+  }
+  render() {
+    let title = this.props.match.params.name;
+    title = title[0].toUpperCase() + title.slice(1);
+    return (
+      <div>
+        <div className={`titleAndSearchBarContainer ${this.props.match.params.name}`}>
+          <div className="titleAndSearchBar">
+            <h1>{title}</h1>
+            <span>Filter By Name:</span>
+            <input onChange={event => {
+              const newProducts = this.props.selectedProducts.filter( product => {
+                return product.name.includes(event.target.value)
+                })
+              this.setState({selectedProducts: newProducts})
+            }} />
+          </div>
+        </div>
+        <div className="thumbnail-container">
+          { this.state.selectedProducts.map((product) => {
+            return (
+              <div className="thumbnail" key={product.name}>
+                <ProductSummary product={product} />
+              </div>
+            )
+          })}
         </div>
       </div>
-      <div className="thumbnail-container">
-        { props.selectedProducts.map((product) => {
-          return (
-            <div className="thumbnail" key={product.name}>
-              <ProductSummary product={product} />
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 const mapState = ({products}, ownProps) => {
   const categoryName = ownProps.match.params.name
   let selectedProducts = categoryName === 'all' ? products : products.filter(product => product.category === categoryName);
-
   return {
     selectedProducts
   }
-
-};
-const mapDispatch = (/*dispatch*/) => () => ({});
+}
+const mapDispatch = null
 export default connect(mapState, mapDispatch)(CategoryPage);

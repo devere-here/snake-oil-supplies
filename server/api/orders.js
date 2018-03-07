@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, OrderDetail, User, Product } = require('../db/models')
+const { Order, Product } = require('../db/models')
 const asyncHandler = require('express-async-handler')
 const {isSelf, isAdmin, isLoggedIn} = require('../permissions')
 const nodemailer = require('nodemailer');

@@ -30,7 +30,6 @@ async handleUserSubmit(evt) {
       shippingCountry: userData.addressCountry,
       shippingZipCode: userData.addressZipCode,
       email: this.props.user.email
-
     }
 
     await axios.put(`/api/users/${this.props.user.id}`, userData)
@@ -54,7 +53,6 @@ handleGuestSubmit(evt) {
       guestInfo[field.name] = field.value;
     }
 
-    //dispatch thunk
     axios.post('/auth/guest', guestInfo)
     .then((res) => res.data)
     .then((res) => {
@@ -82,6 +80,7 @@ handleGuestSubmit(evt) {
           this.props.clearCart();
         })
       })
+      this.props.history.push(`/confirmation`)
     })
   }
 

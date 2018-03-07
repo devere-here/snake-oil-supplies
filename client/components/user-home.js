@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
  */
 export const UserHome = (props) => {
 
-    const {email} = props
+    const {email, isAdmin} = props
 
     return (
       <div id="userHomePage">
@@ -25,6 +25,13 @@ export const UserHome = (props) => {
           <h1>Welcome,</h1>
           <h2>{email}</h2>
           <Link to="/pastorders" ><button>See Past Orders</button></Link>
+          {
+            isAdmin ? (
+            <Link to="/admin"><button>Admin Panel</button></Link>
+            ) : (
+              <div />
+            )
+          }
         </div>
       </div>
     )
@@ -37,7 +44,8 @@ export const UserHome = (props) => {
 const mapState = (state) => {
   return {
     userId: state.user.id,
-    email: state.user.email
+    email: state.user.email,
+    isAdmin: state.user.isAdmin,
   }
 }
 
