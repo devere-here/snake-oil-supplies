@@ -66,7 +66,6 @@ router.put('/:id', isSelf, asyncHandler(async (req, res, next) => {
       },
       returning: true
     });
-    console.log(response)
     res.json(response[1][0])
   })
 );
