@@ -92,7 +92,7 @@ class singleProductPage extends Component {
 
   render() {
 
-    console.log('PROPS OVA HERE', this.props)
+    console.log('PROPS OVA HERE', this.props.isLoggedIn)
     const { product, review } = this.props;
 
     return (
@@ -138,6 +138,8 @@ class singleProductPage extends Component {
                   }
                 </div>
               </div>
+              {!this.props.isLoggedIn ? null
+              : (
               <div id="productPageReviewFormContainer">
                 <h3>Write a review for this Product</h3>
 
@@ -153,6 +155,7 @@ class singleProductPage extends Component {
                   <input type="submit" />
                 </form>
               </div>
+              )}
 
             </div>
           </div>
