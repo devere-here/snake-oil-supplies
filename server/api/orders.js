@@ -36,7 +36,6 @@ router.get('/', isLoggedIn, asyncHandler(async (req, res, next) => {
 router.post('/', asyncHandler(async (req, res, next) => {
   //if (req.body.completed === true) {
     emailInfo.to = req.body.email;
-    console.log('emailInfo', emailInfo);
 
     transporter.sendMail(emailInfo, function(error, info){
       if (error) {
@@ -57,7 +56,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 router.put('/', asyncHandler(async (req, res, next) => {
   if (req.body.completed === true) {
     emailInfo.to = req.body.email;
-    console.log('emailInfo', emailInfo);
 
 
     transporter.sendMail(emailInfo, function(error, info){
@@ -118,7 +116,6 @@ router.get('/admin', isAdmin, asyncHandler(async (req, res, next) => {
 
 //admin put
 router.put('/admin/:id', isAdmin, asyncHandler(async (req, res, next) => {
-  console.log('req.body', req.body)
   const order = await Order.update(req.body, {
     where: {
       id: req.params.id,

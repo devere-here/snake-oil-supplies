@@ -24,7 +24,6 @@ const updateReview = review => ({type: UPDATE_REVIEW, review})
 export const fetchReviews = () => async (dispatch) => {
   try {
     const reviews = await axios.get(`/api/review`);
-    console.log(reviews.data)
     dispatch(getAllReviews(reviews.data));
     return reviews
   }

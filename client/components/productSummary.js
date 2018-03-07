@@ -7,7 +7,7 @@ const ProductSummary = (props) => {
   return (
     <div>
       <Link to={`/category/${product.category}/${product.id}`}>
-        <div id={product.id} className="visible projectSummary">
+        <div id={product.id} className="projectSummary">
           <h3>{product.name}</h3>
           <img className="thumbNailImage" src={product.imageUrl} height="200px" width="200px" />
           <h4>${product.price}</h4>

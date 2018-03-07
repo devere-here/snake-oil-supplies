@@ -18,7 +18,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 }))
 
 router.put('/:id', asyncHandler(async (req, res, next) => {
-  console.log('req.body', req.body);
   const reviews = await Review.update(req.body, {
     where: {
       productId: req.body.productId,

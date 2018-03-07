@@ -23,7 +23,6 @@ class AddProduct extends Component {
     catch (err) {
       console.log(err)
     }
-    console.log(newProduct.data)
     await this.props.fetchProducts()
     this.props.history.push(`/products/admin/`)
   }

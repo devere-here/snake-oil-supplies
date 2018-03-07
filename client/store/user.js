@@ -81,7 +81,6 @@ export default function (state = defaultUser, action) {
     case UPDATE_USER:
       return action.user
     case REMOVE_USER:
-    console.log('in removeUser', defaultUser);
       return defaultUser
     default:
       return state

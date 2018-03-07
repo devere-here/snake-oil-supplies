@@ -64,7 +64,6 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     handleClick() {
-      console.log('in handle click');
       dispatch(logout())
     }
   }

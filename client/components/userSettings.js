@@ -3,8 +3,6 @@ import {connect} from 'react-redux'
 import { Link } from 'react-router-dom';
 import filterObj from 'filter-obj';
 
-
-
 function UserSettings(props) {
 
   const user = props.user

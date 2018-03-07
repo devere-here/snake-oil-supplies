@@ -92,7 +92,6 @@ class singleProductPage extends Component {
 
   render() {
 
-    console.log('PROPS OVA HERE', this.props.isLoggedIn)
     const { product, review } = this.props;
 
     return (
