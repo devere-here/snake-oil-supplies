@@ -25,7 +25,7 @@ describe('Product routes', () => {
   ]
 
   before( async () => {
-    const synced = await db.sync({force: true})
+    await db.sync({force: true})
     Product.bulkCreate(products)
   })
 
@@ -37,12 +37,10 @@ describe('Product routes', () => {
 
     expect(res.body).to.be.an('array')
     expect(res.body.length).to.be.equal(products.length)
-    //expect(res.body[0].rating)
-      //.to.be.equal(String(products[0].rating))
     expect(res.body[0].category).to.be.equal(products[0].category)
   })
 
-  xit('fetches one product from the database - GET /api/products/1', async () => {
+  it('fetches one product from the database - GET /api/products/1', async () => {
     const res = await request(app)
       .get('/api/products/1')
       .expect(200)
