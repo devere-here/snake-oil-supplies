@@ -51,7 +51,7 @@ describe('Order routes', () => {
 
   xit('creates a session if none exist - GET /api/orders', async () => {
     const agent = request.agent(app)
-    const res1 = await agent
+    await agent
     .post('/auth/login')
     .send({email: 'admin@admin.com',
     password: '1234'})
