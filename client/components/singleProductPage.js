@@ -127,8 +127,8 @@ class singleProductPage extends Component {
                 <h2>Previous Reviews:</h2>
                 <div className="productPageReviewBox">
                   {
-                    review.map((singleReview, index) => (
-                      <div className="review-box" key={index}>
+                    review.map((singleReview) => (
+                      <div className="review-box" key={singleReview.id}>
                         <h5>Rating: {singleReview.rating}</h5>
                         <p>{singleReview.reviewText}</p>
                         <h5>by: {singleReview.emailAddress}</h5>
