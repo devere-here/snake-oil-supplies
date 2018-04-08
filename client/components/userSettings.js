@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import filterObj from 'filter-obj';
 
 function UserSettings(props) {
-  console.log('user settings')
   const user = props.user
   let userSections = []
   const sections = ['credit', 'billing', 'address', 'profile']

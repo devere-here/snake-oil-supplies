@@ -3,15 +3,16 @@ import {connect} from 'react-redux'
 import {ProductSummary} from './index'
 
 class CategoryPage extends Component {
-  constructor() {
-    super()
-    this.state = {selectedProducts: []}
+  constructor(props) {
+    super(props)
+    this.state = {selectedProducts: props.selectedProducts}
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedProducts) this.setState({selectedProducts: nextProps.selectedProducts})
   }
   render() {
+
     let title = this.props.match.params.name;
     title = title[0].toUpperCase() + title.slice(1);
     return (

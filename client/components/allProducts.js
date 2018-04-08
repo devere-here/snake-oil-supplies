@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {ProductSummary} from './index'
 
 const AllProducts = (props) => {
+
   return (
     <div>
     { props.products.map( product => {

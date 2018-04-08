@@ -37,7 +37,6 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/guest', (req, res) => {
-  console.log(req.body);
   User.create(req.body)
   .then((guest) => res.json(guest));
 
