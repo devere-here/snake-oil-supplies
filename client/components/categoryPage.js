@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {ProductSummary} from './index'
 
 class CategoryPage extends Component {
-  constructor() {
-    super()
-    this.state = {selectedProducts: []}
+  constructor(props) {
+    super(props)
+    this.state = {selectedProducts: props.selectedProducts}
   }
 
   componentWillReceiveProps(nextProps) {
