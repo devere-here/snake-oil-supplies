@@ -32,6 +32,7 @@
     "express-session": "^1.15.1",
     "filter-obj": "^1.1.0",
     "history": "^4.6.3",
+    "isarray": "^2.0.4",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.2",
     "passport": "^0.3.2",
